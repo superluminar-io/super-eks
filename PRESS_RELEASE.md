@@ -5,7 +5,8 @@ Mit EKS stellt AWS einen gemanagten Kubernetes-Cluster zur Verfügung. Trotzdem 
 
 Der von superluminar bereitgestellte Installer folgt dem "batteries included"-Ansatz und stellt obige Komponenten vorkonfiguriert bereit. Nutzer müssen nur noch ihre Route53-Zone angeben und können umgehend Dienste auf den Kubernetes-Cluster ausliefern, die über das Internet erreichbar sind.
 
-> Unsere Kunden sind begeistert. In wenigen Stunden steht ihnen eine schlüsselfertige Lösung bereit, die umgehend nutzbar ist. Bisher wurden oft Tage oder Wochen gebraucht um EKS fertig zu konfigurieren
+> Unsere Kunden sind begeistert. In wenigen Stunden steht ihnen eine schlüsselfertige Lösung bereit, die umgehend nutzbar ist. Bisher wurden oft Tage oder Wochen gebraucht um EKS fertig zu konfigurieren.
+>
 > Jan Brauer, Co-founder superluminar
 
 Der Installer wird in zwei Varianten ausgeliefert. Für die meisten Nutzer ist das One-Click-Template aus dem AWS Marketplace die richtige Wahl. Um den Cluster in die eigene Infrastructure as Code Umgebung zu integrieren wird außerdem ein CDK-Construct bereitgestellt.  
