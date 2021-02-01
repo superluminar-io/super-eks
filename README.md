@@ -25,7 +25,9 @@ const cluster = new Cluster(this, 'hello-eks', {
 });
 ```
 
-## Useful commands
+## Development
+
+- We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [doc/decisions].
 
  * `npm run build`   compile typescript to js
  * `npm run watch`   watch for changes and compile
