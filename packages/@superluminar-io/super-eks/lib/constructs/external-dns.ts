@@ -46,14 +46,17 @@ export class ExternalDNS extends cdk.Construct {
     props.hostedZoneIds.forEach((hostedZoneId) =>
       serviceAccount.addToPolicy(
         new iam.PolicyStatement({
-          actions: ["route53:ChangeResourceRecordSets"],
+          actions: [
+            "route53:ChangeResourceRecordSets",
+            "route53:ListResourceRecordSets",
+          ],
           resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
         })
       )
     )
     serviceAccount.addToPolicy(
       new iam.PolicyStatement({
-        actions: ["route53:ListHostedZones", "route53:ListResourceRecordSets"],
+        actions: ["route53:ListHostedZones"],
         resources: ["*"],
       })
     )
