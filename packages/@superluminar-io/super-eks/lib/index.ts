@@ -1,1 +1,1 @@
-export * from "./constructs/eks-cluster"
+export * from "./constructs/super-eks"
