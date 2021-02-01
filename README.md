@@ -1,8 +1,30 @@
-# Welcome to your CDK TypeScript project!
+# super-eks
 
-This is a blank project for TypeScript development with CDK.
+*super-eks* is a CDK construct that provides a preconfigured EKS installation with batteries included.
+You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and `super-eks` will take care of the rest.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+`super-eks` will install:
+
+- an [EKS cluster](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-eks.Cluster.html)
+- [external-dns](https://github.com/kubernetes-sigs/external-dns) for DNS management
+- [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller) for using Elastic Load balancers as `Ingress`
+- ...
+
+## Quick Start
+
+```
+import {HostedZone} from '@aws-cdk/aw
+import {Cluster} from 'super-eks'
+
+hostedZone = HostedZone.fromLookup(this, 'MyZone', {
+  domainName: 'example.com' // Your domain goes here
+});
+
+const cluster = new Cluster(this, 'hello-eks', {
+  hostedZone: hostedZone,
+  version: eks.KubernetesVersion.V1_18,
+});
+```
 
 ## Useful commands
 
