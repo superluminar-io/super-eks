@@ -3,6 +3,7 @@ import { IHostedZone } from "@aws-cdk/aws-route53"
 
 import * as eks from "@aws-cdk/aws-eks"
 import * as ec2 from "@aws-cdk/aws-ec2"
+import { ExternalDNS } from "./external-dns"
 
 export interface SuperEksProps {
   hostedZone: IHostedZone
@@ -17,16 +18,22 @@ export class SuperEks extends cdk.Construct {
 
   constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
     super(scope, id)
-
     this.props = props
-
     this.cluster = this.configureCluster()
+    this.configureExternalDNS()
   }
 
   private configureCluster(): eks.Cluster {
     return new eks.Cluster(this, "EksCluster", {
       version: eks.KubernetesVersion.V1_18,
       vpc: this.props.vpc,
+    })
+  }
+
+  private configureExternalDNS(): void {
+    new ExternalDNS(this, "ExternalDNS", {
+      cluster: this.cluster,
+      hostedZoneIds: [this.props.hostedZone.hostedZoneId],
     })
   }
 }
