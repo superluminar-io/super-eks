@@ -5,6 +5,7 @@ import * as eks from "@aws-cdk/aws-eks"
 import * as ec2 from "@aws-cdk/aws-ec2"
 import { ExternalDNS } from "./external-dns"
 import { AwsLoadBalancerController } from "./aws-load-balancer-controller"
+import { FluentBit } from "./fluent-bit"
 
 export interface SuperEksProps {
   hostedZone: IHostedZone
@@ -23,6 +24,7 @@ export class SuperEks extends cdk.Construct {
     this.cluster = this.configureCluster()
     this.configureExternalDNS()
     this.configureAwsLoadBalancerController()
+    this.configureFluentBit()
   }
 
   private configureCluster(): eks.Cluster {
@@ -44,6 +46,13 @@ export class SuperEks extends cdk.Construct {
       cluster: this.cluster,
       region: "",
       vpcId: this.props.vpc ? this.props.vpc?.vpcId : this.cluster.vpc.vpcId,
+    })
+  }
+
+  private configureFluentBit(): void {
+    new FluentBit(this, "FluentBit", {
+      cluster: this.cluster,
+      region: cdk.Stack.of(this).region,
     })
   }
 }
