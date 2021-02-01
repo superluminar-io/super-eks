@@ -26,7 +26,7 @@ const cluster = new SuperEks(this, 'hello-eks', {
 
 ## Development
 
-- We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [doc/decisions].
+- We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [here](docs/decisions) for the decisions made so far.
 
  * `npm run build`   compile typescript to js
  * `npm run watch`   watch for changes and compile
