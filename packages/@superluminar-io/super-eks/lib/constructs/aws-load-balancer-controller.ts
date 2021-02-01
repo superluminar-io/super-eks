@@ -44,7 +44,7 @@ export class AwsLoadBalancerController extends cdk.Construct {
         path.join(__dirname, "aws-load-balancer-controller-iam-policy.json"),
         "utf8"
       )
-    )["Statement"] as any[]).forEach((statement) => {
+    )["Statement"] as []).forEach((statement) => {
       serviceAccount.addToPolicy(iam.PolicyStatement.fromJson(statement))
     })
 
