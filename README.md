@@ -1,6 +1,6 @@
 # super-eks
 
-__super-eks__ is a CDK construct that provides a preconfigured EKS installation with batteries included. You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and __super-eks__ will take care of the rest.
+__super-eks__ is a CDK construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included. You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and __super-eks__ will take care of the rest.
 
 __super-eks__ will install:
 
