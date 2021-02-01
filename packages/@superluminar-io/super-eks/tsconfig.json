@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": ["ESNext"],
+    "outDir": "dist",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -18,7 +19,7 @@
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["../../../node_modules/@types"]
   },
   "exclude": ["cdk.out"]
 }
