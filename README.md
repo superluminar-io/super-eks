@@ -12,16 +12,15 @@ __super-eks__ will install:
 ## Quick Start
 
 ```typescript
-import {HostedZone} from '@aws-cdk/aw
-import {Cluster} from 'super-eks'
+import {HostedZone} from '@aws-cdk/aws-route53'
+import {SuperEks} from 'super-eks'
 
 hostedZone = HostedZone.fromLookup(this, 'MyZone', {
   domainName: 'example.com' // Your domain goes here
 });
 
-const cluster = new Cluster(this, 'hello-eks', {
+const cluster = new SuperEks(this, 'hello-eks', {
   hostedZone: hostedZone,
-  version: eks.KubernetesVersion.V1_18,
 });
 ```
 
