@@ -27,6 +27,7 @@
     ]
   },
   "exclude": [
-    "cdk.out"
+    "cdk.out",
+    "dist/**/*"
   ]
 }
