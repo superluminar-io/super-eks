@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Yarn install with caching
         uses: bahmutov/npm-install@v1.6.0
-      - run: yarn workspaces run lint
-      - run: yarn workspaces run test
-      - run: yarn workspaces run build
-      - run: yarn workspace infrastructure cdk synth
+      - run: yarn run lint
+      - run: yarn run test
+      - run: yarn run build
+      - run: yarn cdk synth

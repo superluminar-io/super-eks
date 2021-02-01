@@ -7,10 +7,12 @@
     "super-eks": "bin/super-eks.js"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsc --noEmit --pretty",
+    "watch": "tsc -w --noEmit --pretty",
     "test": "jest",
     "cdk": "cdk",
+    "ts-node": "ts-node",
+
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
