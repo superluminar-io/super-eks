@@ -43,4 +43,28 @@ describe("super-eks w/ nginx deployment", () => {
     }
     expect(result).toHaveLength(1);
   })
+
+  test("Ingress/ALB works", async () => {
+    const route53 = new Route53Client({})
+    const zones = await route53.send(
+        new ListHostedZonesByNameCommand({
+          DNSName: "integration.super-eks.superluminar.io",
+        })
+    )
+    let result: ResourceRecordSet[] = []
+    if (zones.HostedZones) {
+      const zoneId = zones.HostedZones[0].Id
+      const records = await route53.send(
+          new ListResourceRecordSetsCommand({
+            HostedZoneId: zoneId,
+          })
+      )
+      if (records.ResourceRecordSets) {
+        result = records.ResourceRecordSets.filter((r) => {
+          return r.Name == "nginx.integration.super-eks.superluminar.io." && r.Type == 'A'
+        })
+      }
+    }
+    expect(result[0].AliasTarget?.DNSName).toContain("eu-central-1.elb.amazonaws.com")
+  })
 })
