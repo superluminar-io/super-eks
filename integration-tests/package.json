@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.87.1",
+    "@aws-sdk/client-route-53": "^3.4.1",
     "@kubernetes/client-node": "^0.13.2",
     "@types/js-yaml": "^4.0.0",
     "aws-cdk": "^1.87.1",

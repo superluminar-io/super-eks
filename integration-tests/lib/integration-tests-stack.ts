@@ -3,7 +3,7 @@ import * as route53 from "@aws-cdk/aws-route53"
 
 import { SuperEks } from "@superluminar-io/super-eks"
 
-const ROUTE53_ZONE_NAME = "integration.super-eks.superluminar.io";
+const ROUTE53_ZONE_NAME = "integration.super-eks.superluminar.io"
 
 export class IntegrationTestsStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -13,7 +13,7 @@ export class IntegrationTestsStack extends cdk.Stack {
       zoneName: ROUTE53_ZONE_NAME,
     })
 
-    const superEks = new SuperEks(this, "EksCluster", { hostedZone });
+    const superEks = new SuperEks(this, "EksCluster", { hostedZone })
 
     // Add nginx installation for testing
     superEks.cluster.addHelmChart("nginx", {
@@ -26,10 +26,14 @@ export class IntegrationTestsStack extends cdk.Stack {
       values: {
         ingress: {
           enabled: true,
-          hostname: `nginx.${ROUTE53_ZONE_NAME}`
-        }
-      }
+          hostname: `nginx.${ROUTE53_ZONE_NAME}`,
+          annotations: {
+            "kubernetes.io/ingress.class": "alb",
+            "alb.ingress.kubernetes.io/scheme": "internet-facing",
+            "alb.ingress.kubernetes.io/target-type": "ip",
+          },
+        },
+      },
     })
-
   }
 }
