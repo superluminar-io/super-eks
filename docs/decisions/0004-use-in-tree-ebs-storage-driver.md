@@ -4,7 +4,7 @@ Date: 02/02/2021
 
 ## Status
 
-proposed
+Accepted
 
 ## Context
 
@@ -12,7 +12,7 @@ We need to decide which storage driver(s) we want to provision by default.
 
 ## Decision
 
-For now we're going with the intree EBS provisioner. If the need arises, we're going to add the EBS or EFS CSI Driver, but we're speculating that they are going to be available as managed addons at some point.
+For now we're going with the intree EBS provisioner. If the need arises we're going to add the EBS or EFS CSI Driver, but we're speculating that they are going to be available as managed addons at some point.
 
 ## Consequences
 
