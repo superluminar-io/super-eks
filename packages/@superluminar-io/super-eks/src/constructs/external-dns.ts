@@ -62,9 +62,8 @@ export class ExternalDNS extends cdk.Construct {
     )
 
     // Install controller via Helm
-    new eks.HelmChart(this, "ExternalDNSHelmChart", {
+    const chart = new eks.HelmChart(this, "ExternalDNSHelmChart", {
       cluster: props.cluster,
-      createNamespace: createNamespace,
       namespace: namespace,
       repository: "https://charts.bitnami.com/bitnami",
       chart: "external-dns",
@@ -78,5 +77,21 @@ export class ExternalDNS extends cdk.Construct {
         },
       },
     })
+
+    // Create the namespace
+    if (createNamespace) {
+      const namespaceManifest = props.cluster.addManifest(
+        "external-dns-namespace",
+        {
+          apiVersion: "v1",
+          kind: "Namespace",
+          metadata: {
+            name: namespace,
+          },
+        }
+      )
+      chart.node.addDependency(namespaceManifest)
+      serviceAccount.node.addDependency(namespaceManifest)
+    }
   }
 }
