@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "**/dist/**/*"
+    "**/dist/**/*",
+    "**/cdk.out/**/*"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
