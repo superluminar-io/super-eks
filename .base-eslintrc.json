@@ -4,9 +4,6 @@
     "**/dist/**/*",
     "**/cdk.out/**/*"
   ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "plugins": [
     "prettier",
     "@typescript-eslint",
