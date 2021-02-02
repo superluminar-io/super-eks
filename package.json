@@ -1,20 +1,20 @@
 {
   "name": "super-eks",
   "private": true,
-  "type": "module",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "author": {
     "name": "superluminar",
     "url": "https://superluminar.io",
     "organization": true
   },
-  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/superluminar-io/super-eks"
   },
   "workspaces": [
-    "packages/@superluminar-io/*"
+    "packages/@superluminar-io/*",
+    "integration-tests"
   ],
   "devDependencies": {
     "@types/jest": "^26.0.18",

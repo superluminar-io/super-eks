@@ -1,27 +1,37 @@
 {
   "name": "@superluminar-io/super-eks",
   "version": "0.1.0",
-  "type": "module",
   "module": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "license": "Apache-2.0",
+  "author": {
+    "name": "superluminar",
+    "url": "https://superluminar.io",
+    "organization": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/superluminar-io/super-eks",
+    "directory": "packages/@superluminar-io/super-eks"
+  },
   "bin": {
     "super-eks": "bin/super-eks.js"
   },
   "scripts": {
     "build": "tsc --pretty",
     "watch": "tsc -w --noEmit --pretty",
-    "test": "jest",
+    "test": "jest --testPathIgnorePatterns=test/integration",
+    "integration-test": "jest test/integration",
     "ts-node": "ts-node",
     "lint": "eslint .",
-    "fix": "eslint --fix ."
+    "fix": "eslint --fix .",
+    "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.86.0",
-    "@types/jest": "^26.0.20",
-    "ts-jest": "^26.5.0"
+    "@aws-cdk/assert": "^1.86.0"
   },
   "dependencies": {
+    "aws-cdk": "^1.87.1",
     "@aws-cdk/aws-ec2": "^1.87.1",
     "@aws-cdk/aws-eks": "^1.87.1",
     "@aws-cdk/aws-iam": "^1.87.1",

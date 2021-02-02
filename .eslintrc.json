@@ -1,9 +1,16 @@
 {
   "root": true,
+  "ignorePatterns": [
+    "**/dist/**/*"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["prettier", "@typescript-eslint", "node"],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint",
+    "node"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
@@ -22,7 +29,10 @@
   "parser": "@typescript-eslint/parser",
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     },
     "import/resolver": {
       "typescript": {
@@ -42,15 +52,15 @@
     ],
     "no-console": "off",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error", "nofunc"],
-    "object-curly-spacing": ["warn", "always"],
-    "no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "args": "none"
-      }
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      "nofunc"
     ],
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

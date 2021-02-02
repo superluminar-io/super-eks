@@ -13,6 +13,7 @@ test("Empty Cluster", () => {
   new SuperEks(stack, "TestCluster", {
     hostedZone: route53.HostedZone.fromHostedZoneId(stack, "HostedZone", "123"),
   })
+
   // THEN
   expectCDK(stack).to(haveResource("Custom::AWSCDK-EKS-Cluster"))
 })

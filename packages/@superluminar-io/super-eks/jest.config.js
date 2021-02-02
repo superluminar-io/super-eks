@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   roots: ["<rootDir>/test/"],
@@ -6,6 +6,7 @@ export default {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  testTimeout: 1000 * 60, // 60 seconds for now
   resetMocks: true,
   restoreMocks: true,
 }
