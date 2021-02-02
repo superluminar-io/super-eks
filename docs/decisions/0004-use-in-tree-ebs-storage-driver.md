@@ -8,7 +8,7 @@ proposed
 
 ## Context
 
-We need to decide, which storage driver(s) we want to provision by default.
+We need to decide which storage driver(s) we want to provision by default.
 
 ## Decision
 
