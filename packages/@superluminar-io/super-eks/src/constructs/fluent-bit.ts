@@ -55,7 +55,7 @@ export class FluentBit extends cdk.Construct {
         elasticsearch: {
           enabled: false,
         },
-        cloudwatch: {
+        cloudWatch: {
           region: props.region,
         },
       },

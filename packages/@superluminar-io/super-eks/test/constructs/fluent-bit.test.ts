@@ -47,7 +47,7 @@ describe("fluent-bit", () => {
     })
     expect(stack).toHaveResource("Custom::AWSCDK-EKS-HelmChart", {
       Values:
-        '{"serviceAccount":{"create":false,"name":"fluent-bit"},"firehose":{"enabled":false},"kinesis":{"enabled":false},"elasticsearch":{"enabled":false},"cloudwatch":{"region":"eu-west-1"}}',
+        '{"serviceAccount":{"create":false,"name":"fluent-bit"},"firehose":{"enabled":false},"kinesis":{"enabled":false},"elasticsearch":{"enabled":false},"cloudWatch":{"region":"eu-west-1"}}',
     })
   })
 })
