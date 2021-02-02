@@ -36,11 +36,21 @@ export class ExternalDNS extends cdk.Construct {
     // Define the namespace we want to install to
     const namespace = props.namespace ?? "external-dns"
 
+    // Create the namespace first
+    const namespaceManifest = props.cluster.addManifest('external-dns-namespace', {
+      apiVersion: 'v1',
+      kind: 'Namespace',
+      metadata: {
+        name: namespace
+      }
+    });
+
     // Create service account
     const serviceAccount = props.cluster.addServiceAccount("external-dns", {
       name: "external-dns",
       namespace: namespace,
     })
+    serviceAccount.node.addDependency(namespaceManifest)
 
     // Add IAM policy according to https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
     props.hostedZoneIds.forEach((hostedZoneId) =>
@@ -62,9 +72,8 @@ export class ExternalDNS extends cdk.Construct {
     )
 
     // Install controller via Helm
-    new eks.HelmChart(this, "ExternalDNSHelmChart", {
+    const chart = new eks.HelmChart(this, "ExternalDNSHelmChart", {
       cluster: props.cluster,
-      createNamespace: createNamespace,
       namespace: namespace,
       repository: "https://charts.bitnami.com/bitnami",
       chart: "external-dns",
@@ -78,5 +87,6 @@ export class ExternalDNS extends cdk.Construct {
         },
       },
     })
+    chart.node.addDependency(namespaceManifest)
   }
 }
