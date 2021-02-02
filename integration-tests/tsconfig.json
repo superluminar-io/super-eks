@@ -7,12 +7,15 @@
       "es2019"
     ],
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
       "~/*": [
-        "src/*"
+        "lib/*"
+      ],
+      "@superluminar-io/*": [
+        "../packages/@superluminar-io/*/src/"
       ]
     },
-    "outDir": "dist",
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -28,11 +31,11 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "typeRoots": [
-      "../../../node_modules/@types"
+      "../node_modules/@types"
     ]
   },
   "exclude": [
     "cdk.out",
-    "dist/**/*"
+    "dist"
   ]
 }

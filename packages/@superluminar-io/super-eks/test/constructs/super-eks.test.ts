@@ -2,7 +2,7 @@ import { expect as expectCDK, haveResource } from "@aws-cdk/assert"
 import * as cdk from "@aws-cdk/core"
 import * as route53 from "@aws-cdk/aws-route53"
 
-import { SuperEks } from "../../lib"
+import { SuperEks } from "~/constructs/super-eks"
 
 test("Empty Cluster", () => {
   const app = new cdk.App()

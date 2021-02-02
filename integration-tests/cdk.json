@@ -1,5 +1,5 @@
 {
-  "app": "yarn run ts-node --prefer-ts-exts test/integration/bin/integration-test.ts",
+  "app": "npx ts-node --prefer-ts-exts -r tsconfig-paths/register bin/integration-tests.ts",
   "context": {
     "@aws-cdk/core:enableStackNameDuplicates": "true",
     "aws-cdk:enableDiffNoFail": "true",

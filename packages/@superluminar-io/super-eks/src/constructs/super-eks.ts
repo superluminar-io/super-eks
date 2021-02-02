@@ -1,8 +1,8 @@
 import * as cdk from "@aws-cdk/core"
 import { IHostedZone } from "@aws-cdk/aws-route53"
-
 import * as eks from "@aws-cdk/aws-eks"
 import * as ec2 from "@aws-cdk/aws-ec2"
+
 import { ExternalDNS } from "./external-dns"
 import { AwsLoadBalancerController } from "./aws-load-balancer-controller"
 import { FluentBit } from "./fluent-bit"
