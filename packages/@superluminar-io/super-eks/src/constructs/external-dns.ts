@@ -31,7 +31,7 @@ export class ExternalDNS extends cdk.Construct {
 
     // Create namespace if set
     const createNamespace =
-        props.createNamespace !== undefined ? props.createNamespace : true
+      props.createNamespace !== undefined ? props.createNamespace : true
 
     // Define the namespace we want to install to
     const namespace = props.namespace ?? "external-dns"
@@ -44,21 +44,21 @@ export class ExternalDNS extends cdk.Construct {
 
     // Add IAM policy according to https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
     props.hostedZoneIds.forEach((hostedZoneId) =>
-        serviceAccount.addToPolicy(
-            new iam.PolicyStatement({
-              actions: [
-                "route53:ChangeResourceRecordSets",
-                "route53:ListResourceRecordSets",
-              ],
-              resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
-            })
-        )
+      serviceAccount.addToPolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "route53:ChangeResourceRecordSets",
+            "route53:ListResourceRecordSets",
+          ],
+          resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
+        })
+      )
     )
     serviceAccount.addToPolicy(
-        new iam.PolicyStatement({
-          actions: ["route53:ListHostedZones"],
-          resources: ["*"],
-        })
+      new iam.PolicyStatement({
+        actions: ["route53:ListHostedZones"],
+        resources: ["*"],
+      })
     )
 
     // Install controller via Helm
@@ -78,16 +78,18 @@ export class ExternalDNS extends cdk.Construct {
       },
     })
 
-
     // Create the namespace
     if (createNamespace) {
-      const namespaceManifest = props.cluster.addManifest('external-dns-namespace', {
-        apiVersion: 'v1',
-        kind: 'Namespace',
-        metadata: {
-          name: namespace
+      const namespaceManifest = props.cluster.addManifest(
+        "external-dns-namespace",
+        {
+          apiVersion: "v1",
+          kind: "Namespace",
+          metadata: {
+            name: namespace,
+          },
         }
-      });
+      )
       chart.node.addDependency(namespaceManifest)
       serviceAccount.node.addDependency(namespaceManifest)
     }
