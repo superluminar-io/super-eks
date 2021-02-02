@@ -13,6 +13,6 @@ jobs:
       - name: Yarn install with caching
         uses: bahmutov/npm-install@v1.6.0
       - run: yarn workspaces run lint
-      - run: yarn workspaces run test
+      - run: yarn workspace @superluminar-io/super-eks run test
       - run: yarn workspaces run build
       # - run: yarn workspaces cdk synth

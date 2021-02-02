@@ -1,7 +1,7 @@
 import * as cdk from "@aws-cdk/core"
 import * as route53 from "@aws-cdk/aws-route53"
 
-import { SuperEks } from "../../lib"
+import { SuperEks } from "@superluminar-io/super-eks"
 
 export class IntegrationTestsStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {

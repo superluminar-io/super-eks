@@ -2,7 +2,7 @@ import "@aws-cdk/assert/jest"
 import { Stack } from "@aws-cdk/core"
 import { Cluster } from "@aws-cdk/aws-eks"
 import * as eks from "@aws-cdk/aws-eks"
-import { FluentBit } from "../../lib/constructs/fluent-bit"
+import { FluentBit } from "~/constructs/fluent-bit"
 
 describe("fluent-bit", () => {
   test("namespace can be configured and created", () => {

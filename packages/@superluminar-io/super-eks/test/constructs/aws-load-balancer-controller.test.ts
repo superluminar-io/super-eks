@@ -2,7 +2,7 @@ import "@aws-cdk/assert/jest"
 import { Stack } from "@aws-cdk/core"
 import { Cluster } from "@aws-cdk/aws-eks"
 import * as eks from "@aws-cdk/aws-eks"
-import { AwsLoadBalancerController } from "../../lib/constructs/aws-load-balancer-controller"
+import { AwsLoadBalancerController } from "~/constructs/aws-load-balancer-controller"
 
 describe("aws-load-balancer-controller", () => {
   test("namespace can be configured and created", () => {

@@ -88,7 +88,8 @@
           "**/*.test.jsx",
           "**/*.test.ts",
           "**/*.test.tsx",
-          "tests/**/*"
+          "tests/**/*",
+          "jest.config.js"
         ]
       }
     ],
