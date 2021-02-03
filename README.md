@@ -56,7 +56,7 @@ Paste the snippet into `lib/super-eks-setup-stack.ts`.
 
 ```typescript
 import {HostedZone} from '@aws-cdk/aws-route53'
-import {SuperEks} from 'super-eks'
+import {SuperEks} from '@superluminar-io/super-eks'
 
 export class SuperEksSetupStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
