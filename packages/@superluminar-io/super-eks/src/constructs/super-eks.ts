@@ -65,7 +65,7 @@ export class SuperEks extends cdk.Construct {
   private configureAwsLoadBalancerController(): void {
     new AwsLoadBalancerController(this, "AWSLoadBalancerController", {
       cluster: this.cluster,
-      region: "",
+      region: cdk.Stack.of(this).region,
       vpcId: this.props.vpc ? this.props.vpc?.vpcId : this.cluster.vpc.vpcId,
     })
   }

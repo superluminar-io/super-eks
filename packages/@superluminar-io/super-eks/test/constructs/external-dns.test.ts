@@ -5,7 +5,7 @@ import * as eks from "@aws-cdk/aws-eks"
 import { ExternalDNS } from "../../src/constructs/external-dns"
 
 describe("external-dns", () => {
-  test('namespace defaults to "external-dns"', () => {
+  test('namespace is "dns"', () => {
     const stack = new Stack()
     const cluster = new Cluster(stack, "EKS", {
       version: eks.KubernetesVersion.V1_18,
@@ -15,11 +15,11 @@ describe("external-dns", () => {
       hostedZoneIds: ["Z1PA6795UKMFR9"],
     })
     expect(stack).toHaveResource("Custom::AWSCDK-EKS-HelmChart", {
-      Namespace: "external-dns",
+      Namespace: "dns",
     })
     expect(stack).toHaveResource("Custom::AWSCDK-EKS-KubernetesResource", {
       Manifest:
-        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"external-dns","labels":{"aws.cdk.eks/prune-c804bfa66fcf6456868237b3c3a8164ad14c46bd77":""}}}]',
+        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"dns","labels":{"aws.cdk.eks/prune-c8ae8f304ce17793844458eb788c9c1826f64aa2b7":""}}}]',
     })
   })
 
