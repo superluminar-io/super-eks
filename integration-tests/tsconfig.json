@@ -9,9 +9,6 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "~/*": [
-        "lib/*"
-      ],
       "@superluminar-io/*": [
         "../packages/@superluminar-io/*/src/"
       ]

@@ -6,9 +6,6 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
-  moduleNameMapper: {
-    "^~/(.*)$": "<rootDir>/src/$1",
-  },
   testTimeout: 1000 * 60, // 60 seconds for now
   resetMocks: true,
   restoreMocks: true,

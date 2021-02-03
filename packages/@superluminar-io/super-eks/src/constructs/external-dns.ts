@@ -2,6 +2,8 @@ import * as cdk from "@aws-cdk/core"
 import * as eks from "@aws-cdk/aws-eks"
 import * as iam from "@aws-cdk/aws-iam"
 
+import { SuperEksNodegroup } from "../config/cluster"
+
 export interface ExternalDNSProps {
   /**
    * The EKS cluster to install to
@@ -75,6 +77,8 @@ export class ExternalDNS extends cdk.Construct {
           create: false,
           name: serviceAccount.serviceAccountName,
         },
+        tolerations: [SuperEksNodegroup.taint],
+        nodeSelector: SuperEksNodegroup.labels,
       },
     })
 
