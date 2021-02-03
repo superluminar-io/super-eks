@@ -1,17 +1,17 @@
-# super-eks
+# :superhero_woman:	super-eks
 
 __super-eks__ is a [CDK]((github.com/aws-cdk/cdk)) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
 Even when using best practices for your EKS cluster, picking the right setup can be overwhelming. 
 __super-eks__ solves this problem by making a few choices for you as outlined below.
 
-### Features
+### :sparkles: Features
 
 - :white_check_mark: DNS management with [external-dns](https://github.com/kubernetes-sigs/external-dns)
 - :white_check_mark: Forwarding logs to CloudWatch Logs with [fluent-bit](https://github.com/aws/aws-for-fluent-bit)
 - :white_check_mark: Ingress management with the [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
 - :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
 
-### Roadmap
+### :world_map:	Roadmap
 
 - :hammer_and_wrench: Hardened node setup
 - :hammer_and_wrench: Monitoring with Prometheus and CloudWatch
@@ -19,7 +19,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
 - :hammer_and_wrench: Standalone one click Cloudformation installer without CDK
 
-## Quick Start
+## :clapper: Quick Start
 
 The quick start shows you how to setup a __super-eks__ cluster.
 
@@ -144,12 +144,12 @@ nginx          nginx-67cb444d48-lqzkg                          1/1     Running  
 
 Voila! :tada: You now have a super EKS cluster with batteries included!
 
-## Development
+## :gear: Development
 
 - We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [here](docs/decisions) for the decisions made so far.
 - We use the [AWS Cloud Development Kit (CDK)](github.com/aws-cdk/cdk)
 
-## FAQ
+## :question: FAQ
 
 Frequently asked questions are answered here.
 
@@ -172,3 +172,8 @@ If you believe core functionality is missing please open a GitHub issue.
 
 We are planning to release a standalone one click Cloudformation installer in the future.
 
+## :balance_scale: License
+
+**super-eks** is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+See [LICENSE](./LICENSE)for more information.
