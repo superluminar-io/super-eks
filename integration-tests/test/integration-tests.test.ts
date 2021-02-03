@@ -9,14 +9,14 @@ import {
 
 beforeAll(async () => {
   await purgeDNSRecords()
-  execSync("yarn run cdk deploy --require-approval never", {
+  execSync("yarn run cdk deploy --require-approval never --all", {
     encoding: "utf8",
     stdio: "inherit",
   })
 })
 
 afterAll(() => {
-  execSync("yarn cdk destroy", {
+  execSync("yarn cdk destroy --require-approval never IntegrationTestStacks", {
     encoding: "utf8",
     stdio: "inherit",
   })
