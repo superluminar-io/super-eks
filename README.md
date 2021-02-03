@@ -176,4 +176,4 @@ We are planning to release a standalone one click Cloudformation installer in th
 
 **super-eks** is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-See [LICENSE](./LICENSE)for more information.
+See [LICENSE](./LICENSE) for more information.
