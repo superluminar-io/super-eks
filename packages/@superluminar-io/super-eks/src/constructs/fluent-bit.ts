@@ -2,6 +2,8 @@ import * as cdk from "@aws-cdk/core"
 import * as eks from "@aws-cdk/aws-eks"
 import * as iam from "@aws-cdk/aws-iam"
 
+import { SuperEksNodegroup } from "../config/cluster"
+
 export interface FluentBitProps {
   readonly cluster: eks.ICluster
   readonly region: string
@@ -46,6 +48,8 @@ export class FluentBit extends cdk.Construct {
           create: false,
           name: serviceAccount.serviceAccountName,
         },
+        tolerations: [SuperEksNodegroup.taint],
+        nodeSelector: SuperEksNodegroup.labels,
         firehose: {
           enabled: false,
         },
