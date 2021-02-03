@@ -7,15 +7,15 @@ import {
   Route53Client,
 } from "@aws-sdk/client-route-53"
 
-beforeAll(() => {
+beforeAll(async () => {
+  await purgeDNSRecords()
   execSync("yarn run cdk deploy --require-approval never", {
     encoding: "utf8",
     stdio: "inherit",
   })
 })
 
-afterAll(async () => {
-  await purgeDNSRecords()
+afterAll(() => {
   execSync("yarn cdk destroy", {
     encoding: "utf8",
     stdio: "inherit",
