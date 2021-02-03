@@ -148,3 +148,22 @@ Voila! :tada: You now have a super EKS cluster with batteries included!
 - We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [here](docs/decisions) for the decisions made so far.
 - We use the [AWS Cloud Development Kit (CDK)](github.com/aws-cdk/cdk)
 
+## FAQ
+
+Frequently asked questions are answered here.
+
+### What do you mean by "batteries included"?
+
+[Batteries included](https://www.python.org/dev/peps/pep-0206/#batteries-included-philosophy) is a term that comes from the philosophy behind the Python programming language.
+It means, that __super-eks__ ships with all necessary parts. You don't need additional things, like in this case Helm charts, manifests etc. apart from the workload you want to run on Kubernetes.
+
+### Why did you choose to include component X?
+
+We try to include components, that are seen as community standards. On the other hand we choose components,
+that work best in combination with AWS.
+
+### Where are the advanced settings? I want to do things differently!
+
+__super-eks__ makes some decisions for you. If you want an expert setup maybe __super-eks__ isn't for you.
+If you believe core functionality is missing please open a GitHub issue.
+
