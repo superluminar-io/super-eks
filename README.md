@@ -9,7 +9,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :white_check_mark: DNS management with [external-dns](https://github.com/kubernetes-sigs/external-dns)
 - :white_check_mark: Forwarding logs to CloudWatch Logs with [fluent-bit](https://github.com/aws/aws-for-fluent-bit)
 - :white_check_mark: Ingress management with the [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
-- :white_check_mark: Isolated node groups for your workloads
+- :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
 
 ### Roadmap
 
@@ -67,7 +67,7 @@ export class SuperEksSetupStack extends cdk.Stack {
             domainName: 'example.com' // Your domain goes here
         });
 
-        // Setup super-eks, EKS w/ batteries included
+        // Setup super-eks
         const cluster = new SuperEks(this, 'hello-eks', {
             hostedZone: hostedZone,
         });
