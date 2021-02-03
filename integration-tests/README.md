@@ -1,14 +1,13 @@
-# Welcome to your CDK TypeScript project!
+# integration-tests
 
-This is a blank project for TypeScript development with CDK.
+These are the integration tests.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+They are made up of two CDK stacks:
 
-## Useful commands
+- the [infra](lib/infrastructure-stack.ts) stack, provides infra across multiple test runs
+- the [integration test](lib/integration-tests-stack.ts) stack, exercises the `SuperEks` construct
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+You can run them with the snippet below, make sure to have valid AWS credentials configured:
+```
+yarn run integration-tests
+```
