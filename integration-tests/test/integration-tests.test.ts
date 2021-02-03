@@ -1,5 +1,6 @@
 import { execSync } from "child_process"
 import {
+  ChangeResourceRecordSetsCommand,
   ListHostedZonesByNameCommand,
   ListResourceRecordSetsCommand,
   ResourceRecordSet,
@@ -13,65 +14,88 @@ beforeAll(() => {
   })
 })
 
-afterAll(() => {
+afterAll(async () => {
+  await purgeDNSRecords()
   execSync("yarn cdk destroy", {
     encoding: "utf8",
     stdio: "inherit",
   })
 })
 
-describe("super-eks w/ nginx deployment", () => {
-  test("DNS works", async () => {
-    const route53 = new Route53Client({})
-    const zones = await route53.send(
-      new ListHostedZonesByNameCommand({
-        DNSName: "integration.super-eks.superluminar.io",
+// Purge all DNS records that aren't SOA or NS records
+async function purgeDNSRecords() {
+  const route53 = new Route53Client({})
+  const zones = await route53.send(
+    new ListHostedZonesByNameCommand({
+      DNSName: "integration.super-eks.superluminar.io",
+    })
+  )
+  if (zones.HostedZones) {
+    const zoneId = zones.HostedZones[0].Id
+    const records = await route53.send(
+      new ListResourceRecordSetsCommand({
+        HostedZoneId: zoneId,
       })
     )
-    let result: ResourceRecordSet[] = []
-    if (zones.HostedZones) {
-      const zoneId = zones.HostedZones[0].Id
-      const records = await route53.send(
-        new ListResourceRecordSetsCommand({
+    const filtered = records.ResourceRecordSets?.filter(
+      (r) => r.Type != "SOA" && r.Type != "NS"
+    )
+    if (filtered !== undefined && filtered.length > 0) {
+      const changes = filtered.map((r) => {
+        return { Action: "DELETE", ResourceRecordSet: r }
+      })
+      console.log("Deleting DNS records", changes)
+      await route53.send(
+        new ChangeResourceRecordSetsCommand({
+          ChangeBatch: {
+            Changes: changes,
+          },
           HostedZoneId: zoneId,
         })
       )
-      if (records.ResourceRecordSets) {
-        result = records.ResourceRecordSets.filter((r) => {
-          return (
-            r.Name == "nginx.integration.super-eks.superluminar.io." &&
-            r.Type == "A"
-          )
-        })
-      }
     }
+  }
+}
+
+async function fetchDNSRecords(): Promise<ResourceRecordSet[]> {
+  const route53 = new Route53Client({})
+  const zones = await route53.send(
+    new ListHostedZonesByNameCommand({
+      DNSName: "integration.super-eks.superluminar.io",
+    })
+  )
+  if (zones.HostedZones) {
+    const zoneId = zones.HostedZones[0].Id
+    const records = await route53.send(
+      new ListResourceRecordSetsCommand({
+        HostedZoneId: zoneId,
+      })
+    )
+    return records.ResourceRecordSets ?? []
+  }
+  throw new Error("No records found")
+}
+
+describe("super-eks w/ nginx deployment", () => {
+  test("DNS works", async () => {
+    const records = await fetchDNSRecords()
+    const result = records.filter((r) => {
+      return (
+        r.Name == "nginx.integration.super-eks.superluminar.io." &&
+        r.Type == "A"
+      )
+    })
     expect(result).toHaveLength(1)
   })
 
   test("Ingress/ALB works", async () => {
-    const route53 = new Route53Client({})
-    const zones = await route53.send(
-      new ListHostedZonesByNameCommand({
-        DNSName: "integration.super-eks.superluminar.io",
-      })
-    )
-    let result: ResourceRecordSet[] = []
-    if (zones.HostedZones) {
-      const zoneId = zones.HostedZones[0].Id
-      const records = await route53.send(
-        new ListResourceRecordSetsCommand({
-          HostedZoneId: zoneId,
-        })
+    const records = await fetchDNSRecords()
+    const result = records.filter((r) => {
+      return (
+        r.Name == "nginx.integration.super-eks.superluminar.io." &&
+        r.Type == "A"
       )
-      if (records.ResourceRecordSets) {
-        result = records.ResourceRecordSets.filter((r) => {
-          return (
-            r.Name == "nginx.integration.super-eks.superluminar.io." &&
-            r.Type == "A"
-          )
-        })
-      }
-    }
+    })
     expect(result[0].AliasTarget?.DNSName).toContain(
       "eu-central-1.elb.amazonaws.com"
     )
