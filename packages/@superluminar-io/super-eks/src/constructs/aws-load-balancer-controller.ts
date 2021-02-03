@@ -10,8 +10,6 @@ export interface AwsLoadBalancerControllerProps {
   readonly cluster: eks.ICluster
   readonly vpcId: string
   readonly region: string
-  readonly namespace?: string
-  readonly createNamespace?: boolean
 }
 
 export class AwsLoadBalancerController extends cdk.Construct {
@@ -22,12 +20,8 @@ export class AwsLoadBalancerController extends cdk.Construct {
   ) {
     super(scope, id)
 
-    // Create namespace only if explicitly set
-    const createNamespace =
-      props.createNamespace !== undefined ? props.createNamespace : false
-
     // Define the namespace we want to install to
-    const namespace = props.namespace ?? "kube-system"
+    const namespace = "ingress"
 
     // Create service account
     const serviceAccount = props.cluster.addServiceAccount(
@@ -51,25 +45,39 @@ export class AwsLoadBalancerController extends cdk.Construct {
     })
 
     // Install controller via Helm
-    new eks.HelmChart(this, "AwsLoadBalancerControllerHelmChart", {
-      cluster: props.cluster,
-      createNamespace: createNamespace,
-      namespace: namespace,
-      repository: "https://aws.github.io/eks-charts",
-      chart: "aws-load-balancer-controller",
-      release: "aws-load-balancer-controller",
-      version: "1.0.8",
-      values: {
-        clusterName: props.cluster.clusterName,
-        region: props.region,
-        vpcId: props.vpcId,
-        serviceAccount: {
-          create: false,
-          name: serviceAccount.serviceAccountName,
+    const chart = new eks.HelmChart(
+      this,
+      "AwsLoadBalancerControllerHelmChart",
+      {
+        cluster: props.cluster,
+        namespace: namespace,
+        repository: "https://aws.github.io/eks-charts",
+        chart: "aws-load-balancer-controller",
+        release: "aws-load-balancer-controller",
+        version: "1.0.8",
+        values: {
+          clusterName: props.cluster.clusterName,
+          region: props.region,
+          vpcId: props.vpcId,
+          serviceAccount: {
+            create: false,
+            name: serviceAccount.serviceAccountName,
+          },
+          tolerations: [SuperEksNodegroup.taint],
+          nodeSelector: SuperEksNodegroup.labels,
         },
-        tolerations: [SuperEksNodegroup.taint],
-        nodeSelector: SuperEksNodegroup.labels,
+      }
+    )
+
+    // Create the namespace
+    const namespaceManifest = props.cluster.addManifest("ingress-namespace", {
+      apiVersion: "v1",
+      kind: "Namespace",
+      metadata: {
+        name: namespace,
       },
     })
+    chart.node.addDependency(namespaceManifest)
+    serviceAccount.node.addDependency(namespaceManifest)
   }
 }

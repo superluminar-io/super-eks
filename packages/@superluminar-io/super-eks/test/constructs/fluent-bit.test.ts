@@ -5,24 +5,7 @@ import * as eks from "@aws-cdk/aws-eks"
 import { FluentBit } from "../../src/constructs/fluent-bit"
 
 describe("fluent-bit", () => {
-  test("namespace can be configured and created", () => {
-    const stack = new Stack()
-    const cluster = new Cluster(stack, "EKS", {
-      version: eks.KubernetesVersion.V1_18,
-    })
-    new FluentBit(stack, "FluentBit", {
-      cluster,
-      region: "eu-west-1",
-      namespace: "foo",
-      createNamespace: true,
-    })
-    expect(stack).toHaveResource("Custom::AWSCDK-EKS-HelmChart", {
-      Namespace: "foo",
-      CreateNamespace: true,
-    })
-  })
-
-  test('namespace defaults to "kube-system"', () => {
+  test('namespace is "logging"', () => {
     const stack = new Stack()
     const cluster = new Cluster(stack, "EKS", {
       version: eks.KubernetesVersion.V1_18,
@@ -32,7 +15,11 @@ describe("fluent-bit", () => {
       region: "eu-west-1",
     })
     expect(stack).toHaveResource("Custom::AWSCDK-EKS-HelmChart", {
-      Namespace: "kube-system",
+      Namespace: "logging",
+    })
+    expect(stack).toHaveResource("Custom::AWSCDK-EKS-KubernetesResource", {
+      Manifest:
+        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"logging","labels":{"aws.cdk.eks/prune-c807348d0daee975eb2e4f53e89602b8c74d3364a8":""}}}]',
     })
   })
 

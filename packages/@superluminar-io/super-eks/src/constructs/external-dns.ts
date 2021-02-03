@@ -13,30 +13,14 @@ export interface ExternalDNSProps {
    * List of hosted zone IDs, used for IAM permissions and filtering
    */
   readonly hostedZoneIds: string[]
-  /**
-   * The namespace to install to
-   *
-   * @default 'external-dns'
-   */
-  readonly namespace?: string
-  /**
-   * Whether to create the namespace given
-   *
-   * @default true
-   */
-  readonly createNamespace?: boolean
 }
 
 export class ExternalDNS extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: ExternalDNSProps) {
     super(scope, id)
 
-    // Create namespace if set
-    const createNamespace =
-      props.createNamespace !== undefined ? props.createNamespace : true
-
     // Define the namespace we want to install to
-    const namespace = props.namespace ?? "external-dns"
+    const namespace = "dns"
 
     // Create service account
     const serviceAccount = props.cluster.addServiceAccount("external-dns", {
@@ -83,19 +67,14 @@ export class ExternalDNS extends cdk.Construct {
     })
 
     // Create the namespace
-    if (createNamespace) {
-      const namespaceManifest = props.cluster.addManifest(
-        "external-dns-namespace",
-        {
-          apiVersion: "v1",
-          kind: "Namespace",
-          metadata: {
-            name: namespace,
-          },
-        }
-      )
-      chart.node.addDependency(namespaceManifest)
-      serviceAccount.node.addDependency(namespaceManifest)
-    }
+    const namespaceManifest = props.cluster.addManifest("dns-namespace", {
+      apiVersion: "v1",
+      kind: "Namespace",
+      metadata: {
+        name: namespace,
+      },
+    })
+    chart.node.addDependency(namespaceManifest)
+    serviceAccount.node.addDependency(namespaceManifest)
   }
 }

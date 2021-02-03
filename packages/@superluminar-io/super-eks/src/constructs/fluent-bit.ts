@@ -7,20 +7,14 @@ import { SuperEksNodegroup } from "../config/cluster"
 export interface FluentBitProps {
   readonly cluster: eks.ICluster
   readonly region: string
-  readonly namespace?: string
-  readonly createNamespace?: boolean
 }
 
 export class FluentBit extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: FluentBitProps) {
     super(scope, id)
 
-    // Create namespace only if explicitly set
-    const createNamespace =
-      props.createNamespace !== undefined ? props.createNamespace : false
-
     // Define the namespace we want to install to
-    const namespace = props.namespace ?? "kube-system"
+    const namespace = "logging"
 
     // Create service account
     const serviceAccount = props.cluster.addServiceAccount("fluent-bit", {
@@ -35,9 +29,8 @@ export class FluentBit extends cdk.Construct {
     )
 
     // Install controller via Helm
-    new eks.HelmChart(this, "FluentBitHelmChart", {
+    const chart = new eks.HelmChart(this, "FluentBitHelmChart", {
       cluster: props.cluster,
-      createNamespace: createNamespace,
       namespace: namespace,
       repository: "https://aws.github.io/eks-charts",
       chart: "aws-for-fluent-bit",
@@ -64,5 +57,16 @@ export class FluentBit extends cdk.Construct {
         },
       },
     })
+
+    // Create the namespace
+    const namespaceManifest = props.cluster.addManifest("logging-namespace", {
+      apiVersion: "v1",
+      kind: "Namespace",
+      metadata: {
+        name: namespace,
+      },
+    })
+    chart.node.addDependency(namespaceManifest)
+    serviceAccount.node.addDependency(namespaceManifest)
   }
 }
