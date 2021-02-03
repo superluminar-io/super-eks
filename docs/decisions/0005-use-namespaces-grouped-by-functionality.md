@@ -1,10 +1,10 @@
-# 4. Use namespaces grouped by functionality
+# 5. Use namespaces grouped by functionality
 
 Date: 02/02/2021
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
