@@ -18,6 +18,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :hammer_and_wrench: Backup solution for cluster recovery
 - :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
 - :hammer_and_wrench: Standalone one click Cloudformation installer without CDK
+- :hammer_and_wrench: Autoscaling for pods and cluster
 
 ## :clapper: Quick Start
 
@@ -129,10 +130,10 @@ Now let's see if it works.
 
 ```
 NAMESPACE      NAME                                            READY   STATUS    RESTARTS   AGE
-external-dns   external-dns-7d4d69545d-r5w68                   1/1     Running   0          14m
-kube-system    aws-for-fluent-bit-qwhwb                        1/1     Running   0          14m
-kube-system    aws-for-fluent-bit-s7wnj                        1/1     Running   0          14m
-kube-system    aws-load-balancer-controller-5b9cbc5497-smfrt   1/1     Running   0          14m
+dns            external-dns-7d4d69545d-r5w68                   1/1     Running   0          14m
+logging        aws-for-fluent-bit-qwhwb                        1/1     Running   0          14m
+logging        aws-for-fluent-bit-s7wnj                        1/1     Running   0          14m
+ingress        aws-load-balancer-controller-5b9cbc5497-smfrt   1/1     Running   0          14m
 kube-system    aws-node-lscgc                                  1/1     Running   0          18m
 kube-system    aws-node-zfcdl                                  1/1     Running   0          18m
 kube-system    coredns-59b69b4849-9gstn                        1/1     Running   0          25m
