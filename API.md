@@ -45,6 +45,7 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 
 Name | Type | Description 
 -----|------|-------------
+**additionalNodegroups** | <code>Array<[Nodegroup](#aws-cdk-aws-eks-nodegroup)></code> | <span></span>
 **cluster** | <code>[Cluster](#aws-cdk-aws-eks-cluster)</code> | <span></span>
 
 
