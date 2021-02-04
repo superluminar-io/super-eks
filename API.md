@@ -4,18 +4,18 @@
 
 Name|Description
 ----|-----------
-[SuperEks](#super-eks-supereks)|*No description*
+[SuperEks](#superluminar-io-super-eks-supereks)|*No description*
 
 
 **Structs**
 
 Name|Description
 ----|-----------
-[SuperEksProps](#super-eks-supereksprops)|*No description*
+[SuperEksProps](#superluminar-io-super-eks-supereksprops)|*No description*
 
 
 
-## class SuperEks  <a id="super-eks-supereks"></a>
+## class SuperEks  <a id="superluminar-io-super-eks-supereks"></a>
 
 
 
@@ -33,7 +33,7 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
 * **id** (<code>string</code>)  *No description*
-* **props** (<code>[SuperEksProps](#super-eks-supereksprops)</code>)  *No description*
+* **props** (<code>[SuperEksProps](#superluminar-io-super-eks-supereksprops)</code>)  *No description*
   * **hostedZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  *No description* 
   * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* __*Optional*__
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 
 
-## struct SuperEksProps  <a id="super-eks-supereksprops"></a>
+## struct SuperEksProps  <a id="superluminar-io-super-eks-supereksprops"></a>
 
 
 
