@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/superluminar-io/super-eks/compare/v0.1.3...v0.1.4) (2021-02-04)
+
+
+### Features
+
+* Whitelist IAM roles for admin access ([#29](https://github.com/superluminar-io/super-eks/issues/29)) ([68cb98d](https://github.com/superluminar-io/super-eks/commit/68cb98d53343cbeb12476f555726883d344aef63))
+
 ### [0.1.3](https://github.com/superluminar-io/super-eks/compare/v0.1.2...v0.1.3) (2021-02-04)
 
 ### [0.1.2](https://github.com/superluminar-io/super-eks/compare/v0.1.1...v0.1.2) (2021-02-04)
