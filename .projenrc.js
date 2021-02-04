@@ -46,7 +46,7 @@ const project = new AwsCdkConstructLibrary({
   devDeps: ['source-map-support'], /* Build dependencies for this module. */
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
   // homepage: undefined,                                                      /* Package's Homepage / Website. */
-  keywords: ['k8s', 'eks', 'kubernetes', 'aws'],                               /* Keywords to include in `package.json`. */
+  keywords: ['k8s', 'eks', 'kubernetes', 'aws'], /* Keywords to include in `package.json`. */
   license: 'Apache-2.0', /* License's SPDX identifier. */
   licensed: true, /* Indicates if a license should be added. */
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
