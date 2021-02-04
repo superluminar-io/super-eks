@@ -6,7 +6,7 @@ const project = new AwsCdkConstructLibrary({
   cdkVersion: '1.88.0',
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
-  name: 'super-eks',
+  name: '@superluminar-io/super-eks',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
 
   /* AwsCdkConstructLibraryOptions */

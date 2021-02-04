@@ -1,5 +1,5 @@
 {
-  "name": "super-eks",
+  "name": "@superluminar-io/super-eks",
   "repository": {
     "type": "git",
     "url": "https://github.com/superluminar-io/super-eks.git"
