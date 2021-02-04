@@ -75,7 +75,7 @@ const project = new AwsCdkConstructLibrary({
   // copyrightPeriod: undefined,                                               /* The copyright years to put in the LICENSE file. */
   dependabot: true, /* Include dependabot configuration. */
   // dependabotOptions: undefined,                                             /* Options for dependabot. */
-  gitignore: ['cdk.out'], /* Additional entries to .gitignore. */
+  gitignore: ['cdk.out', '.idea/'], /* Additional entries to .gitignore. */
   // jest: true,                                                               /* Setup jest unit tests. */
   // jestOptions: undefined,                                                   /* Jest options. */
   // jsiiReleaseVersion: 'latest',                                             /* Version requirement of `jsii-release` which is used to publish modules to npm. */
