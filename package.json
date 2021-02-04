@@ -68,7 +68,11 @@
   },
   "bundledDependencies": [],
   "keywords": [
-    "cdk"
+    "aws",
+    "cdk",
+    "eks",
+    "k8s",
+    "kubernetes"
   ],
   "engines": {
     "node": ">= 12.0.0"

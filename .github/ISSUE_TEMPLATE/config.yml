@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Send us an email
+    url:  https://superluminar.io/contact/
+    about: Send us an email if you need help with __super_eks__
