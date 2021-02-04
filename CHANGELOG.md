@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/superluminar-io/super-eks/compare/v0.1.1...v0.1.2) (2021-02-04)
+
+
+### Bug Fixes
+
+* package name ([2be92df](https://github.com/superluminar-io/super-eks/commit/2be92df2f5baa779174b211dd60dd369a4faaf77))
+
 ### 0.1.1 (2021-02-04)
 
 
