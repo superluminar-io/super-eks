@@ -80,6 +80,7 @@ export class SuperEks extends cdk.Construct {
     this.additionalNodegroups.push(this.addSuperEksNodegroup());
 
     this.addManagedVpcCniAddon();
+    this.hardenNodes();
 
     this.configureExternalDNS();
     this.configureAwsLoadBalancerController();
@@ -120,6 +121,37 @@ export class SuperEks extends cdk.Construct {
     // the service account must only be destroyed after destruction of all eks worker nodes
     this.cluster.defaultNodegroup?.node.addDependency(vpcCniAddon);
     this.additionalNodegroups.forEach((nodegroup) => {nodegroup.node.addDependency(vpcCniAddon); });
+  }
+
+  private hardenNodes() {
+    const policy = new iam.Policy(this, 'NodeHardeningPolicy', {
+      statements: [
+        new iam.PolicyStatement({
+          effect: iam.Effect.DENY,
+          actions: [
+            'ec2:AssignPrivateIpAddresses',
+            'ec2:AttachNetworkInterface',
+            'ec2:CreateNetworkInterface',
+            'ec2:DeleteNetworkInterface',
+            'ec2:DetachNetworkInterface',
+            'ec2:ModifyNetworkInterfaceAttribute',
+            'ec2:UnassignPrivateIpAddresses',
+          ],
+          resources: ['*'],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.DENY,
+          actions: ['ec2:CreateTags'],
+          resources: ['arn:aws:ec2:*:*:network-interface/*'],
+        }),
+      ],
+    });
+
+    if (this.cluster.defaultNodegroup?.role) {
+      policy.attachToRole(this.cluster.defaultNodegroup.role);
+    }
+
+    this.additionalNodegroups.forEach((nodeGroup) => policy.attachToRole(nodeGroup.role));
   }
 
   private configureExternalDNS(): void {
