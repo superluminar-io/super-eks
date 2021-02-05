@@ -10,10 +10,10 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :white_check_mark: Forwarding logs to CloudWatch Logs with [fluent-bit](https://github.com/aws/aws-for-fluent-bit)
 - :white_check_mark: Ingress management with the [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
 - :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
+- :white_check_mark: Hardened node setup, deny Nodes Roles from altering the VPC setup.
 
 ### :world_map:	Roadmap
 
-- :hammer_and_wrench: Hardened node setup
 - :hammer_and_wrench: Monitoring with Prometheus and CloudWatch
 - :hammer_and_wrench: Backup solution for cluster recovery
 - :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
