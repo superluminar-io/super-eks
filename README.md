@@ -146,6 +146,10 @@ nginx          nginx-67cb444d48-lqzkg                          1/1     Running  
 
 Voila! :tada: You now have a super EKS cluster with batteries included!
 
+## :open_book: API documentation
+
+See the [API documentation](./API.md) for details.
+
 ## :gear: Development
 
 - We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [here](docs/decisions) for the decisions made so far.
