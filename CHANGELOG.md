@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/superluminar-io/super-eks/compare/v0.1.6...v0.1.7) (2021-02-05)
+
+
+### Features
+
+* Harden NodeGroupRole by denying VPC actions. ([#37](https://github.com/superluminar-io/super-eks/issues/37)) ([8e6dabe](https://github.com/superluminar-io/super-eks/commit/8e6dabe36c3abbe8b8a9b45d40c2ec0637fa86bb))
+
 ### [0.1.6](https://github.com/superluminar-io/super-eks/compare/v0.1.5...v0.1.6) (2021-02-05)
 
 
