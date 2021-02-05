@@ -21,7 +21,7 @@ export interface SuperEksProps {
   readonly clusterProps?: eks.ClusterProps;
 
   /**
-   * Addiotional Roles that should be granted cluster admin privileges.
+   * Additional Roles that should be granted cluster admin privileges.
    * Can also be added manually after cluster creation by using `cluster.awsAuth.addMastersRole(role)`.
    */
   readonly adminRoles?: iam.IRole[];
@@ -60,7 +60,7 @@ export const defaultSuperEksProps = {
  * SuperEks wraps eks.Cluster to include batteries
  */
 export class SuperEks extends cdk.Construct {
-  private props: SuperEksProps
+  private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>
 
   readonly cluster: eks.Cluster
 
@@ -91,10 +91,7 @@ export class SuperEks extends cdk.Construct {
   }
 
   private configureCluster(): eks.Cluster {
-    return new eks.Cluster(this, 'EksCluster', {
-      version: eks.KubernetesVersion.V1_18,
-      vpc: this.props.clusterProps?.vpc,
-    });
+    return new eks.Cluster(this, 'EksCluster', this.props.clusterProps);
   }
 
   private addSuperEksNodegroup() : eks.Nodegroup {
@@ -136,7 +133,7 @@ export class SuperEks extends cdk.Construct {
     new AwsLoadBalancerController(this, 'AWSLoadBalancerController', {
       cluster: this.cluster,
       region: cdk.Stack.of(this).region,
-      vpcId: this.props.clusterProps?.vpc?.vpcId || this.cluster.vpc.vpcId,
+      vpcId: this.cluster.vpc.vpcId,
     });
   }
 

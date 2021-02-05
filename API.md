@@ -35,7 +35,7 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 * **id** (<code>string</code>)  *No description*
 * **props** (<code>[SuperEksProps](#superluminar-io-super-eks-supereksprops)</code>)  *No description*
   * **hostedZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  A hosted zone for DNS management. 
-  * **adminRoles** (<code>Array<[IRole](#aws-cdk-aws-iam-irole)></code>)  Addiotional Roles that should be granted cluster admin privileges. __*Optional*__
+  * **adminRoles** (<code>Array<[IRole](#aws-cdk-aws-iam-irole)></code>)  Additional Roles that should be granted cluster admin privileges. __*Optional*__
   * **clusterProps** (<code>[ClusterProps](#aws-cdk-aws-eks-clusterprops)</code>)  Wrapper for all cluster props>. __*Optional*__
   * **superEksNodegroupProps** (<code>[NodegroupOptions](#aws-cdk-aws-eks-nodegroupoptions)</code>)  Config for the Nodegroup created to host SuperEks specific workloads. __*Optional*__
 
@@ -63,7 +63,7 @@ Get merged with `defaultSuperEksProps`.
 Name | Type | Description 
 -----|------|-------------
 **hostedZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | A hosted zone for DNS management.
-**adminRoles**? | <code>Array<[IRole](#aws-cdk-aws-iam-irole)></code> | Addiotional Roles that should be granted cluster admin privileges.<br/>__*Optional*__
+**adminRoles**? | <code>Array<[IRole](#aws-cdk-aws-iam-irole)></code> | Additional Roles that should be granted cluster admin privileges.<br/>__*Optional*__
 **clusterProps**? | <code>[ClusterProps](#aws-cdk-aws-eks-clusterprops)</code> | Wrapper for all cluster props>.<br/>__*Optional*__
 **superEksNodegroupProps**? | <code>[NodegroupOptions](#aws-cdk-aws-eks-nodegroupoptions)</code> | Config for the Nodegroup created to host SuperEks specific workloads.<br/>__*Optional*__
 
