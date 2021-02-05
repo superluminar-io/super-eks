@@ -11,25 +11,50 @@ import { ExternalDNS } from './external-dns';
 import { FluentBit } from './fluent-bit';
 
 /**
- * Properties to configure SuperEks.
+ * Constructor properties for SuperEks.
+ * Get merged with `defaultSuperEksProps`.
  */
 export interface SuperEksProps {
+  /**
+ * Wrapper for all cluster props>
+ */
+  readonly clusterProps?: eks.ClusterProps;
+
+  /**
+   * Addiotional Roles that should be granted cluster admin privileges.
+   * Can also be added manually after cluster creation by using `cluster.awsAuth.addMastersRole(role)`.
+   */
+  readonly adminRoles?: iam.IRole[];
+
   /**
    * A hosted zone for DNS management. Records in this zone will be created for your workloads by 'external-dns'.
    */
   readonly hostedZone: IHostedZone;
+
   /**
-   * A VPC, otherwise a dedicated VPC will be created.
-   * @default - none
+   * Config for the Nodegroup created to host SuperEks specific workloads.
+   * If you override the `launchTemplateSpec` you're responsible for adding the necessary userdata to taint the nodes,
+   * see `../config/cluster#nodeTaintUserdata`
    */
-  readonly vpc?: ec2.IVpc;
-  /**
-   * A list of IAM roles for administrative access.
-   * The specified IAM roles will be added to the system:masters RBAC group,
-   * which means that anyone that can assume these will be able to administer this Kubernetes system.
-   */
-  readonly adminRoles?: iam.IRole[];
+  readonly superEksNodegroupProps?: eks.NodegroupOptions;
 }
+
+
+/**
+ * Default config for SuperEks
+ */
+export const defaultSuperEksProps = {
+  clusterProps: {
+    version: eks.KubernetesVersion.V1_18,
+  },
+  superEksNodegroupProps: {
+    nodegroupName: 'super-eks',
+    labels: SuperEksNodegroup.labels,
+    instanceTypes: [
+      ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE),
+    ],
+  },
+};
 
 /**
  * SuperEks wraps eks.Cluster to include batteries
@@ -43,7 +68,11 @@ export class SuperEks extends cdk.Construct {
 
   constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
     super(scope, id);
-    this.props = props;
+    this.props = {
+      ...props,
+      clusterProps: { ...defaultSuperEksProps.clusterProps, ...props.clusterProps },
+      superEksNodegroupProps: { ...defaultSuperEksProps.superEksNodegroupProps, ...props.superEksNodegroupProps },
+    };
 
     this.cluster = this.configureCluster();
     this.addAdminRoles();
@@ -58,17 +87,13 @@ export class SuperEks extends cdk.Construct {
   }
 
   private addAdminRoles() {
-    if (this.props.adminRoles) {
-      for (const role of this.props.adminRoles) {
-        this.cluster.awsAuth.addMastersRole(role);
-      }
-    }
+    this.props.adminRoles?.forEach((role) => this.cluster.awsAuth.addMastersRole(role));
   }
 
   private configureCluster(): eks.Cluster {
     return new eks.Cluster(this, 'EksCluster', {
       version: eks.KubernetesVersion.V1_18,
-      vpc: this.props.vpc,
+      vpc: this.props.clusterProps?.vpc,
     });
   }
 
@@ -80,12 +105,8 @@ export class SuperEks extends cdk.Construct {
     });
 
     return this.cluster.addNodegroupCapacity('SuperEksNodegroup', {
-      nodegroupName: 'super-eks',
-      labels: SuperEksNodegroup.labels,
-      instanceTypes: [
-        ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE),
-      ],
       launchTemplateSpec: { id: lt.ref, version: lt.attrLatestVersionNumber },
+      ...this.props.superEksNodegroupProps,
     });
   }
 
@@ -115,7 +136,7 @@ export class SuperEks extends cdk.Construct {
     new AwsLoadBalancerController(this, 'AWSLoadBalancerController', {
       cluster: this.cluster,
       region: cdk.Stack.of(this).region,
-      vpcId: this.props.vpc ? this.props.vpc?.vpcId : this.cluster.vpc.vpcId,
+      vpcId: this.props.clusterProps?.vpc?.vpcId || this.cluster.vpc.vpcId,
     });
   }
 
