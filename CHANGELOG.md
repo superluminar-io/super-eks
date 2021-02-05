@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/superluminar-io/super-eks/compare/v0.1.5...v0.1.6) (2021-02-05)
+
+
+### Features
+
+* **#30:** VPC CNI addon ([#31](https://github.com/superluminar-io/super-eks/issues/31)) ([d6934c0](https://github.com/superluminar-io/super-eks/commit/d6934c0c71d1dc209266294037407487db1931c8)), closes [#30](https://github.com/superluminar-io/super-eks/issues/30)
+
 ### [0.1.5](https://github.com/superluminar-io/super-eks/compare/v0.1.4...v0.1.5) (2021-02-04)
 
 ### [0.1.4](https://github.com/superluminar-io/super-eks/compare/v0.1.3...v0.1.4) (2021-02-04)
