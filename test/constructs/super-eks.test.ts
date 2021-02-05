@@ -39,6 +39,7 @@ test('It installs managed VPC CNI Addon', () => {
     },
   }));
 
+  // Default NodeGroup can be found by specifying abscense of `NodegroupName`
   expectCDK(stack).to(
     haveResourceLike('AWS::EKS::Nodegroup', {
       Properties: { NodegroupName: ABSENT },
