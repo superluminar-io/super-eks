@@ -6,6 +6,7 @@ import * as cdk from '@aws-cdk/core';
 
 import { SuperEksNodegroup, nodeTaintUserdata } from '../config/cluster';
 import { AwsLoadBalancerController } from './aws-load-balancer-controller';
+import { EksManagedAddon } from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
 import { FluentBit } from './fluent-bit';
 
@@ -38,6 +39,8 @@ export class SuperEks extends cdk.Construct {
 
   readonly cluster: eks.Cluster
 
+  readonly additionalNodegroups: eks.Nodegroup[] = []
+
   constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
     super(scope, id);
     this.props = props;
@@ -45,7 +48,9 @@ export class SuperEks extends cdk.Construct {
     this.cluster = this.configureCluster();
     this.addAdminRoles();
 
-    this.addSuperEksNodegroup();
+    this.additionalNodegroups.push(this.addSuperEksNodegroup());
+
+    this.addManagedVpcCniAddon();
 
     this.configureExternalDNS();
     this.configureAwsLoadBalancerController();
@@ -67,20 +72,36 @@ export class SuperEks extends cdk.Construct {
     });
   }
 
-  private addSuperEksNodegroup() {
-    const lt = new ec2.CfnLaunchTemplate(this, 'LaunchTemplate', {
+  private addSuperEksNodegroup() : eks.Nodegroup {
+    const lt = new ec2.CfnLaunchTemplate(this, 'SuperEksLaunchTemplate', {
       launchTemplateData: {
         userData: cdk.Fn.base64(nodeTaintUserdata(SuperEksNodegroup.taint)),
       },
     });
 
-    this.cluster.addNodegroupCapacity('SuperEksNodegroup', {
+    return this.cluster.addNodegroupCapacity('SuperEksNodegroup', {
+      nodegroupName: 'super-eks',
       labels: SuperEksNodegroup.labels,
       instanceTypes: [
         ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE),
       ],
       launchTemplateSpec: { id: lt.ref, version: lt.attrLatestVersionNumber },
     });
+  }
+
+  private addManagedVpcCniAddon() {
+    const vpcCniAddon = new EksManagedAddon(this, 'VpcCniAddon', {
+      cluster: this.cluster,
+      addonName: 'vpc-cni',
+      //addonVersion: 'v1.6.3-eksbuild.1',
+      //addonVersion: 'v1.7.5-eksbuild.1',
+      serviceAccountName: 'aws-node',
+      awsManagedPolicyName: 'AmazonEKS_CNI_Policy',
+    });
+
+    // the service account must only be destroyed after destruction of all eks worker nodes
+    this.cluster.defaultNodegroup?.node.addDependency(vpcCniAddon);
+    this.additionalNodegroups.forEach((nodegroup) => {nodegroup.node.addDependency(vpcCniAddon); });
   }
 
   private configureExternalDNS(): void {
