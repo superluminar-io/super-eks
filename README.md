@@ -51,7 +51,7 @@ npx cdk init sample-app --language typescript
 Now install the __super-eks__ library.
 
 ```
-npm @superluminar-io/super-eks
+npm i @superluminar-io/super-eks
 ```
 
 You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and __super-eks__ will take care of the rest.
