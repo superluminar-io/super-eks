@@ -63,6 +63,7 @@ npm i @aws-cdk/aws-route53
 Paste the snippet into `lib/super-eks-setup-stack.ts`.
 
 ```typescript
+import * as cdk from '@aws-cdk/core';
 import {HostedZone} from '@aws-cdk/aws-route53'
 import {SuperEks} from '@superluminar-io/super-eks'
 
@@ -71,12 +72,12 @@ export class SuperEksSetupStack extends cdk.Stack {
         super(scope, id, props);
 
         // Assumes you already have a Route53 zone in your account
-        hostedZone = HostedZone.fromLookup(this, 'MyZone', {
+        const hostedZone = HostedZone.fromLookup(this, 'MyZone', {
             domainName: 'example.com' // Your domain goes here
         });
 
         // Setup super-eks
-        const cluster = new SuperEks(this, 'hello-eks', {
+        const superEks = new SuperEks(this, 'hello-eks', {
             hostedZone: hostedZone,
         });
 
