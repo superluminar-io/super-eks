@@ -55,6 +55,11 @@ npm i @superluminar-io/super-eks
 ```
 
 You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and __super-eks__ will take care of the rest.
+
+```
+npm i @aws-cdk/aws-route53
+```
+
 Paste the snippet into `lib/super-eks-setup-stack.ts`.
 
 ```typescript
