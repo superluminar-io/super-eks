@@ -6,9 +6,11 @@ import * as cdk from '@aws-cdk/core';
 
 import { SuperEksNodegroup, nodeTaintUserdata } from '../config/cluster';
 import { AwsLoadBalancerController } from './aws-load-balancer-controller';
-import { EksManagedAddon } from './eks-managed-addon';
+import * as ema from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
 import { FluentBit } from './fluent-bit';
+
+export { VpcCniAddonVersion } from './eks-managed-addon';
 
 /**
  * Constructor properties for SuperEks.
@@ -16,8 +18,8 @@ import { FluentBit } from './fluent-bit';
  */
 export interface SuperEksProps {
   /**
- * Wrapper for all cluster props>
- */
+   * Wrapper for all cluster props>
+   */
   readonly clusterProps?: eks.ClusterProps;
 
   /**
@@ -37,8 +39,19 @@ export interface SuperEksProps {
    * see `../config/cluster#nodeTaintUserdata`
    */
   readonly superEksNodegroupProps?: eks.NodegroupOptions;
+
+  /**
+   * Specific properties for EKS managed add-ons
+   */
+  readonly addonProps?: AddonProps;
 }
 
+/**
+ * Specific properties for EKS managed add-ons
+ */
+export interface AddonProps {
+  readonly vpcCniAddonVersion?: ema.VpcCniAddonVersion;
+}
 
 /**
  * Default config for SuperEks
@@ -109,16 +122,15 @@ export class SuperEks extends cdk.Construct {
   }
 
   private addManagedVpcCniAddon() {
-    const vpcCniAddon = new EksManagedAddon(this, 'VpcCniAddon', {
+    const addonVersion = (
+      this.props.addonProps?.vpcCniAddonVersion ? { addonVersion: this.props.addonProps.vpcCniAddonVersion } : {}
+    );
+    const vpcCniAddon = new ema.VpcCniAddon(this, 'VpcCniAddon', {
       cluster: this.cluster,
-      addonName: 'vpc-cni',
-      //addonVersion: 'v1.6.3-eksbuild.1',
-      //addonVersion: 'v1.7.5-eksbuild.1',
-      serviceAccountName: 'aws-node',
-      awsManagedPolicyName: 'AmazonEKS_CNI_Policy',
+      ...addonVersion,
     });
 
-    // the service account must only be destroyed after destruction of all eks worker nodes
+    // the add-on must only be destroyed after destruction of all eks worker nodes
     this.cluster.defaultNodegroup?.node.addDependency(vpcCniAddon);
     this.additionalNodegroups.forEach((nodegroup) => {nodegroup.node.addDependency(vpcCniAddon); });
   }
