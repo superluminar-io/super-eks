@@ -46,6 +46,7 @@ Bootstrap your CDK project, we will use TypeScript, but you can switch to any ot
 
 ```
 npx cdk init sample-app --language typescript
+npx cdk bootstrap # Has to be done once for your AWS account
 ```
 
 Now install the __super-eks__ library.
