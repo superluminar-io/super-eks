@@ -908,10 +908,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@jsii/spec@^1.16.0", "@jsii/spec@^1.20.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.20.0.tgz#4154af2e10aa1364e906ae6ac70d073cc809a5e4"
-  integrity sha512-7KwIuFTAcT4N7tOBQSacaIK3TEkCrWjTHY1iSWh5VNF9Yrc5I6KQ/WmGa/5yC3jZThR3J/+z1H/IIUVPhfiUYw==
+"@jsii/spec@^1.16.0", "@jsii/spec@^1.20.0", "@jsii/spec@^1.22.0":
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.22.0.tgz#8c96a263ca9068590238323d8b689b4b9f13f0de"
+  integrity sha512-OI9LOxU3YhVyzUVvzh5nKDCalFZm0CjPaCdo6X/lL0TaVcpkYyJ8qDRuGF8WCW9PJEORkOhBwC7ySoFl/RVv9A==
   dependencies:
     jsonschema "^1.4.0"
 
@@ -4085,15 +4085,15 @@ jsesc@^2.5.1:
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
 jsii-diff@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/jsii-diff/-/jsii-diff-1.20.0.tgz#6afded5d3d2b65c13ae2faa47d5dc7ad06d095c2"
-  integrity sha512-1p4NGDxrraiWSoy+c+0KE9/Gs5Oi/5CdGAbb3+snr9oeIl9IjqDyhu9i3Q//nCpU4tnOgHEsNGs5Yn3dXoQFEA==
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/jsii-diff/-/jsii-diff-1.22.0.tgz#f306d4e6947e21e7960bb9605493ad719f4bda27"
+  integrity sha512-0MfVd+MXXyfrGR7RuGpZhChDQu74yrpj0QC3dRchgd9GDeorLbe+vUmYr188hHVSJU6F2KeXBEdKn2I+p60jIQ==
   dependencies:
-    "@jsii/spec" "^1.20.0"
+    "@jsii/spec" "^1.22.0"
     fs-extra "^9.1.0"
-    jsii-reflect "^1.20.0"
+    jsii-reflect "^1.22.0"
     log4js "^6.3.0"
-    typescript "~3.9.7"
+    typescript "~3.9.9"
     yargs "^16.2.0"
 
 jsii-docgen@^1.8.36:
@@ -4124,15 +4124,15 @@ jsii-pacmak@^1.20.0:
     xmlbuilder "^15.1.1"
     yargs "^16.2.0"
 
-jsii-reflect@^1.16.0, jsii-reflect@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/jsii-reflect/-/jsii-reflect-1.20.0.tgz#52870796922ace88cef0f471c4647bde5f5b4d5a"
-  integrity sha512-W3UBQLW2pVaWkdSBRnQJOSEtzsphypCaskxlW/dSPf0ikULjoSDOMdC6oJEUNp8uzYAdpXo/uFYJZnBDk+Dafw==
+jsii-reflect@^1.16.0, jsii-reflect@^1.20.0, jsii-reflect@^1.22.0:
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/jsii-reflect/-/jsii-reflect-1.22.0.tgz#1cbc696fea903e14ba97a162b221d69e542d57ee"
+  integrity sha512-EsPL/mXNaUsBeF50IHOMizX3R2B8mcKCBEhxvfptXpgMT6BzssNUK4v9MC7tY3c3fR8CNs2dr+I2Bqdgs0ogOg==
   dependencies:
-    "@jsii/spec" "^1.20.0"
+    "@jsii/spec" "^1.22.0"
     colors "^1.4.0"
     fs-extra "^9.1.0"
-    oo-ascii-tree "^1.20.0"
+    oo-ascii-tree "^1.22.0"
     yargs "^16.2.0"
 
 jsii-rosetta@^1.20.0:
@@ -4861,10 +4861,10 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-oo-ascii-tree@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/oo-ascii-tree/-/oo-ascii-tree-1.20.0.tgz#8327c7d354cdb0f1177680b90ac25c2c4b9cdee2"
-  integrity sha512-LUWabLSB7XYAzIz3QxuinYdaW0/WAJAifr/mlEH5PRjOLe37pBJ1H0aMSbpwZXYQR9bND57pT5JfLeItIbY2JA==
+oo-ascii-tree@^1.22.0:
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/oo-ascii-tree/-/oo-ascii-tree-1.22.0.tgz#d7ee24b55502ba51e48ff54596db3a851f0086c3"
+  integrity sha512-IoB8ybGGYKZ2hu4TQts9+AB2T4VHu3Bf896mOt3m1XzV9Xo5fZvO29rFn7Xfy3SaVzm6IjbaXGcxUcCHhz7hRQ==
 
 optionator@^0.8.1:
   version "0.8.3"
@@ -6308,10 +6308,10 @@ typescript@^4.1.0:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
   integrity sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
 
-typescript@~3.9.7:
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
-  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
+typescript@~3.9.7, typescript@~3.9.9:
+  version "3.9.9"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
+  integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
 
 uglify-js@^3.1.4:
   version "3.12.6"
