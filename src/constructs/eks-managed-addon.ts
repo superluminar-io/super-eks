@@ -3,18 +3,70 @@ import * as iam from '@aws-cdk/aws-iam';
 import * as cdk from '@aws-cdk/core';
 import * as cr from '@aws-cdk/custom-resources';
 
-export interface EksManagedAddonProps {
+export interface VpcCniAddonProps extends EksManagedAddonProps {
+  readonly addonVersion?: VpcCniAddonVersion;
+}
+
+interface EksManagedAddonProps {
+  readonly cluster: eks.Cluster;
+  readonly addonVersion?: AddonVersion;
+  readonly resolveConflicts?: boolean;
+  readonly namespace?: string;
+}
+
+abstract class AddonVersion {
+  // @ts-ignore
+  static of(version: string) { throw new Error('Implement static method of(version: string)!'); }
+
+  /**
+   * @param version add-on version
+   */
+  protected constructor(public readonly version: string) {}
+}
+
+/**
+ * vpc-cni add-on versions
+ */
+export class VpcCniAddonVersion extends AddonVersion {
+  /**
+   * vpc-cni version 1.6.3
+   */
+  public static readonly V1_6_3 = VpcCniAddonVersion.of('v1.6.3-eksbuild.1');
+
+  /**
+   * vpc-cni version 1.7.5
+   */
+  public static readonly V1_7_5 = VpcCniAddonVersion.of('v1.7.5-eksbuild.1');
+
+  /**
+   * vpc-cni version 1.7.6
+   */
+  public static readonly V1_7_6 = VpcCniAddonVersion.of('v1.7.6-eksbuild.1');
+
+  /**
+   * vpc-cni version 1.7.9
+   */
+  public static readonly V1_7_9 = VpcCniAddonVersion.of('v1.7.9-eksbuild.1');
+
+  /**
+   * Custom add-on version
+   * @param version custom add-on version
+   */
+  public static of(version: string) { return new VpcCniAddonVersion(version); }
+}
+
+interface EksManagedAddonAbstractProps {
   readonly cluster: eks.Cluster;
   readonly addonName: string;
-  readonly addonVersion?: string;
+  readonly addonVersion?: AddonVersion;
   readonly resolveConflicts?: boolean;
   readonly serviceAccountName?: string;
   readonly awsManagedPolicyName?: string;
   readonly namespace?: string;
 }
 
-export class EksManagedAddon extends cdk.Construct {
-  constructor(scope: cdk.Construct, id: string, props: EksManagedAddonProps) {
+abstract class EksManagedAddonAbstract extends cdk.Construct {
+  protected constructor(scope: cdk.Construct, id: string, props: EksManagedAddonAbstractProps) {
     super(scope, id);
 
     const cluster = props.cluster;
@@ -25,7 +77,7 @@ export class EksManagedAddon extends cdk.Construct {
       addonName: props.addonName,
       clusterName: cluster.clusterName,
     };
-    const addonVersionParameter = props.addonVersion ? { addonVersion: props.addonVersion } : {};
+    const addonVersionParameter = props.addonVersion ? { addonVersion: props.addonVersion.version } : {};
 
     let serviceAccountRoleParameter = {};
     let customResourcePassRoleStatement: iam.PolicyStatement[] = [];
@@ -92,3 +144,13 @@ export class EksManagedAddon extends cdk.Construct {
   }
 }
 
+export class VpcCniAddon extends EksManagedAddonAbstract {
+  constructor(scope: cdk.Construct, id: string, props: VpcCniAddonProps) {
+    super(scope, id, {
+      ...props,
+      addonName: 'vpc-cni',
+      serviceAccountName: 'aws-node',
+      awsManagedPolicyName: 'AmazonEKS_CNI_Policy',
+    });
+  }
+}
