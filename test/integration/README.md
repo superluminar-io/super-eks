@@ -8,6 +8,8 @@ They are made up of two CDK stacks:
 - the [integration test](lib/integration-tests-stack.ts) stack, exercises the `SuperEks` construct
 
 You can run them with the snippet below, make sure to have valid AWS credentials configured:
+
+```bash
+npm run integration-tests
 ```
-yarn run integration-tests
-```
+
