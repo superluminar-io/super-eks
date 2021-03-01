@@ -160,7 +160,7 @@ See the [API documentation](./API.md) for details.
 
 - We use [architecture decision records](https://github.com/joelparkerhenderson/architecture_decision_record/blob/master/adr_template_by_michael_nygard.md). See [here](docs/decisions) for the decisions made so far.
 - We use the [AWS Cloud Development Kit (CDK)](github.com/aws-cdk/cdk).
-- We use [projen](https://github.com/projen/projen/blob/main/API.md#projen-awscdkconstructlibrary). Don't edit package.json etc. Always make changes in [.projenrc.js](./.projenrc.js).
+- We use [projen](https://github.com/projen/projen/blob/main/API.md#projen-awscdkconstructlibrary) :heart:. Don't edit package.json etc. Always make changes in [.projenrc.js](./.projenrc.js).
 
 ## :question: FAQ
 
