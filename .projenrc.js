@@ -1,9 +1,19 @@
 const { AwsCdkConstructLibrary } = require('projen');
 
+const cdkDeps = [
+  '@aws-cdk/core',
+  '@aws-cdk/aws-eks',
+  '@aws-cdk/aws-iam',
+  '@aws-cdk/aws-route53',
+  '@aws-cdk/aws-ec2',
+  '@aws-cdk/custom-resources',
+];
+
+
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.88.0',
+  cdkVersion: '1.91.0',
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: '@superluminar-io/super-eks',
@@ -11,15 +21,8 @@ const project = new AwsCdkConstructLibrary({
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
-  cdkDependencies: [
-    '@aws-cdk/core',
-    '@aws-cdk/aws-eks',
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-route53',
-    '@aws-cdk/aws-ec2',
-    '@aws-cdk/custom-resources',
-  ], /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
-  // cdkTestDependencies: undefined,                                           /* AWS CDK modules required for testing. */
+  cdkTestDependencies: [...cdkDeps],
+  peerDeps: [...cdkDeps],
   // cdkVersionPinning: false,                                                 /* Use pinned version instead of caret version for CDK. */
 
   /* ConstructLibraryOptions */
