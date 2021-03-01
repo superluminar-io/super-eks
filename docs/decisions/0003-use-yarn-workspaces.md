@@ -4,7 +4,7 @@ Date: 01/02/2021
 
 ## Status
 
-Accepted
+Superseeded by [ADR-0006](./0006-use-projen.md)
 
 ## Context
 

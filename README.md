@@ -1,19 +1,19 @@
-# :superhero_woman:	super-eks
+# :superhero_woman: super-eks
 
 __super-eks__ is a [CDK]((github.com/aws-cdk/cdk)) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
-Even when using best practices for your EKS cluster, picking the right setup can be overwhelming. 
+Even when using best practices for your EKS cluster, picking the right setup can be overwhelming.
 __super-eks__ solves this problem by making a few choices for you as outlined below.
 
-### :sparkles: Features
+## :sparkles: Features
 
 - :white_check_mark: DNS management with [external-dns](https://github.com/kubernetes-sigs/external-dns)
 - :white_check_mark: Forwarding logs to CloudWatch Logs with [fluent-bit](https://github.com/aws/aws-for-fluent-bit)
 - :white_check_mark: Ingress management with the [AWS Load Balancer Controller](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
 - :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
 - :white_check_mark: Hardened node setup, deny nodes altering the VPC setup.
-- :white_check_mark: Default to [managed cluster add-ons](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html#update-cluster-add-ons) where possible. 
+- :white_check_mark: Default to [managed cluster add-ons](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html#update-cluster-add-ons) where possible.
 
-### :world_map:	Roadmap
+## :world_map: Roadmap
 
 - :hammer_and_wrench: Monitoring with Prometheus and CloudWatch
 - :hammer_and_wrench: Backup solution for cluster recovery
@@ -32,7 +32,6 @@ The quick start shows you how to setup a __super-eks__ cluster.
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to interact with your fresh cluster
 - An editor of your choice
 - Roughly 30 minutes of your time and a :coffee:, :tea: or :beverage_box:
-
 
 To get going you'll need a CDK project. For details please refer to the [detailed guide for CDK](https://docs.aws.amazon.com/cdk/latest/guide/hello_world.html).
 
@@ -177,7 +176,7 @@ It means, that __super-eks__ ships with all necessary parts. You don't need addi
 We try to include components, that are seen as community standards. On the other hand we choose components,
 that work best in combination with AWS.
 
-### Where are the advanced settings? I want to do things differently!
+### Where are the advanced settings? I want to do things differently
 
 __super-eks__ makes some decisions for you. If you want an expert setup maybe __super-eks__ isn't for you.
 If you believe core functionality is missing please open a GitHub issue.
@@ -191,3 +190,4 @@ We are planning to release a standalone one click Cloudformation installer in th
 **super-eks** is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 See [LICENSE](./LICENSE) for more information.
+

@@ -1,14 +1,4 @@
-const { AwsCdkConstructLibrary } = require('projen');
-
-const cdkDeps = [
-  '@aws-cdk/core',
-  '@aws-cdk/aws-eks',
-  '@aws-cdk/aws-iam',
-  '@aws-cdk/aws-route53',
-  '@aws-cdk/aws-ec2',
-  '@aws-cdk/custom-resources',
-];
-
+const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
 
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
@@ -21,8 +11,15 @@ const project = new AwsCdkConstructLibrary({
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
-  cdkTestDependencies: [...cdkDeps],
-  peerDeps: [...cdkDeps],
+  cdkDependencies: [
+    '@aws-cdk/core',
+    '@aws-cdk/aws-eks',
+    '@aws-cdk/aws-iam',
+    '@aws-cdk/aws-route53',
+    '@aws-cdk/aws-ec2',
+    '@aws-cdk/custom-resources',
+  ],
+  cdkDependenciesAsDeps: false,
   // cdkVersionPinning: false,                                                 /* Use pinned version instead of caret version for CDK. */
 
   /* ConstructLibraryOptions */
@@ -58,15 +55,14 @@ const project = new AwsCdkConstructLibrary({
   license: 'Apache-2.0', /* License's SPDX identifier. */
   licensed: true, /* Indicates if a license should be added. */
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion: '12.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
+  minNodeVersion: '14.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
   npmAccess: 'public', /* Access level of the npm package. */
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
   // npmTaskExecution: NpmTaskExecution.PROJEN,                                /* Determines how tasks are executed when invoked as npm scripts (yarn/npm run xyz). */
-  // packageManager: NodePackageManager.YARN,                                  /* The Node Package Manager used to execute scripts. */
+  packageManager: NodePackageManager.NPM, /* The Node Package Manager used to execute scripts. */
   // packageName: undefined,                                                   /* The "name" in package.json. */
   // peerDependencyOptions: undefined,                                         /* Options for `peerDeps`. */
-  // peerDeps: [],                                                             /* Peer dependencies for this module. */
   // projenCommand: 'npx projen',                                              /* The shell command to use in order to run the projen CLI. */
   // repository: undefined,                                                    /* The repository is the location where the actual code for your package lives. */
   // repositoryDirectory: undefined,                                           /* If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. */
