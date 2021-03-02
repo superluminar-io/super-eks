@@ -98,6 +98,8 @@ export class SuperEks extends cdk.Construct {
     this.configureExternalDNS();
     this.configureAwsLoadBalancerController();
     this.configureFluentBit();
+
+    this.addPodDisruptionBudgets();
   }
 
   private addAdminRoles() {
@@ -185,6 +187,26 @@ export class SuperEks extends cdk.Construct {
     new FluentBit(this, 'FluentBit', {
       cluster: this.cluster,
       region: cdk.Stack.of(this).region,
+    });
+  }
+
+  /**
+   * Adds PDBs to system workloads so that the cluster autoscaler can evict them.
+   */
+  private addPodDisruptionBudgets(): void {
+    this.cluster.addManifest('CoreDnsPDB', {
+      apiVersion: 'policy/v1beta1',
+      kind: 'PodDisruptionBudget',
+      metadata: {
+        name: 'coredns-pdb',
+        namespace: 'kube-system',
+      },
+      spec: {
+        maxUnavailable: 1,
+        selector: {
+          matchLabels: { 'eks.amazonaws.com/component': 'coredns' },
+        },
+      },
     });
   }
 }
