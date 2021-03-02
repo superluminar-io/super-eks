@@ -51,7 +51,7 @@
     "jsii-docgen": "^1.8.57",
     "jsii-pacmak": "^1.22.0",
     "json-schema": "^0.3.0",
-    "projen": "^0.16.24",
+    "projen": "^0.16.29",
     "source-map-support": "^0.5.19",
     "standard-version": "^9",
     "ts-jest": "^26.5.2",
