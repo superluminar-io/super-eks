@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/superluminar-io/super-eks/compare/v0.1.7...v0.1.8) (2021-03-03)
+
+
+### Features
+
+* Add PDBs for system workloads ([#66](https://github.com/superluminar-io/super-eks/issues/66)) ([4b21fc3](https://github.com/superluminar-io/super-eks/commit/4b21fc32f93a4803576151f351324020ccb84aeb)), closes [#59](https://github.com/superluminar-io/super-eks/issues/59)
+* **#45:** Expose Add-on Versions ([#53](https://github.com/superluminar-io/super-eks/issues/53)) ([f742350](https://github.com/superluminar-io/super-eks/commit/f74235062f6d76fd5414246226fe95544ca117a3)), closes [#45](https://github.com/superluminar-io/super-eks/issues/45) [#45](https://github.com/superluminar-io/super-eks/issues/45)
+
 ### [0.1.7](https://github.com/superluminar-io/super-eks/compare/v0.1.6...v0.1.7) (2021-02-05)
 
 
