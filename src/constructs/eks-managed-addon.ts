@@ -1,7 +1,6 @@
 import * as eks from '@aws-cdk/aws-eks';
 import * as iam from '@aws-cdk/aws-iam';
 import * as cdk from '@aws-cdk/core';
-import * as cr from '@aws-cdk/custom-resources';
 
 export interface VpcCniAddonProps extends EksManagedAddonProps {
   readonly addonVersion?: VpcCniAddonVersion;
@@ -65,22 +64,17 @@ interface EksManagedAddonAbstractProps {
   readonly namespace?: string;
 }
 
-abstract class EksManagedAddonAbstract extends cdk.Construct {
+abstract class EksManagedAddonAbstract extends eks.CfnAddon {
   protected constructor(scope: cdk.Construct, id: string, props: EksManagedAddonAbstractProps) {
-    super(scope, id);
-
     const cluster = props.cluster;
     const namespace = props.namespace || 'kube-system';
-    const resolveConflicts = props.resolveConflicts ? 'OVERWRITE' : 'NONE';
 
-    const baseParameters = {
-      addonName: props.addonName,
+    super(scope, id, {
       clusterName: cluster.clusterName,
-    };
-    const addonVersionParameter = props.addonVersion ? { addonVersion: props.addonVersion.version } : {};
-
-    let serviceAccountRoleParameter = {};
-    let customResourcePassRoleStatement: iam.PolicyStatement[] = [];
+      addonName: props.addonName,
+      addonVersion: props.addonVersion?.version,
+      resolveConflicts: props.resolveConflicts ? 'OVERWRITE' : 'NONE',
+    });
 
     if (props.serviceAccountName) {
       const serviceAccountRole = new iam.Role(this, 'ServiceAccountRole', {
@@ -98,49 +92,9 @@ abstract class EksManagedAddonAbstract extends cdk.Construct {
           iam.ManagedPolicy.fromAwsManagedPolicyName(props.awsManagedPolicyName),
         );
       }
-      serviceAccountRoleParameter = { serviceAccountRoleArn: serviceAccountRole.roleArn };
-      customResourcePassRoleStatement = [new iam.PolicyStatement({
-        actions: ['iam:PassRole'],
-        resources: [serviceAccountRole.roleArn],
-      })];
+
+      this.serviceAccountRoleArn = serviceAccountRole.roleArn;
     }
-
-    const createUpdateParameters = {
-      parameters: {
-        ...baseParameters,
-        ...serviceAccountRoleParameter,
-        ...addonVersionParameter,
-        resolveConflicts: resolveConflicts,
-      },
-      physicalResourceId: cr.PhysicalResourceId.of(`${cluster.clusterArn}/${props.addonName}`),
-    };
-
-    new cr.AwsCustomResource(this, 'ManagedAddon', {
-      onCreate: {
-        service: 'EKS',
-        action: 'createAddon',
-        ...createUpdateParameters,
-      },
-      onUpdate: {
-        service: 'EKS',
-        action: 'updateAddon',
-        ...createUpdateParameters,
-      },
-      onDelete: {
-        service: 'EKS',
-        action: 'deleteAddon',
-        parameters: baseParameters,
-      },
-      policy: {
-        statements: [
-          new iam.PolicyStatement({
-            actions: ['eks:CreateAddon', 'eks:UpdateAddon', 'eks:DeleteAddon'],
-            resources: ['*'],
-          }),
-          ...customResourcePassRoleStatement,
-        ],
-      },
-    });
   }
 }
 
