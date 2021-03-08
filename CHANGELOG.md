@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/superluminar-io/super-eks/compare/v0.1.8...v0.1.9) (2021-03-08)
+
+
+### Features
+
+* **#45:** Migrate add-on from custom resource to CfnAddon construct ([#76](https://github.com/superluminar-io/super-eks/issues/76)) ([6c200cc](https://github.com/superluminar-io/super-eks/commit/6c200ccc2500fedf99516363b41d6fab2fef2f1a)), closes [#45](https://github.com/superluminar-io/super-eks/issues/45)
+
 ### [0.1.8](https://github.com/superluminar-io/super-eks/compare/v0.1.7...v0.1.8) (2021-03-03)
 
 
