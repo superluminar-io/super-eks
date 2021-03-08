@@ -30,26 +30,21 @@ test('It installs managed VPC CNI Addon', () => {
   });
 
   // THEN
-  expect(stack).toHaveResourceLike('Custom::AWS', {
-    Create: {
-      service: 'EKS',
-      action: 'createAddon',
-      parameters: {
-        addonName: 'vpc-cni',
-      },
-    },
+  expect(stack).toHaveResourceLike('AWS::EKS::Addon', {
+    AddonName: 'vpc-cni',
+    ResolveConflicts: 'NONE',
   });
 
   // Default NodeGroup can be found by specifying abscense of `NodegroupName`
 
   expect(stack).toHaveResourceLike('AWS::EKS::Nodegroup', {
     Properties: { NodegroupName: ABSENT },
-    DependsOn: arrayWith(stringLike('*VpcCniAddonManagedAddon*')),
+    DependsOn: arrayWith(stringLike('*VpcCniAddon*')),
   }, ResourcePart.CompleteDefinition);
 
   expect(stack).toHaveResourceLike('AWS::EKS::Nodegroup', {
     Properties: { NodegroupName: 'super-eks' },
-    DependsOn: arrayWith(stringLike('*VpcCniAddonManagedAddon*')),
+    DependsOn: arrayWith(stringLike('*VpcCniAddon*')),
   }, ResourcePart.CompleteDefinition);
 });
 
