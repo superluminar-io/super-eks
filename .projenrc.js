@@ -8,6 +8,7 @@ const project = new AwsCdkConstructLibrary({
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: '@superluminar-io/super-eks',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
+  projenVersion: '^0.17.0',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
