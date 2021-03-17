@@ -2,37 +2,37 @@
   "dependencies": [
     {
       "name": "@aws-cdk/assert",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "build"
     },
     {
@@ -122,32 +122,32 @@
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.92.0",
+      "version": "^1.94.1",
       "type": "peer"
     },
     {

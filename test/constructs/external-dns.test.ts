@@ -18,7 +18,7 @@ describe('external-dns', () => {
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
-        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"dns","labels":{"aws.cdk.eks/prune-c8ae8f304ce17793844458eb788c9c1826f64aa2b7":""}}}]',
+        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"dns","labels":{"aws.cdk.eks/prune-c8666648720a6db5281710188904f5897ba739577b":""}}}]',
     });
   });
 

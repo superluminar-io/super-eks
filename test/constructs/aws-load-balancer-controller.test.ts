@@ -19,7 +19,7 @@ describe('aws-load-balancer-controller', () => {
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
-        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"ingress","labels":{"aws.cdk.eks/prune-c8a646187a7d662d1d5a9f492481cef60a65be742a":""}}}]',
+        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"ingress","labels":{"aws.cdk.eks/prune-c8666648720a6db5281710188904f5897ba739577b":""}}}]',
     });
   });
 

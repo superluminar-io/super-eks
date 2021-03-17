@@ -4,7 +4,8 @@ import * as iam from '@aws-cdk/aws-iam';
 import { IHostedZone } from '@aws-cdk/aws-route53';
 import * as cdk from '@aws-cdk/core';
 
-import { SuperEksNodegroup, nodeTaintUserdata } from '../config/cluster';
+import { InternalNodegroup } from '../config/cluster';
+import { NodeTaint } from '../types/cluster';
 import { AwsLoadBalancerController } from './aws-load-balancer-controller';
 import * as ema from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
@@ -58,11 +59,11 @@ export interface AddonProps {
  */
 export const defaultSuperEksProps = {
   clusterProps: {
-    version: eks.KubernetesVersion.V1_18,
+    version: eks.KubernetesVersion.V1_19,
   },
   superEksNodegroupProps: {
     nodegroupName: 'super-eks',
-    labels: SuperEksNodegroup.labels,
+    labels: InternalNodegroup.labels,
     instanceTypes: [
       ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE),
     ],
@@ -75,8 +76,19 @@ export const defaultSuperEksProps = {
 export class SuperEks extends cdk.Construct {
   private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>
 
+  /**
+   * The created cluster.
+   *
+   * @attribute
+   */
   readonly cluster: eks.Cluster
 
+  /**
+   * `eks.Nodegroup`s added to the cluster
+   * @attribute
+   *
+   * @default An internal `eks.Nodegroup` will be created for super-eks related workloads
+   */
   readonly additionalNodegroups: eks.Nodegroup[] = []
 
   constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
@@ -102,23 +114,37 @@ export class SuperEks extends cdk.Construct {
     this.addPodDisruptionBudgets();
   }
 
+  /**
+   * Generates `ec2.MultipartUserData` to attach to a `eks.Nodegroup` `ec2.LaunchTemplate`
+   * so that the Nodes are getting tainted with the given `NodeTaint`.
+   *
+   * @param taint the taint that should be applied to the Nodes.
+   */
+  nodeTaintUserdata(taint: NodeTaint): ec2.MultipartUserData {
+    const userdata = ec2.UserData.forLinux();
+    userdata.addCommands(`sed -i '/^KUBELET_EXTRA_ARGS=/a KUBELET_EXTRA_ARGS+=" --register-with-taints=${taint.key}=${taint.value}:${taint.effect}"' /etc/eks/bootstrap.sh`);
+
+    const multipart = new ec2.MultipartUserData();
+    multipart.addPart(ec2.MultipartBody.fromUserData(userdata));
+
+    return multipart;
+  }
+
   private addAdminRoles() {
     this.props.adminRoles?.forEach((role) => this.cluster.awsAuth.addMastersRole(role));
   }
 
   private configureCluster(): eks.Cluster {
-    return new eks.Cluster(this, 'EksCluster', this.props.clusterProps);
+    return new eks.Cluster(this, 'Resource', this.props.clusterProps);
   }
 
   private addSuperEksNodegroup() : eks.Nodegroup {
-    const lt = new ec2.CfnLaunchTemplate(this, 'SuperEksLaunchTemplate', {
-      launchTemplateData: {
-        userData: cdk.Fn.base64(nodeTaintUserdata(SuperEksNodegroup.taint)),
-      },
+    const lt = new ec2.LaunchTemplate(this, 'InternalNodegroupLaunchTemplate', {
+      userData: this.nodeTaintUserdata(InternalNodegroup.taint),
     });
 
-    return this.cluster.addNodegroupCapacity('SuperEksNodegroup', {
-      launchTemplateSpec: { id: lt.ref, version: lt.attrLatestVersionNumber },
+    return this.cluster.addNodegroupCapacity('InternalNodegroup', {
+      launchTemplateSpec: { id: lt.launchTemplateId!, version: lt.latestVersionNumber },
       ...this.props.superEksNodegroupProps,
     });
   }
