@@ -18,7 +18,7 @@ describe('fluent-bit', () => {
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
-        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"logging","labels":{"aws.cdk.eks/prune-c807348d0daee975eb2e4f53e89602b8c74d3364a8":""}}}]',
+        '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"logging","labels":{"aws.cdk.eks/prune-c8811d5d76d88f79ef9dda4ff4dada6049ce4c17a5":""}}}]',
     });
   });
 

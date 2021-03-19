@@ -2,7 +2,7 @@ import * as eks from '@aws-cdk/aws-eks';
 import * as iam from '@aws-cdk/aws-iam';
 import * as cdk from '@aws-cdk/core';
 
-import { SuperEksNodegroup } from '../config/cluster';
+import { InternalNodegroup } from '../config/cluster';
 import * as LBPolicy from './aws-load-balancer-controller-iam-policy.json';
 
 export interface AwsLoadBalancerControllerProps {
@@ -23,9 +23,11 @@ export class AwsLoadBalancerController extends cdk.Construct {
     const namespace = 'ingress';
 
     // Create service account
-    const serviceAccount = props.cluster.addServiceAccount(
-      'aws-load-balancer-controller',
+    const serviceAccount = new eks.ServiceAccount(
+      this,
+      'ServiceAccount',
       {
+        cluster: props.cluster,
         name: 'aws-load-balancer-controller',
         namespace: namespace,
       },
@@ -41,7 +43,7 @@ export class AwsLoadBalancerController extends cdk.Construct {
     // Install controller via Helm
     const chart = new eks.HelmChart(
       this,
-      'AwsLoadBalancerControllerHelmChart',
+      'Resource',
       {
         cluster: props.cluster,
         namespace: namespace,
@@ -57,19 +59,22 @@ export class AwsLoadBalancerController extends cdk.Construct {
             create: false,
             name: serviceAccount.serviceAccountName,
           },
-          tolerations: [SuperEksNodegroup.taint],
-          nodeSelector: SuperEksNodegroup.labels,
+          tolerations: [InternalNodegroup.taint],
+          nodeSelector: InternalNodegroup.labels,
         },
       },
     );
 
     // Create the namespace
-    const namespaceManifest = props.cluster.addManifest('ingress-namespace', {
-      apiVersion: 'v1',
-      kind: 'Namespace',
-      metadata: {
-        name: namespace,
-      },
+    const namespaceManifest = new eks.KubernetesManifest(this, 'Namespace', {
+      cluster: props.cluster,
+      manifest: [{
+        apiVersion: 'v1',
+        kind: 'Namespace',
+        metadata: {
+          name: namespace,
+        },
+      }],
     });
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);

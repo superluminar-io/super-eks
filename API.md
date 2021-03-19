@@ -13,7 +13,15 @@ Name|Description
 Name|Description
 ----|-----------
 [AddonProps](#superluminar-io-super-eks-addonprops)|Specific properties for EKS managed add-ons.
+[NodeTaint](#superluminar-io-super-eks-nodetaint)|Represents a Kubernetes taint.
 [SuperEksProps](#superluminar-io-super-eks-supereksprops)|Constructor properties for SuperEks.
+
+
+**Enums**
+
+Name|Description
+----|-----------
+[TaintEffect](#superluminar-io-super-eks-tainteffect)|Represents a Kubernetes taint effect.
 
 
 
@@ -49,8 +57,27 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 
 Name | Type | Description 
 -----|------|-------------
-**additionalNodegroups** | <code>Array<[Nodegroup](#aws-cdk-aws-eks-nodegroup)></code> | <span></span>
-**cluster** | <code>[Cluster](#aws-cdk-aws-eks-cluster)</code> | <span></span>
+**additionalNodegroups** | <code>Array<[Nodegroup](#aws-cdk-aws-eks-nodegroup)></code> | `eks.Nodegroup`s added to the cluster.
+**cluster** | <code>[Cluster](#aws-cdk-aws-eks-cluster)</code> | The created cluster.
+
+### Methods
+
+
+#### nodeTaintUserdata(taint) <a id="superluminar-io-super-eks-supereks-nodetaintuserdata"></a>
+
+Generates `ec2.MultipartUserData` to attach to a `eks.Nodegroup` `ec2.LaunchTemplate` so that the Nodes are getting tainted with the given `NodeTaint`.
+
+```ts
+nodeTaintUserdata(taint: NodeTaint): MultipartUserData
+```
+
+* **taint** (<code>[NodeTaint](#superluminar-io-super-eks-nodetaint)</code>)  the taint that should be applied to the Nodes.
+  * **effect** (<code>[TaintEffect](#superluminar-io-super-eks-tainteffect)</code>)  *No description* 
+  * **key** (<code>string</code>)  *No description* 
+  * **value** (<code>string</code>)  *No description* 
+
+__Returns__:
+* <code>[MultipartUserData](#aws-cdk-aws-ec2-multipartuserdata)</code>
 
 
 
@@ -114,6 +141,23 @@ Name | Type | Description
 
 
 
+## struct NodeTaint  <a id="superluminar-io-super-eks-nodetaint"></a>
+
+
+Represents a Kubernetes taint.
+
+See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**effect** | <code>[TaintEffect](#superluminar-io-super-eks-tainteffect)</code> | <span></span>
+**key** | <code>string</code> | <span></span>
+**value** | <code>string</code> | <span></span>
+
+
+
 ## struct SuperEksProps  <a id="superluminar-io-super-eks-supereksprops"></a>
 
 
@@ -131,5 +175,18 @@ Name | Type | Description
 **clusterProps**? | <code>[ClusterProps](#aws-cdk-aws-eks-clusterprops)</code> | Wrapper for all cluster props>.<br/>__*Optional*__
 **superEksNodegroupProps**? | <code>[NodegroupOptions](#aws-cdk-aws-eks-nodegroupoptions)</code> | Config for the Nodegroup created to host SuperEks specific workloads.<br/>__*Optional*__
 
+
+
+## enum TaintEffect  <a id="superluminar-io-super-eks-tainteffect"></a>
+
+Represents a Kubernetes taint effect.
+
+See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
+
+Name | Description
+-----|-----
+**NO_SCHEDULE** |
+**PREFER_NO_SCHEDULE** |
+**NO_EXECUTE** |
 
 

@@ -1,36 +1,14 @@
-export enum taintEffect {
-  NoSchedule = 'NoSchedule',
-  PreferNoSchedule = 'PreferNoSchedule',
-  NoExecute = 'NoExecute',
-}
+import { TaintEffect } from '../types/cluster';
 
-export interface NodeTaint {
-  key: string;
-  value: string;
-  effect: taintEffect;
-}
-
-export const SuperEksNodegroup = {
+/**
+ * Configuration for the Nodegroup used for internal workloads (e.g. DNS, LoadBalancerController).
+ */
+export const InternalNodegroup = {
   taint: {
     key: 'workload',
     value: 'super-eks',
-    effect: taintEffect.NoSchedule,
+    effect: TaintEffect.NO_SCHEDULE,
   },
   labels: { workload: 'super-eks' },
 };
 
-export function nodeTaintUserdata(taint: NodeTaint): string {
-  return `MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="==MYBOUNDARY=="
-
---==MYBOUNDARY==
-Content-Type: text/x-shellscript; charset="us-ascii"
-
-#!/bin/bash
-#!/bin/bash
-sed -i '/^KUBELET_EXTRA_ARGS=/a KUBELET_EXTRA_ARGS+=" --register-with-taints=${taint.key}=${taint.value}:${taint.effect}"' /etc/eks/bootstrap.sh
-
-
---==MYBOUNDARY==--\\
-`;
-}
