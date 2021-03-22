@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/superluminar-io/super-eks/compare/v0.1.9...v0.2.0) (2021-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Due to naming and scope problem, it's not possible to
+upgrade existing super-eks clusters without running into problems.
+If you can, it's probably easiest to just create a new stack and
+migrate your workloads.
+A normal update will try to create a new cluster and delete the old one
+which will lead to downtime.
+
+* CDK 1.94, naming, eks 1.19  ([#98](https://github.com/superluminar-io/super-eks/issues/98)) ([c5068c1](https://github.com/superluminar-io/super-eks/commit/c5068c1a1da867718ad4d205a6c93d4b68920cc9))
+
 ### [0.1.9](https://github.com/superluminar-io/super-eks/compare/v0.1.8...v0.1.9) (2021-03-08)
 
 
