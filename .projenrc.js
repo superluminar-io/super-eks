@@ -3,12 +3,12 @@ const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.94.1',
+  cdkVersion: '1.95.1',
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: '@superluminar-io/super-eks',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.17.0',
+  projenVersion: '^0.17.18',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
