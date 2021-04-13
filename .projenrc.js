@@ -3,7 +3,7 @@ const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.95.1',
+  cdkVersion: '1.98.0',
   defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: '@superluminar-io/super-eks',
@@ -105,9 +105,9 @@ const project = new AwsCdkConstructLibrary({
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
   // workflowBootstrapSteps: 'yarn install --frozen-lockfile && yarn projen',  /* Workflow steps to use in order to bootstrap this repo. */
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
-  // workflowNodeVersion: undefined,                                           /* The node version to use in GitHub workflows. */
+  workflowNodeVersion: '15.14.0', /* The node version to use in GitHub workflows. */
 
-  typescriptVersion: '^4.1.0',
+  typescriptVersion: '^4.2.0',
   /* ProjectOptions */
   // clobber: true,                                                            /* Add a `clobber` task which resets the repo to origin. */
   // devContainer: false,                                                      /* Add a VSCode development environment (used for GitHub Codespaces). */
