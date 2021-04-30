@@ -6,18 +6,19 @@
   },
   "scripts": {
     "clobber": "npx projen clobber",
+    "bump": "npx projen bump",
+    "unbump": "npx projen unbump",
     "compile": "npx projen compile",
     "test:compile": "npx projen test:compile",
     "test": "npx projen test",
     "build": "npx projen build",
-    "bump": "npx projen bump",
-    "release": "npx projen release",
     "test:watch": "npx projen test:watch",
     "test:update": "npx projen test:update",
     "projen:upgrade": "npx projen projen:upgrade",
     "watch": "npx projen watch",
     "package": "npx projen package",
     "eslint": "npx projen eslint",
+    "default": "npx projen default",
     "compat": "npx projen compat",
     "docgen": "npx projen docgen",
     "projen": "npx projen",
@@ -29,15 +30,15 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.98.0",
-    "@aws-cdk/aws-ec2": "^1.98.0",
-    "@aws-cdk/aws-eks": "^1.98.0",
-    "@aws-cdk/aws-iam": "^1.98.0",
-    "@aws-cdk/aws-route53": "^1.98.0",
-    "@aws-cdk/core": "^1.98.0",
-    "@aws-cdk/custom-resources": "^1.98.0",
+    "@aws-cdk/assert": "^1.101.0",
+    "@aws-cdk/aws-ec2": "^1.101.0",
+    "@aws-cdk/aws-eks": "^1.101.0",
+    "@aws-cdk/aws-iam": "^1.101.0",
+    "@aws-cdk/aws-route53": "^1.101.0",
+    "@aws-cdk/core": "^1.101.0",
+    "@aws-cdk/custom-resources": "^1.101.0",
     "@types/jest": "^26.0.21",
-    "@types/node": "^14.0.0",
+    "@types/node": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "eslint": "^7.23.0",
@@ -51,19 +52,20 @@
     "jsii-docgen": "^1.8.57",
     "jsii-pacmak": "^1.25.0",
     "json-schema": "^0.3.0",
-    "projen": "^0.17.18",
+    "projen": "^0.17.72",
     "source-map-support": "^0.5.19",
     "standard-version": "^9",
     "ts-jest": "^26.5.4",
-    "typescript": "^4.2.0"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-ec2": "^1.98.0",
-    "@aws-cdk/aws-eks": "^1.98.0",
-    "@aws-cdk/aws-iam": "^1.98.0",
-    "@aws-cdk/aws-route53": "^1.98.0",
-    "@aws-cdk/core": "^1.98.0",
-    "@aws-cdk/custom-resources": "^1.98.0",
+    "@aws-cdk/aws-ec2": "^1.101.0",
+    "@aws-cdk/aws-eks": "^1.101.0",
+    "@aws-cdk/aws-iam": "^1.101.0",
+    "@aws-cdk/aws-route53": "^1.101.0",
+    "@aws-cdk/core": "^1.101.0",
+    "@aws-cdk/custom-resources": "^1.101.0",
     "constructs": "^3.2.27"
   },
   "bundledDependencies": [],
@@ -75,14 +77,14 @@
     "kubernetes"
   ],
   "engines": {
-    "node": ">= 14.0.0"
+    "node": ">= 15.0.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "version": "0.2.1",
   "publishConfig": {
     "access": "public"
   },
+  "version": "0.0.0",
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.ts?(x)",
