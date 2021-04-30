@@ -1,14 +1,14 @@
-const { AwsCdkConstructLibrary, NodePackageManager } = require('projen');
+import { AwsCdkConstructLibrary, NodePackageManager, NpmAccess } from 'projen';
 
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.98.0',
+  cdkVersion: '1.101.0',
   defaultReleaseBranch: 'main',
-  jsiiFqn: 'projen.AwsCdkConstructLibrary',
+  projenrcTs: true,
   name: '@superluminar-io/super-eks',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.17.18',
+  projenVersion: '^0.17.72',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
@@ -56,8 +56,8 @@ const project = new AwsCdkConstructLibrary({
   license: 'Apache-2.0', /* License's SPDX identifier. */
   licensed: true, /* Indicates if a license should be added. */
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion: '14.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
-  npmAccess: 'public', /* Access level of the npm package. */
+  minNodeVersion: '15.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
+  npmAccess: NpmAccess.PUBLIC, /* Access level of the npm package. */
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
   // npmTaskExecution: NpmTaskExecution.PROJEN,                                /* Determines how tasks are executed when invoked as npm scripts (yarn/npm run xyz). */
@@ -107,7 +107,7 @@ const project = new AwsCdkConstructLibrary({
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
   workflowNodeVersion: '15.14.0', /* The node version to use in GitHub workflows. */
 
-  typescriptVersion: '^4.2.0',
+  typescriptVersion: '^4.2.4',
   /* ProjectOptions */
   // clobber: true,                                                            /* Add a `clobber` task which resets the repo to origin. */
   // devContainer: false,                                                      /* Add a VSCode development environment (used for GitHub Codespaces). */
