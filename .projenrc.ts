@@ -116,6 +116,13 @@ const project = new AwsCdkConstructLibrary({
   // parent: undefined,                                                        /* The parent project, if this project is part of a bigger project. */
   // projectType: ProjectType.UNKNOWN,                                         /* Which type of project this is (library/app). */
   // readme: undefined,                                                        /* The README setup. */
+  staleOptions: {
+
+    issues: {
+      daysBeforeStale: 14,
+      daysBeforeClose: 2,
+    },
+  },
 });
 
 project.synth();
