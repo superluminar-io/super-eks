@@ -2,37 +2,37 @@
   "dependencies": [
     {
       "name": "@aws-cdk/assert",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "build"
     },
     {
@@ -41,7 +41,7 @@
     },
     {
       "name": "@types/node",
-      "version": "^15.0.0",
+      "version": "^16.0.0",
       "type": "build"
     },
     {
@@ -98,8 +98,13 @@
       "type": "build"
     },
     {
+      "name": "npm-check-updates",
+      "version": "^11",
+      "type": "build"
+    },
+    {
       "name": "projen",
-      "version": "^0.17.72",
+      "version": "^0.29.11",
       "type": "build"
     },
     {
@@ -117,41 +122,42 @@
     },
     {
       "name": "ts-node",
+      "version": "^9",
       "type": "build"
     },
     {
       "name": "typescript",
-      "version": "^4.2.4",
+      "version": "^4.4.3",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.101.0",
+      "version": "^1.126.0",
       "type": "peer"
     },
     {
