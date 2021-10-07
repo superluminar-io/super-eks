@@ -1,192 +1,340 @@
-# API Reference
+# API Reference <a name="API Reference"></a>
 
-**Classes**
+## Constructs <a name="Constructs"></a>
 
-Name|Description
-----|-----------
-[SuperEks](#superluminar-io-super-eks-supereks)|SuperEks wraps eks.Cluster to include batteries.
-[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)|vpc-cni add-on versions.
-
-
-**Structs**
-
-Name|Description
-----|-----------
-[AddonProps](#superluminar-io-super-eks-addonprops)|Specific properties for EKS managed add-ons.
-[NodeTaint](#superluminar-io-super-eks-nodetaint)|Represents a Kubernetes taint.
-[SuperEksProps](#superluminar-io-super-eks-supereksprops)|Constructor properties for SuperEks.
-
-
-**Enums**
-
-Name|Description
-----|-----------
-[TaintEffect](#superluminar-io-super-eks-tainteffect)|Represents a Kubernetes taint effect.
-
-
-
-## class SuperEks  <a id="superluminar-io-super-eks-supereks"></a>
+### SuperEks <a name="@superluminar-io/super-eks.SuperEks"></a>
 
 SuperEks wraps eks.Cluster to include batteries.
 
-__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
-__Extends__: [Construct](#aws-cdk-core-construct)
+#### Initializers <a name="@superluminar-io/super-eks.SuperEks.Initializer"></a>
 
-### Initializer
+```typescript
+import { SuperEks } from '@superluminar-io/super-eks'
 
-
-
-
-```ts
 new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 ```
 
-* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
-* **id** (<code>string</code>)  *No description*
-* **props** (<code>[SuperEksProps](#superluminar-io-super-eks-supereksprops)</code>)  *No description*
-  * **hostedZone** (<code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code>)  A hosted zone for DNS management. 
-  * **addonProps** (<code>[AddonProps](#superluminar-io-super-eks-addonprops)</code>)  Specific properties for EKS managed add-ons. __*Optional*__
-  * **adminRoles** (<code>Array<[IRole](#aws-cdk-aws-iam-irole)></code>)  Additional Roles that should be granted cluster admin privileges. __*Optional*__
-  * **clusterProps** (<code>[ClusterProps](#aws-cdk-aws-eks-clusterprops)</code>)  Wrapper for all cluster props>. __*Optional*__
-  * **superEksNodegroupProps** (<code>[NodegroupOptions](#aws-cdk-aws-eks-nodegroupoptions)</code>)  Config for the Nodegroup created to host SuperEks specific workloads. __*Optional*__
+##### `scope`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.scope"></a>
 
+- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
 
+---
 
-### Properties
+##### `id`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.id"></a>
 
+- *Type:* `string`
 
-Name | Type | Description 
------|------|-------------
-**additionalNodegroups** | <code>Array<[Nodegroup](#aws-cdk-aws-eks-nodegroup)></code> | `eks.Nodegroup`s added to the cluster.
-**cluster** | <code>[Cluster](#aws-cdk-aws-eks-cluster)</code> | The created cluster.
+---
 
-### Methods
+##### `props`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.props"></a>
 
+- *Type:* [`@superluminar-io/super-eks.SuperEksProps`](#@superluminar-io/super-eks.SuperEksProps)
 
-#### nodeTaintUserdata(taint) <a id="superluminar-io-super-eks-supereks-nodetaintuserdata"></a>
+---
 
-Generates `ec2.MultipartUserData` to attach to a `eks.Nodegroup` `ec2.LaunchTemplate` so that the Nodes are getting tainted with the given `NodeTaint`.
+#### Methods <a name="Methods"></a>
 
-```ts
-nodeTaintUserdata(taint: NodeTaint): MultipartUserData
+##### `nodeTaintUserdata` <a name="@superluminar-io/super-eks.SuperEks.nodeTaintUserdata"></a>
+
+```typescript
+public nodeTaintUserdata(taint: NodeTaint)
 ```
 
-* **taint** (<code>[NodeTaint](#superluminar-io-super-eks-nodetaint)</code>)  the taint that should be applied to the Nodes.
-  * **effect** (<code>[TaintEffect](#superluminar-io-super-eks-tainteffect)</code>)  *No description* 
-  * **key** (<code>string</code>)  *No description* 
-  * **value** (<code>string</code>)  *No description* 
+###### `taint`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.taint"></a>
 
-__Returns__:
-* <code>[MultipartUserData](#aws-cdk-aws-ec2-multipartuserdata)</code>
+- *Type:* [`@superluminar-io/super-eks.NodeTaint`](#@superluminar-io/super-eks.NodeTaint)
 
+the taint that should be applied to the Nodes.
 
-
-## class VpcCniAddonVersion  <a id="superluminar-io-super-eks-vpccniaddonversion"></a>
-
-vpc-cni add-on versions.
+---
 
 
-### Initializer
+#### Properties <a name="Properties"></a>
 
+##### `additionalNodegroups`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.property.additionalNodegroups"></a>
 
-
-
-```ts
-new VpcCniAddonVersion(version: string)
+```typescript
+public readonly additionalNodegroups: Nodegroup[];
 ```
 
-* **version** (<code>string</code>)  add-on version.
+- *Type:* [`@aws-cdk/aws-eks.Nodegroup`](#@aws-cdk/aws-eks.Nodegroup)[]
+- *Default:* An internal `eks.Nodegroup` will be created for super-eks related workloads
 
+`eks.Nodegroup`s added to the cluster.
 
+---
 
-### Properties
+##### `cluster`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.property.cluster"></a>
 
-
-Name | Type | Description 
------|------|-------------
-**version** | <code>string</code> | add-on version.
-*static* **V1_6_3** | <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code> | vpc-cni version 1.6.3.
-*static* **V1_7_5** | <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code> | vpc-cni version 1.7.5.
-*static* **V1_7_6** | <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code> | vpc-cni version 1.7.6.
-*static* **V1_7_9** | <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code> | vpc-cni version 1.7.9.
-
-### Methods
-
-
-#### *static* of(version) <a id="superluminar-io-super-eks-vpccniaddonversion-of"></a>
-
-Custom add-on version.
-
-```ts
-static of(version: string): VpcCniAddonVersion
+```typescript
+public readonly cluster: Cluster;
 ```
 
-* **version** (<code>string</code>)  custom add-on version.
+- *Type:* [`@aws-cdk/aws-eks.Cluster`](#@aws-cdk/aws-eks.Cluster)
 
-__Returns__:
-* <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code>
+The created cluster.
+
+---
 
 
+## Structs <a name="Structs"></a>
 
-## struct AddonProps  <a id="superluminar-io-super-eks-addonprops"></a>
-
+### AddonProps <a name="@superluminar-io/super-eks.AddonProps"></a>
 
 Specific properties for EKS managed add-ons.
 
+#### Initializer <a name="[object Object].Initializer"></a>
 
+```typescript
+import { AddonProps } from '@superluminar-io/super-eks'
 
-Name | Type | Description 
------|------|-------------
-**vpcCniAddonVersion**? | <code>[VpcCniAddonVersion](#superluminar-io-super-eks-vpccniaddonversion)</code> | __*Optional*__
+const addonProps: AddonProps = { ... }
+```
 
+##### `vpcCniAddonVersion`<sup>Optional</sup> <a name="@superluminar-io/super-eks.AddonProps.property.vpcCniAddonVersion"></a>
 
+```typescript
+public readonly vpcCniAddonVersion: VpcCniAddonVersion;
+```
 
-## struct NodeTaint  <a id="superluminar-io-super-eks-nodetaint"></a>
+- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
 
+---
+
+### NodeTaint <a name="@superluminar-io/super-eks.NodeTaint"></a>
 
 Represents a Kubernetes taint.
 
 See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
 
+#### Initializer <a name="[object Object].Initializer"></a>
 
+```typescript
+import { NodeTaint } from '@superluminar-io/super-eks'
 
-Name | Type | Description 
------|------|-------------
-**effect** | <code>[TaintEffect](#superluminar-io-super-eks-tainteffect)</code> | <span></span>
-**key** | <code>string</code> | <span></span>
-**value** | <code>string</code> | <span></span>
+const nodeTaint: NodeTaint = { ... }
+```
 
+##### `effect`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.effect"></a>
 
+```typescript
+public readonly effect: TaintEffect;
+```
 
-## struct SuperEksProps  <a id="superluminar-io-super-eks-supereksprops"></a>
+- *Type:* [`@superluminar-io/super-eks.TaintEffect`](#@superluminar-io/super-eks.TaintEffect)
 
+---
+
+##### `key`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `value`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* `string`
+
+---
+
+### SuperEksProps <a name="@superluminar-io/super-eks.SuperEksProps"></a>
 
 Constructor properties for SuperEks.
 
 Get merged with `defaultSuperEksProps`.
 
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { SuperEksProps } from '@superluminar-io/super-eks'
+
+const superEksProps: SuperEksProps = { ... }
+```
+
+##### `hostedZone`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* [`@aws-cdk/aws-route53.IHostedZone`](#@aws-cdk/aws-route53.IHostedZone)
+
+A hosted zone for DNS management.
+
+Records in this zone will be created for your workloads by 'external-dns'.
+
+---
+
+##### `addonProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.addonProps"></a>
+
+```typescript
+public readonly addonProps: AddonProps;
+```
+
+- *Type:* [`@superluminar-io/super-eks.AddonProps`](#@superluminar-io/super-eks.AddonProps)
+
+Specific properties for EKS managed add-ons.
+
+---
+
+##### `adminRoles`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.adminRoles"></a>
+
+```typescript
+public readonly adminRoles: IRole[];
+```
+
+- *Type:* [`@aws-cdk/aws-iam.IRole`](#@aws-cdk/aws-iam.IRole)[]
+
+Additional Roles that should be granted cluster admin privileges.
+
+Can also be added manually after cluster creation by using `cluster.awsAuth.addMastersRole(role)`.
+
+---
+
+##### `clusterProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.clusterProps"></a>
+
+```typescript
+public readonly clusterProps: ClusterProps;
+```
+
+- *Type:* [`@aws-cdk/aws-eks.ClusterProps`](#@aws-cdk/aws-eks.ClusterProps)
+
+Wrapper for all cluster props>.
+
+---
+
+##### `superEksNodegroupProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps"></a>
+
+```typescript
+public readonly superEksNodegroupProps: NodegroupOptions;
+```
+
+- *Type:* [`@aws-cdk/aws-eks.NodegroupOptions`](#@aws-cdk/aws-eks.NodegroupOptions)
+
+Config for the Nodegroup created to host SuperEks specific workloads.
+
+If you override the `launchTemplateSpec` you're responsible for adding the necessary userdata to taint the nodes,
+see `../config/cluster#nodeTaintUserdata`
+
+---
+
+## Classes <a name="Classes"></a>
+
+### VpcCniAddonVersion <a name="@superluminar-io/super-eks.VpcCniAddonVersion"></a>
+
+vpc-cni add-on versions.
+
+#### Initializers <a name="@superluminar-io/super-eks.VpcCniAddonVersion.Initializer"></a>
+
+```typescript
+import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
+
+new VpcCniAddonVersion(version: string)
+```
+
+##### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.parameter.version"></a>
+
+- *Type:* `string`
+
+add-on version.
+
+---
 
 
-Name | Type | Description 
------|------|-------------
-**hostedZone** | <code>[IHostedZone](#aws-cdk-aws-route53-ihostedzone)</code> | A hosted zone for DNS management.
-**addonProps**? | <code>[AddonProps](#superluminar-io-super-eks-addonprops)</code> | Specific properties for EKS managed add-ons.<br/>__*Optional*__
-**adminRoles**? | <code>Array<[IRole](#aws-cdk-aws-iam-irole)></code> | Additional Roles that should be granted cluster admin privileges.<br/>__*Optional*__
-**clusterProps**? | <code>[ClusterProps](#aws-cdk-aws-eks-clusterprops)</code> | Wrapper for all cluster props>.<br/>__*Optional*__
-**superEksNodegroupProps**? | <code>[NodegroupOptions](#aws-cdk-aws-eks-nodegroupoptions)</code> | Config for the Nodegroup created to host SuperEks specific workloads.<br/>__*Optional*__
+#### Static Functions <a name="Static Functions"></a>
+
+##### `of` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.of"></a>
+
+```typescript
+import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
+
+VpcCniAddonVersion.of(version: string)
+```
+
+###### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.parameter.version"></a>
+
+- *Type:* `string`
+
+custom add-on version.
+
+---
+
+#### Properties <a name="Properties"></a>
+
+##### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* `string`
+
+add-on version.
+
+---
+
+#### Constants <a name="Constants"></a>
+
+##### `V1_6_3` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_6_3"></a>
+
+- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+
+vpc-cni version 1.6.3.
+
+---
+
+##### `V1_7_5` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_5"></a>
+
+- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+
+vpc-cni version 1.7.5.
+
+---
+
+##### `V1_7_6` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_6"></a>
+
+- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+
+vpc-cni version 1.7.6.
+
+---
+
+##### `V1_7_9` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_9"></a>
+
+- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+
+vpc-cni version 1.7.9.
+
+---
 
 
+## Enums <a name="Enums"></a>
 
-## enum TaintEffect  <a id="superluminar-io-super-eks-tainteffect"></a>
+### TaintEffect <a name="TaintEffect"></a>
 
 Represents a Kubernetes taint effect.
 
 See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
 
-Name | Description
------|-----
-**NO_SCHEDULE** |
-**PREFER_NO_SCHEDULE** |
-**NO_EXECUTE** |
+#### `NO_SCHEDULE` <a name="@superluminar-io/super-eks.TaintEffect.NO_SCHEDULE"></a>
 
+---
+
+
+#### `PREFER_NO_SCHEDULE` <a name="@superluminar-io/super-eks.TaintEffect.PREFER_NO_SCHEDULE"></a>
+
+---
+
+
+#### `NO_EXECUTE` <a name="@superluminar-io/super-eks.TaintEffect.NO_EXECUTE"></a>
+
+---
 

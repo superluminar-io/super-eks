@@ -1,14 +1,14 @@
-import { AwsCdkConstructLibrary, NodePackageManager, NpmAccess } from 'projen';
+import { AwsCdkConstructLibrary, NpmAccess } from 'projen';
 
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.101.0',
+  cdkVersion: '1.126.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.17.72',
+  projenVersion: '^0.29.11',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
@@ -56,12 +56,12 @@ const project = new AwsCdkConstructLibrary({
   license: 'Apache-2.0', /* License's SPDX identifier. */
   licensed: true, /* Indicates if a license should be added. */
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion: '15.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
+  minNodeVersion: '16.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
   npmAccess: NpmAccess.PUBLIC, /* Access level of the npm package. */
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
   // npmTaskExecution: NpmTaskExecution.PROJEN,                                /* Determines how tasks are executed when invoked as npm scripts (yarn/npm run xyz). */
-  packageManager: NodePackageManager.NPM, /* The Node Package Manager used to execute scripts. */
+  // packageManager: NodePackageManager.NPM, /* The Node Package Manager used to execute scripts. */
   // packageName: undefined,                                                   /* The "name" in package.json. */
   // peerDependencyOptions: undefined,                                         /* Options for `peerDeps`. */
   // projenCommand: 'npx projen',                                              /* The shell command to use in order to run the projen CLI. */
@@ -85,7 +85,6 @@ const project = new AwsCdkConstructLibrary({
   // jestOptions: undefined,                                                   /* Jest options. */
   // jsiiReleaseVersion: 'latest',                                             /* Version requirement of `jsii-release` which is used to publish modules to npm. */
   mergify: true, /* Adds mergify configuration. */
-  mergifyAutoMergeLabel: 'auto-merge', /* Automatically merge PRs that build successfully and have this label. */
   // mergifyOptions: undefined,                                                /* Options for mergify. */
   // npmignore: undefined,                                                     /* Additional entries to .npmignore. */
   // npmignoreEnabled: true,                                                   /* Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs. */
@@ -98,16 +97,16 @@ const project = new AwsCdkConstructLibrary({
   // pullRequestTemplateContents: undefined,                                   /* The contents of the pull request template. */
   // rebuildBot: undefined,                                                    /* Installs a GitHub workflow which is triggered when the comment "@projen rebuild" is added to a pull request. */
   // rebuildBotCommand: 'rebuild',                                             /* The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch. */
-  releaseBranches: [], /* Branches which trigger a release. */
+  // releaseBranches: [], /* Branches which trigger a release. */
   releaseEveryCommit: false, /* Automatically release new versions every commit to one of branches in `releaseBranches`. */
   // releaseSchedule: undefined,                                               /* CRON schedule to trigger new releases. */
   releaseToNpm: true, /* Automatically release to npm when new versions are introduced. */
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
   // workflowBootstrapSteps: 'yarn install --frozen-lockfile && yarn projen',  /* Workflow steps to use in order to bootstrap this repo. */
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
-  workflowNodeVersion: '15.14.0', /* The node version to use in GitHub workflows. */
+  workflowNodeVersion: '16.10.0', /* The node version to use in GitHub workflows. */
 
-  typescriptVersion: '^4.2.4',
+  typescriptVersion: '^4.4.3',
   /* ProjectOptions */
   // clobber: true,                                                            /* Add a `clobber` task which resets the repo to origin. */
   // devContainer: false,                                                      /* Add a VSCode development environment (used for GitHub Codespaces). */

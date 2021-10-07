@@ -31,7 +31,7 @@ export class ExternalDNS extends cdk.Construct {
 
     // Add IAM policy according to https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
     props.hostedZoneIds.forEach((hostedZoneId) =>
-      serviceAccount.addToPolicy(
+      serviceAccount.addToPrincipalPolicy(
         new iam.PolicyStatement({
           actions: [
             'route53:ChangeResourceRecordSets',
@@ -41,7 +41,7 @@ export class ExternalDNS extends cdk.Construct {
         }),
       ),
     );
-    serviceAccount.addToPolicy(
+    serviceAccount.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ['route53:ListHostedZones'],
         resources: ['*'],
