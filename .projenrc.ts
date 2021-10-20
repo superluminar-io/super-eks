@@ -35,29 +35,38 @@ const project = new AwsCdkConstructLibrary({
   // publishToGo: undefined,                                                   /* Publish Go bindings to a git repository. */
   // publishToMaven: undefined,                                                /* Publish to maven. */
   // publishToNuget: undefined,                                                /* Publish to NuGet. */
-  // publishToPypi: undefined,                                                 /* Publish to pypi. */
+  publishToPypi: {
+    distName: 'superluminar-io.super-eks',
+    module: 'superluminar_io.super_eks',
+  } /* Publish to pypi. */,
   // rootdir: '.',                                                             /* undefined */
 
   /* NodePackageOptions */
   // allowLibraryDependencies: true,                                           /* Allow the project to include `peerDependencies` and `bundledDependencies`. */
   // authorEmail: undefined,                                                   /* Author's e-mail. */
   // authorName: undefined,                                                    /* Author's name. */
-  authorOrganization: true, /* Author's Organization. */
-  authorUrl: 'https://superluminar.io', /* Author's URL / Website. */
+  authorOrganization: true /* Author's Organization. */,
+  authorUrl: 'https://superluminar.io' /* Author's URL / Website. */,
   // autoDetectBin: true,                                                      /* Automatically add all executables under the `bin` directory to your `package.json` file under the `bin` section. */
   // bin: undefined,                                                           /* Binary programs vended with your module. */
   // bundledDeps: undefined,                                                   /* List of dependencies to bundle into this module. */
   // deps: [],                                                                 /* Runtime dependencies of this module. */
   // description: undefined,                                                   /* The description is just a string that helps people understand the purpose of the package. */
-  devDeps: ['source-map-support'], /* Build dependencies for this module. */
+  devDeps: ['source-map-support'] /* Build dependencies for this module. */,
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
   // homepage: undefined,                                                      /* Package's Homepage / Website. */
-  keywords: ['k8s', 'eks', 'kubernetes', 'aws'], /* Keywords to include in `package.json`. */
-  license: 'Apache-2.0', /* License's SPDX identifier. */
-  licensed: true, /* Indicates if a license should be added. */
+  keywords: [
+    'k8s',
+    'eks',
+    'kubernetes',
+    'aws',
+  ] /* Keywords to include in `package.json`. */,
+  license: 'Apache-2.0' /* License's SPDX identifier. */,
+  licensed: true /* Indicates if a license should be added. */,
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion: '16.0.0', /* Minimum Node.js version to require via package.json `engines` (inclusive). */
-  npmAccess: NpmAccess.PUBLIC, /* Access level of the npm package. */
+  minNodeVersion:
+    '16.0.0' /* Minimum Node.js version to require via package.json `engines` (inclusive). */,
+  npmAccess: NpmAccess.PUBLIC /* Access level of the npm package. */,
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
   // npmTaskExecution: NpmTaskExecution.PROJEN,                                /* Determines how tasks are executed when invoked as npm scripts (yarn/npm run xyz). */
@@ -78,13 +87,13 @@ const project = new AwsCdkConstructLibrary({
   // codeCovTokenSecret: undefined,                                            /* Define the secret name for a specified https://codecov.io/ token A secret is required to send coverage for private repositories. */
   // copyrightOwner: undefined,                                                /* License copyright owner. */
   // copyrightPeriod: undefined,                                               /* The copyright years to put in the LICENSE file. */
-  dependabot: true, /* Include dependabot configuration. */
+  dependabot: true /* Include dependabot configuration. */,
   // dependabotOptions: undefined,                                             /* Options for dependabot. */
-  gitignore: ['cdk.out', '.idea/'], /* Additional entries to .gitignore. */
+  gitignore: ['cdk.out', '.idea/'] /* Additional entries to .gitignore. */,
   // jest: true,                                                               /* Setup jest unit tests. */
   // jestOptions: undefined,                                                   /* Jest options. */
   // jsiiReleaseVersion: 'latest',                                             /* Version requirement of `jsii-release` which is used to publish modules to npm. */
-  mergify: true, /* Adds mergify configuration. */
+  mergify: true /* Adds mergify configuration. */,
   // mergifyOptions: undefined,                                                /* Options for mergify. */
   // npmignore: undefined,                                                     /* Additional entries to .npmignore. */
   // npmignoreEnabled: true,                                                   /* Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs. */
@@ -98,13 +107,16 @@ const project = new AwsCdkConstructLibrary({
   // rebuildBot: undefined,                                                    /* Installs a GitHub workflow which is triggered when the comment "@projen rebuild" is added to a pull request. */
   // rebuildBotCommand: 'rebuild',                                             /* The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch. */
   // releaseBranches: [], /* Branches which trigger a release. */
-  releaseEveryCommit: false, /* Automatically release new versions every commit to one of branches in `releaseBranches`. */
+  releaseEveryCommit:
+    false /* Automatically release new versions every commit to one of branches in `releaseBranches`. */,
   // releaseSchedule: undefined,                                               /* CRON schedule to trigger new releases. */
-  releaseToNpm: true, /* Automatically release to npm when new versions are introduced. */
+  releaseToNpm:
+    true /* Automatically release to npm when new versions are introduced. */,
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
   // workflowBootstrapSteps: 'yarn install --frozen-lockfile && yarn projen',  /* Workflow steps to use in order to bootstrap this repo. */
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
-  workflowNodeVersion: '16.10.0', /* The node version to use in GitHub workflows. */
+  workflowNodeVersion:
+    '16.10.0' /* The node version to use in GitHub workflows. */,
 
   typescriptVersion: '^4.4.3',
   /* ProjectOptions */
@@ -117,7 +129,6 @@ const project = new AwsCdkConstructLibrary({
   // projectType: ProjectType.UNKNOWN,                                         /* Which type of project this is (library/app). */
   // readme: undefined,                                                        /* The README setup. */
   staleOptions: {
-
     issues: {
       daysBeforeStale: 14,
       daysBeforeClose: 2,
