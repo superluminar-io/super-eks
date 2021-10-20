@@ -21,6 +21,7 @@
     "default": "npx projen default",
     "compat": "npx projen compat",
     "publish:npm": "npx projen publish:npm",
+    "publish:pypi": "npx projen publish:pypi",
     "docgen": "npx projen docgen",
     "release": "npx projen release",
     "publish:git": "npx projen publish:git",
@@ -132,7 +133,12 @@
   "stability": "stable",
   "jsii": {
     "outdir": "dist",
-    "targets": {},
+    "targets": {
+      "python": {
+        "distName": "superluminar-io.super-eks",
+        "module": "superluminar_io.super_eks"
+      }
+    },
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"
