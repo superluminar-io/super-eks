@@ -1,4 +1,5 @@
 import { AwsCdkConstructLibrary, NpmAccess } from 'projen';
+import { ReleaseTrigger } from 'projen/lib/release';
 
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
@@ -107,9 +108,7 @@ const project = new AwsCdkConstructLibrary({
   // rebuildBot: undefined,                                                    /* Installs a GitHub workflow which is triggered when the comment "@projen rebuild" is added to a pull request. */
   // rebuildBotCommand: 'rebuild',                                             /* The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch. */
   // releaseBranches: [], /* Branches which trigger a release. */
-  releaseEveryCommit:
-    false /* Automatically release new versions every commit to one of branches in `releaseBranches`. */,
-  // releaseSchedule: undefined,                                               /* CRON schedule to trigger new releases. */
+  releaseTrigger: ReleaseTrigger.continuous(),
   releaseToNpm:
     true /* Automatically release to npm when new versions are introduced. */,
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
