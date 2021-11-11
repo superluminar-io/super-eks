@@ -1,5 +1,6 @@
 {
   "name": "@superluminar-io/super-eks",
+  "description": "super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.",
   "repository": {
     "type": "git",
     "url": "https://github.com/superluminar-io/super-eks.git"
