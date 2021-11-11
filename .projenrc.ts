@@ -8,7 +8,7 @@ const project = new AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
-  description: 'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included. ',
+  description: 'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
   projenVersion: '^0.29.11',
 
