@@ -12,7 +12,7 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.eslint.json"
+    "project": "./tsconfig.dev.json"
   },
   "extends": [
     "plugin:import/typescript"
@@ -27,7 +27,8 @@
     "import/resolver": {
       "node": {},
       "typescript": {
-        "project": "./tsconfig.eslint.json"
+        "project": "./tsconfig.dev.json",
+        "alwaysTryTypes": true
       }
     }
   },
@@ -38,7 +39,8 @@
     "node_modules/",
     "*.generated.ts",
     "coverage",
-    "!.projenrc.ts"
+    "!.projenrc.ts",
+    "!projenrc/**/*.ts"
   ],
   "rules": {
     "indent": [
@@ -146,7 +148,8 @@
         "devDependencies": [
           "**/test/**",
           "**/build-tools/**",
-          ".projenrc.ts"
+          ".projenrc.ts",
+          "projenrc/**/*.ts"
         ],
         "optionalDependencies": false,
         "peerDependencies": true

@@ -2,37 +2,37 @@
   "dependencies": [
     {
       "name": "@aws-cdk/assert",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "build"
     },
     {
@@ -104,7 +104,7 @@
     },
     {
       "name": "projen",
-      "version": "^0.29.11",
+      "version": "^0.34.8",
       "type": "build"
     },
     {
@@ -132,32 +132,32 @@
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.126.0",
+      "version": "^1.132.0",
       "type": "peer"
     },
     {
