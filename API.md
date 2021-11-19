@@ -199,6 +199,18 @@ Can also be added manually after cluster creation by using `cluster.awsAuth.addM
 
 ---
 
+##### `backup`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.backup"></a>
+
+```typescript
+public readonly backup: boolean;
+```
+
+- *Type:* `boolean`
+
+Enable backup with velero.
+
+---
+
 ##### `clusterProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.clusterProps"></a>
 
 ```typescript

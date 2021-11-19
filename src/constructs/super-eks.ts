@@ -10,6 +10,7 @@ import { AwsLoadBalancerController } from './aws-load-balancer-controller';
 import * as ema from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
 import { FluentBit } from './fluent-bit';
+import { VeleroBackup } from './velero-backup';
 
 export { VpcCniAddonVersion } from './eks-managed-addon';
 
@@ -45,6 +46,11 @@ export interface SuperEksProps {
    * Specific properties for EKS managed add-ons
    */
   readonly addonProps?: AddonProps;
+
+  /**
+   * Enable backup with velero
+   */
+  readonly backup?: boolean;
 }
 
 /**
@@ -112,6 +118,10 @@ export class SuperEks extends cdk.Construct {
     this.configureFluentBit();
 
     this.addPodDisruptionBudgets();
+
+    if (props.backup) {
+      this.addVeleroBackup();
+    }
   }
 
   /**
@@ -234,5 +244,12 @@ export class SuperEks extends cdk.Construct {
         },
       },
     });
+  }
+
+  /**
+   * Add velero backup to the cluster
+   */
+  private addVeleroBackup(): void {
+    new VeleroBackup(this, 'VeleroBackup', { cluster: this.cluster });
   }
 }
