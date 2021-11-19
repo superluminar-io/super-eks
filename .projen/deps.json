@@ -26,6 +26,11 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/aws-s3",
+      "version": "^1.132.0",
+      "type": "build"
+    },
+    {
       "name": "@aws-cdk/core",
       "version": "^1.132.0",
       "type": "build"
@@ -147,6 +152,11 @@
     },
     {
       "name": "@aws-cdk/aws-route53",
+      "version": "^1.132.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-s3",
       "version": "^1.132.0",
       "type": "peer"
     },

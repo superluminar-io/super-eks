@@ -16,10 +16,11 @@ const project = new AwsCdkConstructLibrary({
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
   cdkDependencies: [
     '@aws-cdk/core',
+    '@aws-cdk/aws-ec2',
     '@aws-cdk/aws-eks',
     '@aws-cdk/aws-iam',
     '@aws-cdk/aws-route53',
-    '@aws-cdk/aws-ec2',
+    '@aws-cdk/aws-s3',
     '@aws-cdk/custom-resources',
   ],
   cdkDependenciesAsDeps: false,
