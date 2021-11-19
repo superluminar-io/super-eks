@@ -4,13 +4,13 @@ import { ReleaseTrigger } from 'projen/lib/release';
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.126.0',
+  cdkVersion: '1.132.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
   description: 'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.29.11',
+  projenVersion: '^0.34.8',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
