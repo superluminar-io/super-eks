@@ -116,6 +116,41 @@ describe('schedule', () => {
     });
   });
 
+  test('simple schedule config', () => {
+    const stack = new Stack();
+    const cluster = new eks.Cluster(stack, 'EKS', {
+      version: eks.KubernetesVersion.V1_18,
+    });
+    new VeleroBackup(stack, 'Backup', {
+      cluster,
+      disableVolumeBackups: true,
+      schedule: {
+        default: {
+          schedule: '0 0 * * *',
+          annotations: {
+            annotation: 'test-annotation',
+          },
+          labels: {
+            label: 'test-label',
+          },
+          template: {
+            ttl: '240h',
+          },
+        },
+      },
+    });
+    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+      Values: objectLike({
+        'Fn::Join': [
+          '',
+          arrayWith(
+            stringLike('*"schedule":{"default":{"disabled":false,"schedule":"0 0 * * *","annotations":{"annotation":"test-annotation"},"labels":{"label":"test-label"},"template":{"ttl":"240h"}}}*'),
+          ),
+        ],
+      }),
+    });
+  });
+
   test('fails with invalid cron', () => {
     expect(() => {
       const stack = new Stack();
