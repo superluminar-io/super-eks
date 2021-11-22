@@ -31,12 +31,14 @@ export interface BackupSchedule {
   readonly template?: {[key: string]: string};
 }
 
-export interface VeleroBackupProps {
+export interface InternalVeleroBackupProps extends VeleroBackupProps {
   /**
    * The EKS cluster to install to
    */
   readonly cluster: eks.ICluster;
+}
 
+export interface VeleroBackupProps {
   /**
    * Set the namespace where velero should be deployed
    */
@@ -58,7 +60,7 @@ export interface VeleroBackupProps {
 export class VeleroBackup extends cdk.Construct {
   veleroBackup: eks.HelmChart;
 
-  constructor(scope: cdk.Construct, id: string, props: VeleroBackupProps) {
+  constructor(scope: cdk.Construct, id: string, props: InternalVeleroBackupProps) {
     super(scope, id);
 
     const namespace = props.namespace ?? 'backup';
