@@ -29,8 +29,7 @@ export class VeleroBackup extends cdk.Construct {
         cluster: props.cluster,
         namespace,
         repository: 'https://vmware-tanzu.github.io/helm-charts',
-        chart: 'vmware-tanzu/velero',
-        release: '',
+        chart: 'velero',
         values: {
           initContainers: [
             {
@@ -51,7 +50,6 @@ export class VeleroBackup extends cdk.Construct {
           configuration: {
             provider: 'aws',
             backupStorageLocation: {
-              name: 'manifests-default',
               bucket: backupBucket.bucketName,
               config: {
                 region: cdk.Stack.of(this).region,
@@ -101,6 +99,7 @@ export class VeleroBackup extends cdk.Construct {
         },
       }],
     });
+    chart.node.addDependency(serviceAccount);
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
   }

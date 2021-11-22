@@ -36,7 +36,7 @@ describe('velero-backup', () => {
         'Fn::Join': [
           '',
           arrayWith(
-            '{"initContainers":[{"name":"velero-plugin-for-aws","image":"velero/velero-plugin-for-aws:v1.3.0","imagePullPolicy":"IfNotPresent","volumeMounts":[{"mountPath":"/target","name":"plugins"}]}],"securityContext":{"fsGroup":65534},"configuration":{"provider":"aws","backupStorageLocation":{"name":"manifests-default","bucket":"',
+            '{"initContainers":[{"name":"velero-plugin-for-aws","image":"velero/velero-plugin-for-aws:v1.3.0","imagePullPolicy":"IfNotPresent","volumeMounts":[{"mountPath":"/target","name":"plugins"}]}],"securityContext":{"fsGroup":65534},"configuration":{"provider":"aws","backupStorageLocation":{"bucket":"',
             stringLike('*"serviceAccount":{"server":{"create":false,"name":"velero-backup"*'),
           ),
         ],
