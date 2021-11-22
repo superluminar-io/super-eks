@@ -55,7 +55,7 @@ describe('configured', () => {
     });
     new VeleroBackup(stack, 'Backup', {
       cluster,
-      namespace: expectedNamespace,
+      kubernetesNamespace: expectedNamespace,
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
       Namespace: expectedNamespace,

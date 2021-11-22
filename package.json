@@ -79,7 +79,9 @@
   "dependencies": {
     "cron-validate": "^1.4.3"
   },
-  "bundledDependencies": [],
+  "bundledDependencies": [
+    "cron-validate"
+  ],
   "keywords": [
     "aws",
     "cdk",

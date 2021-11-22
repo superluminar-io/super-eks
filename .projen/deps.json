@@ -136,6 +136,10 @@
       "type": "build"
     },
     {
+      "name": "cron-validate",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-cdk/aws-ec2",
       "version": "^1.132.0",
       "type": "peer"

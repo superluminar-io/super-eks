@@ -5,6 +5,9 @@ import * as cdk from '@aws-cdk/core';
 import cron from 'cron-validate';
 
 
+/**
+ * Properties for configuring a schedule for velero backups.
+ */
 export interface BackupSchedule {
   /**
    * Labels for the schedule
@@ -31,18 +34,14 @@ export interface BackupSchedule {
   readonly template?: {[key: string]: string};
 }
 
-export interface InternalVeleroBackupProps extends VeleroBackupProps {
-  /**
-   * The EKS cluster to install to
-   */
-  readonly cluster: eks.ICluster;
-}
-
+/**
+ * Properties for velero backup used to setup velero when setting up super eks.
+ */
 export interface VeleroBackupProps {
   /**
    * Set the namespace where velero should be deployed
    */
-  readonly namespace?: string;
+  readonly kubernetesNamespace?: string;
 
   /**
    * If set to true, backup of volumes are diabled
@@ -57,13 +56,24 @@ export interface VeleroBackupProps {
   readonly schedule?: {[name: string]: BackupSchedule};
 }
 
-export class VeleroBackup extends cdk.Construct {
-  veleroBackup: eks.HelmChart;
+/*
+ * Properties for velero backup used internally when super eks is set up.
+ *
+ * Can also be used for every other EKS setup.
+ */
+export interface VeleroBackupPropsWithCluster extends VeleroBackupProps {
+  /**
+   * The EKS cluster to install to
+   */
+  readonly cluster: eks.ICluster;
+}
 
-  constructor(scope: cdk.Construct, id: string, props: InternalVeleroBackupProps) {
+export class VeleroBackup extends cdk.Construct {
+
+  constructor(scope: cdk.Construct, id: string, props: VeleroBackupPropsWithCluster) {
     super(scope, id);
 
-    const namespace = props.namespace ?? 'backup';
+    const namespace = props.kubernetesNamespace ?? 'backup';
 
     const backupBucket = new s3.Bucket(this, 'BackupBucket', {});
     const serviceAccount = new eks.ServiceAccount(this, 'ServiceAccount', {
@@ -82,7 +92,7 @@ export class VeleroBackup extends cdk.Construct {
 
     const schedule = createVeleroSchedule(props.schedule);
 
-    this.veleroBackup = new eks.HelmChart(
+    const chart = new eks.HelmChart(
       this,
       'Resource',
       {
@@ -156,8 +166,8 @@ export class VeleroBackup extends cdk.Construct {
         },
       }],
     });
-    this.veleroBackup.node.addDependency(serviceAccount);
-    this.veleroBackup.node.addDependency(namespaceManifest);
+    chart.node.addDependency(serviceAccount);
+    chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
   }
 }

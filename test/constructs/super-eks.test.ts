@@ -151,3 +151,21 @@ test('It taints super-eks Nodes', () => {
     },
   });
 });
+
+test('It installs backup if requested', () => {
+  const app = new cdk.App();
+  const stack = new cdk.Stack(app, 'Stack', {
+    env: { region: 'eu-central-1', account: '1234567891011' },
+  });
+  // WHEN
+  new SuperEks(stack, 'TestCluster', {
+    hostedZone: route53.HostedZone.fromHostedZoneId(stack, 'HostedZone', '123'),
+    backupProps: {},
+  });
+
+  // THEN
+  expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    Namespace: 'backup',
+    Chart: 'velero',
+  });
+});
