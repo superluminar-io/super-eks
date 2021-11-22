@@ -8,13 +8,28 @@ export interface VeleroBackupProps {
    * The EKS cluster to install to
    */
   readonly cluster: eks.ICluster;
+
+  /**
+   * Set the namespace where velero should be deployed
+   */
+  readonly namespace?: string;
+
+  /**
+   * The schedule at which to run backups
+   */
+  readonly schedule?: string;
+
+  /**
+   * If set to true, backup of volumes are diabled
+   */
+  readonly disableVolumeBackups?: boolean;
 }
 
 export class VeleroBackup extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: VeleroBackupProps) {
     super(scope, id);
 
-    const namespace = 'backup';
+    const namespace = props.namespace ?? 'backup';
 
     const backupBucket = new s3.Bucket(this, 'BackupBucket', {});
     const serviceAccount = new eks.ServiceAccount(this, 'ServiceAccount', {
@@ -22,6 +37,14 @@ export class VeleroBackup extends cdk.Construct {
       namespace,
       name: 'velero-backup',
     });
+
+
+    const volumeSnapshotLocation = props.disableVolumeBackups !== true ? {
+      name: 'volumes',
+      config: {
+        region: cdk.Stack.of(this).region,
+      },
+    }: undefined;
     const chart = new eks.HelmChart(
       this,
       'Resource',
@@ -55,12 +78,7 @@ export class VeleroBackup extends cdk.Construct {
                 region: cdk.Stack.of(this).region,
               },
             },
-            volumeSnapshotLocation: {
-              name: 'volume-default',
-              config: {
-                region: cdk.Stack.of(this).region,
-              },
-            },
+            volumeSnapshotLocation,
           },
           serviceAccount: {
             server: {
