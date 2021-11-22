@@ -2,6 +2,34 @@ import * as eks from '@aws-cdk/aws-eks';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
+import cron from 'cron-validate';
+
+
+export interface BackupSchedule {
+  /**
+   * Labels for the schedule
+   *
+   * default: none
+   */
+  readonly labels?: {[key: string]: string};
+  /**
+   * Annotations for the schedule
+   *
+   * default: none
+   */
+  readonly annotations?: {[key: string]: string};
+  /**
+   * Schedule when to run
+   */
+  readonly schedule: string;
+
+  /**
+   * template for the schedule
+   *
+   * default: velero default values
+   */
+  readonly template?: {[key: string]: string};
+}
 
 export interface VeleroBackupProps {
   /**
@@ -15,17 +43,21 @@ export interface VeleroBackupProps {
   readonly namespace?: string;
 
   /**
-   * The schedule at which to run backups
-   */
-  readonly schedule?: string;
-
-  /**
    * If set to true, backup of volumes are diabled
    */
   readonly disableVolumeBackups?: boolean;
+
+  /**
+   * Set up a schedule and options when to run the backups
+   *
+   * default: disabled
+   */
+  readonly schedule?: {[name: string]: BackupSchedule};
 }
 
 export class VeleroBackup extends cdk.Construct {
+  veleroBackup: eks.HelmChart;
+
   constructor(scope: cdk.Construct, id: string, props: VeleroBackupProps) {
     super(scope, id);
 
@@ -45,7 +77,10 @@ export class VeleroBackup extends cdk.Construct {
         region: cdk.Stack.of(this).region,
       },
     }: undefined;
-    const chart = new eks.HelmChart(
+
+    const schedule = createVeleroSchedule(props.schedule);
+
+    this.veleroBackup = new eks.HelmChart(
       this,
       'Resource',
       {
@@ -86,9 +121,11 @@ export class VeleroBackup extends cdk.Construct {
               name: serviceAccount.serviceAccountName,
             },
           },
+          schedule,
         },
       },
     );
+
 
     backupBucket.grantReadWrite(serviceAccount);
     serviceAccount.addToPrincipalPolicy(new PolicyStatement(
@@ -117,8 +154,36 @@ export class VeleroBackup extends cdk.Construct {
         },
       }],
     });
-    chart.node.addDependency(serviceAccount);
-    chart.node.addDependency(namespaceManifest);
+    this.veleroBackup.node.addDependency(serviceAccount);
+    this.veleroBackup.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
   }
+}
+
+function createVeleroSchedule(schedules: {[name: string]: BackupSchedule} | undefined) {
+  if (!schedules) {
+    return undefined;
+  }
+  const result = Object.entries(schedules).map(
+    ([name, props]: [string, BackupSchedule]) => {
+      const validation = cron(props.schedule);
+      if (!validation.isValid()) {
+        throw new Error(`Schedule '${name}' does not have a valid cron expression ${validation.getError()}`);
+      }
+      const schedule: {[key: string]: any} = {
+        disabled: false,
+        schedule: props.schedule,
+      };
+      if (props.annotations) {
+        schedule.annotations = props.annotations;
+      }
+      if (props.labels) {
+        schedule.labels = props.labels;
+      }
+      if (props.template) {
+        schedule.template = props.template;
+      }
+      return [name, schedule];
+    });
+  return Object.fromEntries(result);
 }

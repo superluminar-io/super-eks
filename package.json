@@ -76,6 +76,9 @@
     "@aws-cdk/custom-resources": "^1.132.0",
     "constructs": "^3.2.27"
   },
+  "dependencies": {
+    "cron-validate": "^1.4.3"
+  },
   "bundledDependencies": [],
   "keywords": [
     "aws",
