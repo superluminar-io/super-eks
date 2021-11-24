@@ -140,6 +140,18 @@ const project = new AwsCdkConstructLibrary({
       target: 'ES2018',
     },
   },
+  githubOptions: {
+    pullRequestLintOptions: {
+      semanticTitleOptions: {
+        types: [
+          'feat',
+          'fix',
+          'chore',
+          'docs',
+        ],
+      },
+    },
+  },
 });
 
 project.synth();
