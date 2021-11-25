@@ -160,7 +160,7 @@ test('It installs backup if requested', () => {
   // WHEN
   new SuperEks(stack, 'TestCluster', {
     hostedZone: route53.HostedZone.fromHostedZoneId(stack, 'HostedZone', '123'),
-    backupProps: {},
+    backupEnabled: true,
   });
 
   // THEN

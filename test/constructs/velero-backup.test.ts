@@ -1,6 +1,7 @@
 import { arrayWith, objectLike, stringLike } from '@aws-cdk/assert';
 import '@aws-cdk/assert/jest';
 import * as eks from '@aws-cdk/aws-eks';
+import * as s3 from '@aws-cdk/aws-s3';
 import { Stack } from '@aws-cdk/core';
 import { VeleroBackup } from '../../src/constructs/velero-backup';
 
@@ -38,42 +39,57 @@ describe('default configuration', () => {
           arrayWith(
             '{"initContainers":[{"name":"velero-plugin-for-aws","image":"velero/velero-plugin-for-aws:v1.3.0","imagePullPolicy":"IfNotPresent","volumeMounts":[{"mountPath":"/target","name":"plugins"}]}],"securityContext":{"fsGroup":65534},"configuration":{"provider":"aws","backupStorageLocation":{"bucket":"',
             stringLike('*"serviceAccount":{"server":{"create":false,"name":"velero-backup"*'),
+            stringLike('"}}},"serviceAccount":{"server":{"create":false,"name":"velero-backup"}},"schedule":{"default":{"schedule":"0 0 * * *","disabled":false,"template":{"ttl":"720h","labelSelector":{"matchLabels":{"backup":"enabled"}}},"snapshotVolumes":false}}}'),
+          ),
+        ],
+      }),
+    });
+    expect(stack).not.toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+      Values: objectLike({
+        'Fn::Join': [
+          '',
+          arrayWith(
             stringLike('*"volumeSnapshotLocation":*'),
           ),
         ],
       }),
     });
+    expect(stack).toHaveResource('AWS::S3::Bucket', {});
   });
 });
 
 describe('configured', () => {
-  test('namespace is "backup"', () => {
-    const expectedNamespace = 'test-namespace';
+  test('chart is configured correctly with default values', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
       version: eks.KubernetesVersion.V1_18,
     });
     new VeleroBackup(stack, 'Backup', {
       cluster,
-      kubernetesNamespace: expectedNamespace,
+      enableVolumeBackups: true,
     });
+
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
-      Namespace: expectedNamespace,
+      Values: objectLike({
+        'Fn::Join': [
+          '',
+          arrayWith(
+            stringLike('*"volumeSnapshotLocation":*'),
+          ),
+        ],
+      }),
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
-      Manifest:
-        `[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"${expectedNamespace}","labels":{"aws.cdk.eks/prune-c89fadb6af4bc58b0c22456b049e49a28d0fedd3e0":""}}}]`,
-    });
+    expect(stack).toHaveResource('AWS::S3::Bucket', {});
   });
 
-  test('chart is configured correctly', () => {
+  test('chart is configured correctly with bucket', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
       version: eks.KubernetesVersion.V1_18,
     });
     new VeleroBackup(stack, 'Backup', {
       cluster,
-      disableVolumeBackups: true,
+      bucket: s3.Bucket.fromBucketName(stack, 'Bucket', 'bucket-name'),
     });
 
     expect(stack).not.toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
@@ -86,65 +102,46 @@ describe('configured', () => {
         ],
       }),
     });
+    expect(stack).not.toHaveResource('AWS::S3::Bucket', {});
   });
 });
 
 describe('schedule', () => {
-  test('simple schedule config', () => {
+  test('custom schedule config', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
       version: eks.KubernetesVersion.V1_18,
     });
     new VeleroBackup(stack, 'Backup', {
       cluster,
-      disableVolumeBackups: true,
-      schedule: {
-        default: {
-          schedule: '0 0 * * *',
-        },
-      },
+      schedule: '0 1 * * *',
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
       Values: objectLike({
         'Fn::Join': [
           '',
           arrayWith(
-            stringLike('*"schedule":{"default":{"disabled":false,"schedule":"0 0 * * *"}}*'),
+            stringLike('*"schedule":{"default":{"schedule":"0 1 * * *","disabled":false,"template":{"ttl":"720h","labelSelector":{"matchLabels":{"backup":"enabled"}}}*'),
           ),
         ],
       }),
     });
   });
 
-  test('simple schedule config', () => {
+  test('default schedule config', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
       version: eks.KubernetesVersion.V1_18,
     });
     new VeleroBackup(stack, 'Backup', {
       cluster,
-      disableVolumeBackups: true,
-      schedule: {
-        default: {
-          schedule: '0 0 * * *',
-          annotations: {
-            annotation: 'test-annotation',
-          },
-          labels: {
-            label: 'test-label',
-          },
-          template: {
-            ttl: '240h',
-          },
-        },
-      },
     });
     expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
       Values: objectLike({
         'Fn::Join': [
           '',
           arrayWith(
-            stringLike('*"schedule":{"default":{"disabled":false,"schedule":"0 0 * * *","annotations":{"annotation":"test-annotation"},"labels":{"label":"test-label"},"template":{"ttl":"240h"}}}*'),
+            stringLike('*"schedule":{"default":{"schedule":"0 0 * * *","disabled":false,"template":{"ttl":"720h","labelSelector":{"matchLabels":{"backup":"enabled"}}}*'),
           ),
         ],
       }),
@@ -159,12 +156,8 @@ describe('schedule', () => {
       });
       new VeleroBackup(stack, 'Backup', {
         cluster,
-        disableVolumeBackups: true,
-        schedule: {
-          default: {
-            schedule: 'invalid',
-          },
-        },
+        enableVolumeBackups: true,
+        schedule: 'invalid',
       });
     },
     ).toThrowError();

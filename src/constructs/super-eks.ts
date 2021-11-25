@@ -2,6 +2,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as eks from '@aws-cdk/aws-eks';
 import * as iam from '@aws-cdk/aws-iam';
 import { IHostedZone } from '@aws-cdk/aws-route53';
+import * as s3 from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 
 import { InternalNodegroup } from '../config/cluster';
@@ -10,7 +11,7 @@ import { AwsLoadBalancerController } from './aws-load-balancer-controller';
 import * as ema from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
 import { FluentBit } from './fluent-bit';
-import { VeleroBackup, VeleroBackupProps } from './velero-backup';
+import { VeleroBackup } from './velero-backup';
 
 export { VpcCniAddonVersion } from './eks-managed-addon';
 
@@ -49,8 +50,31 @@ export interface SuperEksProps {
 
   /**
    * If set, enables backup with velero.
+   *
+   * @default false
    */
-  readonly backupProps?: VeleroBackupProps;
+  readonly backupEnabled?: boolean;
+
+  /**
+   * If set, this bucket will be used for manifest backups.
+   *
+   * @default a bucket will be created
+   */
+  readonly backupBucket?: s3.IBucket;
+
+  /**
+   * If set to true, backup of volumes are enabled
+   *
+   * @default false
+   */
+  readonly enableVolumeBackups?: boolean;
+
+  /**
+   * Set up a schedule and options when to run the backups
+   *
+   * @default every day at midnight ('0 0 * * *')
+   */
+  readonly schedule?: string;
 }
 
 /**
@@ -119,8 +143,8 @@ export class SuperEks extends cdk.Construct {
 
     this.addPodDisruptionBudgets();
 
-    if (props.backupProps) {
-      this.addVeleroBackup(props.backupProps);
+    if (props.backupEnabled) {
+      this.addVeleroBackup(props);
     }
   }
 
@@ -249,12 +273,14 @@ export class SuperEks extends cdk.Construct {
   /**
    * Add velero backup to the cluster
    */
-  private addVeleroBackup(backupProps: VeleroBackupProps): void {
+  private addVeleroBackup(props: SuperEksProps): void {
     new VeleroBackup(
       this,
       'VeleroBackup',
       {
-        ...backupProps,
+        bucket: props.backupBucket,
+        schedule: props.schedule,
+        enableVolumeBackups: props.enableVolumeBackups,
         cluster: this.cluster,
       },
     );

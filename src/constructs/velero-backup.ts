@@ -1,71 +1,42 @@
 import * as eks from '@aws-cdk/aws-eks';
 import { Effect, PolicyStatement } from '@aws-cdk/aws-iam';
 import * as s3 from '@aws-cdk/aws-s3';
+import { IBucket } from '@aws-cdk/aws-s3';
 import * as cdk from '@aws-cdk/core';
 import cron from 'cron-validate';
 
-
-/**
- * Properties for configuring a schedule for velero backups.
- */
-export interface BackupSchedule {
-  /**
-   * Labels for the schedule
-   *
-   * default: none
-   */
-  readonly labels?: {[key: string]: string};
-  /**
-   * Annotations for the schedule
-   *
-   * default: none
-   */
-  readonly annotations?: {[key: string]: string};
-  /**
-   * Schedule when to run
-   */
-  readonly schedule: string;
-
-  /**
-   * template for the schedule
-   *
-   * default: velero default values
-   */
-  readonly template?: {[key: string]: string};
-}
-
-/**
- * Properties for velero backup used to setup velero when setting up super eks.
- */
-export interface VeleroBackupProps {
-  /**
-   * Set the namespace where velero should be deployed
-   */
-  readonly kubernetesNamespace?: string;
-
-  /**
-   * If set to true, backup of volumes are diabled
-   */
-  readonly disableVolumeBackups?: boolean;
-
-  /**
-   * Set up a schedule and options when to run the backups
-   *
-   * default: disabled
-   */
-  readonly schedule?: {[name: string]: BackupSchedule};
-}
 
 /*
  * Properties for velero backup used internally when super eks is set up.
  *
  * Can also be used for every other EKS setup.
  */
-export interface VeleroBackupPropsWithCluster extends VeleroBackupProps {
+export interface VeleroBackupPropsWithCluster {
   /**
    * The EKS cluster to install to
    */
   readonly cluster: eks.ICluster;
+
+  /**
+   * If set to true, backup of volumes are enabled
+   *
+   * @default false
+   */
+  readonly enableVolumeBackups?: boolean;
+
+  /**
+   * Set up a schedule and options when to run the backups
+   *
+   * @default every day at midnight ('0 0 * * *')
+   */
+  readonly schedule?: string;
+
+  /**
+   * If provided, this bucket is used for backups.
+   *
+   * @default a bucket will be created
+   */
+  readonly bucket?: IBucket;
 }
 
 export class VeleroBackup extends cdk.Construct {
@@ -73,9 +44,9 @@ export class VeleroBackup extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: VeleroBackupPropsWithCluster) {
     super(scope, id);
 
-    const namespace = props.kubernetesNamespace ?? 'backup';
+    const namespace = 'backup';
 
-    const backupBucket = new s3.Bucket(this, 'BackupBucket', {});
+    const backupBucket = props.bucket ? props.bucket : new s3.Bucket(this, 'BackupBucket', {});
     const serviceAccount = new eks.ServiceAccount(this, 'ServiceAccount', {
       cluster: props.cluster,
       namespace,
@@ -83,14 +54,14 @@ export class VeleroBackup extends cdk.Construct {
     });
 
 
-    const volumeSnapshotLocation = props.disableVolumeBackups !== true ? {
+    const volumeSnapshotLocation = props.enableVolumeBackups == true ? {
       name: 'volumes',
       config: {
         region: cdk.Stack.of(this).region,
       },
     }: undefined;
 
-    const schedule = createVeleroSchedule(props.schedule);
+    const schedule = createVeleroSchedule(props.schedule, props.enableVolumeBackups);
 
     const chart = new eks.HelmChart(
       this,
@@ -172,30 +143,32 @@ export class VeleroBackup extends cdk.Construct {
   }
 }
 
-function createVeleroSchedule(schedules: {[name: string]: BackupSchedule} | undefined) {
-  if (!schedules) {
-    return undefined;
+function createVeleroSchedule(schedule?: string, enableVolumeBackups?: boolean) {
+  if (schedule && !cron(schedule).isValid()) {
+    throw new Error(`invalid cron expression provided ${cron(schedule).getError()}`);
   }
-  const result = Object.entries(schedules).map(
-    ([name, props]: [string, BackupSchedule]) => {
-      const validation = cron(props.schedule);
-      if (!validation.isValid()) {
-        throw new Error(`Schedule '${name}' does not have a valid cron expression ${validation.getError()}`);
-      }
-      const schedule: {[key: string]: any} = {
-        disabled: false,
-        schedule: props.schedule,
-      };
-      if (props.annotations) {
-        schedule.annotations = props.annotations;
-      }
-      if (props.labels) {
-        schedule.labels = props.labels;
-      }
-      if (props.template) {
-        schedule.template = props.template;
-      }
-      return [name, schedule];
-    });
-  return Object.fromEntries(result);
+  const cronSchedule = schedule ? schedule : '0 0 * * *';
+  const volumeSettings = enableVolumeBackups?{
+    storageLocation: 'volumes',
+    volumeSnapshotLocations: [
+      'default',
+    ],
+  }: {};
+
+  return {
+    default: {
+      schedule: cronSchedule,
+      disabled: false,
+      template: {
+        ttl: '720h',
+        labelSelector: {
+          matchLabels: {
+            backup: 'enabled',
+          },
+        },
+      },
+      snapshotVolumes: enableVolumeBackups ? true : false,
+      ...volumeSettings,
+    },
+  };
 }

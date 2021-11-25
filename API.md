@@ -77,38 +77,6 @@ The created cluster.
 ---
 
 
-### VeleroBackup <a name="@superluminar-io/super-eks.VeleroBackup"></a>
-
-#### Initializers <a name="@superluminar-io/super-eks.VeleroBackup.Initializer"></a>
-
-```typescript
-import { VeleroBackup } from '@superluminar-io/super-eks'
-
-new VeleroBackup(scope: Construct, id: string, props: VeleroBackupPropsWithCluster)
-```
-
-##### `scope`<sup>Required</sup> <a name="@superluminar-io/super-eks.VeleroBackup.parameter.scope"></a>
-
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@superluminar-io/super-eks.VeleroBackup.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@superluminar-io/super-eks.VeleroBackup.parameter.props"></a>
-
-- *Type:* [`@superluminar-io/super-eks.VeleroBackupPropsWithCluster`](#@superluminar-io/super-eks.VeleroBackupPropsWithCluster)
-
----
-
-
-
-
-
 ## Structs <a name="Structs"></a>
 
 ### AddonProps <a name="@superluminar-io/super-eks.AddonProps"></a>
@@ -130,72 +98,6 @@ public readonly vpcCniAddonVersion: VpcCniAddonVersion;
 ```
 
 - *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
-
----
-
-### BackupSchedule <a name="@superluminar-io/super-eks.BackupSchedule"></a>
-
-Properties for configuring a schedule for velero backups.
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { BackupSchedule } from '@superluminar-io/super-eks'
-
-const backupSchedule: BackupSchedule = { ... }
-```
-
-##### `schedule`<sup>Required</sup> <a name="@superluminar-io/super-eks.BackupSchedule.property.schedule"></a>
-
-```typescript
-public readonly schedule: string;
-```
-
-- *Type:* `string`
-
-Schedule when to run.
-
----
-
-##### `annotations`<sup>Optional</sup> <a name="@superluminar-io/super-eks.BackupSchedule.property.annotations"></a>
-
-```typescript
-public readonly annotations: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
-Annotations for the schedule.
-
-default: none
-
----
-
-##### `labels`<sup>Optional</sup> <a name="@superluminar-io/super-eks.BackupSchedule.property.labels"></a>
-
-```typescript
-public readonly labels: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
-Labels for the schedule.
-
-default: none
-
----
-
-##### `template`<sup>Optional</sup> <a name="@superluminar-io/super-eks.BackupSchedule.property.template"></a>
-
-```typescript
-public readonly template: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
-template for the schedule.
-
-default: velero default values
 
 ---
 
@@ -297,13 +199,27 @@ Can also be added manually after cluster creation by using `cluster.awsAuth.addM
 
 ---
 
-##### `backupProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.backupProps"></a>
+##### `backupBucket`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.backupBucket"></a>
 
 ```typescript
-public readonly backupProps: VeleroBackupProps;
+public readonly backupBucket: IBucket;
 ```
 
-- *Type:* [`@superluminar-io/super-eks.VeleroBackupProps`](#@superluminar-io/super-eks.VeleroBackupProps)
+- *Type:* [`@aws-cdk/aws-s3.IBucket`](#@aws-cdk/aws-s3.IBucket)
+- *Default:* a bucket will be created
+
+If set, this bucket will be used for manifest backups.
+
+---
+
+##### `backupEnabled`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.backupEnabled"></a>
+
+```typescript
+public readonly backupEnabled: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
 
 If set, enables backup with velero.
 
@@ -321,6 +237,32 @@ Wrapper for all cluster props>.
 
 ---
 
+##### `enableVolumeBackups`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.enableVolumeBackups"></a>
+
+```typescript
+public readonly enableVolumeBackups: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+If set to true, backup of volumes are enabled.
+
+---
+
+##### `schedule`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.schedule"></a>
+
+```typescript
+public readonly schedule: string;
+```
+
+- *Type:* `string`
+- *Default:* every day at midnight ('0 0 * * *')
+
+Set up a schedule and options when to run the backups.
+
+---
+
 ##### `superEksNodegroupProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps"></a>
 
 ```typescript
@@ -333,116 +275,6 @@ Config for the Nodegroup created to host SuperEks specific workloads.
 
 If you override the `launchTemplateSpec` you're responsible for adding the necessary userdata to taint the nodes,
 see `../config/cluster#nodeTaintUserdata`
-
----
-
-### VeleroBackupProps <a name="@superluminar-io/super-eks.VeleroBackupProps"></a>
-
-Properties for velero backup used to setup velero when setting up super eks.
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { VeleroBackupProps } from '@superluminar-io/super-eks'
-
-const veleroBackupProps: VeleroBackupProps = { ... }
-```
-
-##### `disableVolumeBackups`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupProps.property.disableVolumeBackups"></a>
-
-```typescript
-public readonly disableVolumeBackups: boolean;
-```
-
-- *Type:* `boolean`
-
-If set to true, backup of volumes are diabled.
-
----
-
-##### `kubernetesNamespace`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupProps.property.kubernetesNamespace"></a>
-
-```typescript
-public readonly kubernetesNamespace: string;
-```
-
-- *Type:* `string`
-
-Set the namespace where velero should be deployed.
-
----
-
-##### `schedule`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupProps.property.schedule"></a>
-
-```typescript
-public readonly schedule: {[ key: string ]: BackupSchedule};
-```
-
-- *Type:* {[ key: string ]: [`@superluminar-io/super-eks.BackupSchedule`](#@superluminar-io/super-eks.BackupSchedule)}
-
-Set up a schedule and options when to run the backups.
-
-default: disabled
-
----
-
-### VeleroBackupPropsWithCluster <a name="@superluminar-io/super-eks.VeleroBackupPropsWithCluster"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { VeleroBackupPropsWithCluster } from '@superluminar-io/super-eks'
-
-const veleroBackupPropsWithCluster: VeleroBackupPropsWithCluster = { ... }
-```
-
-##### `disableVolumeBackups`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupPropsWithCluster.property.disableVolumeBackups"></a>
-
-```typescript
-public readonly disableVolumeBackups: boolean;
-```
-
-- *Type:* `boolean`
-
-If set to true, backup of volumes are diabled.
-
----
-
-##### `kubernetesNamespace`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupPropsWithCluster.property.kubernetesNamespace"></a>
-
-```typescript
-public readonly kubernetesNamespace: string;
-```
-
-- *Type:* `string`
-
-Set the namespace where velero should be deployed.
-
----
-
-##### `schedule`<sup>Optional</sup> <a name="@superluminar-io/super-eks.VeleroBackupPropsWithCluster.property.schedule"></a>
-
-```typescript
-public readonly schedule: {[ key: string ]: BackupSchedule};
-```
-
-- *Type:* {[ key: string ]: [`@superluminar-io/super-eks.BackupSchedule`](#@superluminar-io/super-eks.BackupSchedule)}
-
-Set up a schedule and options when to run the backups.
-
-default: disabled
-
----
-
-##### `cluster`<sup>Required</sup> <a name="@superluminar-io/super-eks.VeleroBackupPropsWithCluster.property.cluster"></a>
-
-```typescript
-public readonly cluster: ICluster;
-```
-
-- *Type:* [`@aws-cdk/aws-eks.ICluster`](#@aws-cdk/aws-eks.ICluster)
-
-The EKS cluster to install to.
 
 ---
 
