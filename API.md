@@ -225,6 +225,19 @@ If set, enables backup with velero.
 
 ---
 
+##### `backupSchedule`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.backupSchedule"></a>
+
+```typescript
+public readonly backupSchedule: string;
+```
+
+- *Type:* `string`
+- *Default:* every day at midnight ('0 0 * * *')
+
+Set up a schedule and options when to run the backups.
+
+---
+
 ##### `clusterProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.clusterProps"></a>
 
 ```typescript
@@ -247,19 +260,6 @@ public readonly enableVolumeBackups: boolean;
 - *Default:* false
 
 If set to true, backup of volumes are enabled.
-
----
-
-##### `schedule`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.schedule"></a>
-
-```typescript
-public readonly schedule: string;
-```
-
-- *Type:* `string`
-- *Default:* every day at midnight ('0 0 * * *')
-
-Set up a schedule and options when to run the backups.
 
 ---
 

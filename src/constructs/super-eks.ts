@@ -74,7 +74,7 @@ export interface SuperEksProps {
    *
    * @default every day at midnight ('0 0 * * *')
    */
-  readonly schedule?: string;
+  readonly backupSchedule?: string;
 }
 
 /**
@@ -279,7 +279,7 @@ export class SuperEks extends cdk.Construct {
       'VeleroBackup',
       {
         bucket: props.backupBucket,
-        schedule: props.schedule,
+        schedule: props.backupSchedule,
         enableVolumeBackups: props.enableVolumeBackups,
         cluster: this.cluster,
       },
