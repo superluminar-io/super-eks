@@ -4,7 +4,7 @@ import { ReleaseTrigger } from 'projen/lib/release';
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.132.0',
+  cdkVersion: '1.134.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
