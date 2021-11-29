@@ -29,15 +29,17 @@ export class ExternalSecrets extends cdk.Construct {
     const chart = new eks.HelmChart(this, 'Resource', {
       cluster: props.cluster,
       namespace: namespace,
-      repository: 'https://external-secrets.github.io/kubernetes-external-secrets/',
-      chart: 'external-secrets/kubernetes-external-secrets',
+      repository: 'https://external-secrets.github.io/kubernetes-external-secrets',
+      chart: 'kubernetes-external-secrets',
       release: 'external-secrets',
-      // version: '8.4.0',
+      version: '8.4.0',
       values: {
         env: {
           AWS_REGION: cdk.Stack.of(this).region,
         },
-        serviceAccount: false,
+        serviceAccount: {
+          create: false,
+        },
         securityContext: {
           runAsNonRoot: true,
           fsGroup: 65534,
