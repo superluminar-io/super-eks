@@ -12,6 +12,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
 - :white_check_mark: Hardened node setup, deny nodes altering the VPC setup.
 - :white_check_mark: Default to [managed cluster add-ons](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html#update-cluster-add-ons) where possible.
+- :white_check_mark: Setup [kubernetes-external-secrets](https://github.com/external-secrets/kubernetes-external-secrets) to integrate AWS Secrets Manager
 
 ## :world_map: Roadmap
 
