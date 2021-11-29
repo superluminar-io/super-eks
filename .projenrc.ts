@@ -4,7 +4,7 @@ import { ReleaseTrigger } from 'projen/lib/release';
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.132.0',
+  cdkVersion: '1.134.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
@@ -16,10 +16,11 @@ const project = new AwsCdkConstructLibrary({
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
   cdkDependencies: [
     '@aws-cdk/core',
+    '@aws-cdk/aws-ec2',
     '@aws-cdk/aws-eks',
     '@aws-cdk/aws-iam',
     '@aws-cdk/aws-route53',
-    '@aws-cdk/aws-ec2',
+    '@aws-cdk/aws-secretsmanager',
     '@aws-cdk/custom-resources',
   ],
   cdkDependenciesAsDeps: false,
