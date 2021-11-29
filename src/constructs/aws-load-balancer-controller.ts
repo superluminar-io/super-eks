@@ -37,7 +37,7 @@ export class AwsLoadBalancerController extends cdk.Construct {
     // See https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller#prerequisites for details
     // curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
     LBPolicy.Statement.forEach((statement) => {
-      serviceAccount.addToPolicy(iam.PolicyStatement.fromJson(statement));
+      serviceAccount.addToPrincipalPolicy(iam.PolicyStatement.fromJson(statement));
     });
 
     // Install controller via Helm
