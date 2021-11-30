@@ -22,13 +22,13 @@ export class ExternalSecrets extends cdk.Construct {
     const serviceAccount = new eks.ServiceAccount(this, 'ServiceAccount', {
       cluster: props.cluster,
       name: 'external-secrets',
-      namespace: namespace,
+      namespace,
     });
 
     // Install controller via Helm
     const chart = new eks.HelmChart(this, 'Resource', {
       cluster: props.cluster,
-      namespace: namespace,
+      namespace,
       repository: 'https://external-secrets.github.io/kubernetes-external-secrets',
       chart: 'kubernetes-external-secrets',
       release: 'external-secrets',
@@ -39,6 +39,7 @@ export class ExternalSecrets extends cdk.Construct {
         },
         serviceAccount: {
           create: false,
+          name: serviceAccount.serviceAccountName,
         },
         securityContext: {
           runAsNonRoot: true,
@@ -57,11 +58,12 @@ export class ExternalSecrets extends cdk.Construct {
           'secretsmanager:ListSecretVersionIds',
         ],
         resources: [
-          cdk.Arn.format({
-            service: 'secretsmanager',
-            resource: 'secret',
-            resourceName: 'k8s/*',
-          }, cdk.Stack.of(this)),
+          '*',
+        ],
+        conditions: [
+          {
+            StringEquals: { 'aws:ResourceTag/SuperEKS': 'secrets' },
+          },
         ],
       }),
     );
