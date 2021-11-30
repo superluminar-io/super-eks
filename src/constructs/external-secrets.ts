@@ -60,11 +60,9 @@ export class ExternalSecrets extends cdk.Construct {
         resources: [
           '*',
         ],
-        conditions: [
-          {
-            StringEquals: { 'aws:ResourceTag/SuperEKS': 'secrets' },
-          },
-        ],
+        conditions: {
+          StringEquals: { 'aws:ResourceTag/SuperEKS': 'secrets' },
+        },
       }),
     );
 
