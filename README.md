@@ -156,8 +156,12 @@ Voila! :tada: You now have a super EKS cluster with batteries included!
 ## :lock_with_ink_pen: Configuring external secrets
 External secrets in EKS is automatically deployed and configured. We configure it in such a way that if you tag your secrets with `SuperEKS: secrets`, external secrets will have access. You can follow
 the [documentation](https://github.com/external-secrets/kubernetes-external-secrets) to setup secrets but need to tag your secrets in secrets manager, e.g., when creating:
-`aws secretsmanager create-secret --name hello-service/password --secret-string "1234" --tags Key=SuperEKS,Value=secrets`. The service account that will be used by external secrets uses a condition in
-the IAM policy so that access will be automatically granted. You can still set namespace restrictions for secrets as described in the original documentation.
+```
+aws secretsmanager create-secret --name hello-service/password --secret-string "1234" --tags Key=SuperEKS,Value=secrets
+```
+
+The service account that will be used by external secrets uses a condition in the IAM policy so that access will be automatically granted.
+You can still set namespace restrictions for secrets as described in the original documentation.
 
 ## :open_book: API documentation
 
