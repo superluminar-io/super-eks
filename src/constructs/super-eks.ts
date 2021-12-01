@@ -9,6 +9,7 @@ import { NodeTaint } from '../types/cluster';
 import { AwsLoadBalancerController } from './aws-load-balancer-controller';
 import * as ema from './eks-managed-addon';
 import { ExternalDNS } from './external-dns';
+import { ExternalSecrets } from './external-secrets';
 import { FluentBit } from './fluent-bit';
 
 export { VpcCniAddonVersion } from './eks-managed-addon';
@@ -112,6 +113,8 @@ export class SuperEks extends cdk.Construct {
     this.configureFluentBit();
 
     this.addPodDisruptionBudgets();
+
+    this.addExternalSecrets();
   }
 
   /**
@@ -234,5 +237,9 @@ export class SuperEks extends cdk.Construct {
         },
       },
     });
+  }
+
+  private addExternalSecrets(): void {
+    new ExternalSecrets(this, 'ExternalSecrets', { cluster: this.cluster });
   }
 }

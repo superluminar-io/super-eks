@@ -40,6 +40,7 @@
     "@aws-cdk/aws-eks": "^1.134.0",
     "@aws-cdk/aws-iam": "^1.134.0",
     "@aws-cdk/aws-route53": "^1.134.0",
+    "@aws-cdk/aws-secretsmanager": "^1.134.0",
     "@aws-cdk/core": "^1.134.0",
     "@aws-cdk/custom-resources": "^1.134.0",
     "@types/jest": "^27.0.2",
@@ -70,6 +71,7 @@
     "@aws-cdk/aws-eks": "^1.134.0",
     "@aws-cdk/aws-iam": "^1.134.0",
     "@aws-cdk/aws-route53": "^1.134.0",
+    "@aws-cdk/aws-secretsmanager": "^1.134.0",
     "@aws-cdk/core": "^1.134.0",
     "@aws-cdk/custom-resources": "^1.134.0",
     "constructs": "^3.2.27"

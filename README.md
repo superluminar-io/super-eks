@@ -12,6 +12,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :white_check_mark: Isolated node groups, one for the shipped components, the other one for your workloads
 - :white_check_mark: Hardened node setup, deny nodes altering the VPC setup.
 - :white_check_mark: Default to [managed cluster add-ons](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html#update-cluster-add-ons) where possible.
+- :white_check_mark: Setup [kubernetes-external-secrets](https://github.com/external-secrets/kubernetes-external-secrets) to integrate AWS Secrets Manager
 
 ## :world_map: Roadmap
 
@@ -151,6 +152,16 @@ nginx          nginx-67cb444d48-lqzkg                          1/1     Running  
 ```
 
 Voila! :tada: You now have a super EKS cluster with batteries included!
+
+## :lock_with_ink_pen: Configuring external secrets
+External secrets in EKS is automatically deployed and configured. We configure it in such a way that if you tag your secrets with `SuperEKS: secrets`, external secrets will have access. You can follow
+the [documentation](https://github.com/external-secrets/kubernetes-external-secrets) to setup secrets but need to tag your secrets in secrets manager, e.g., when creating:
+```
+aws secretsmanager create-secret --name hello-service/password --secret-string "1234" --tags Key=SuperEKS,Value=secrets
+```
+
+The service account that will be used by external secrets uses a condition in the IAM policy so that access will be automatically granted.
+You can still set namespace restrictions for secrets as described in the original documentation.
 
 ## :open_book: API documentation
 
