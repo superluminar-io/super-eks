@@ -21,6 +21,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
 - :hammer_and_wrench: Standalone one click Cloudformation installer without CDK
 - :hammer_and_wrench: Autoscaling for pods and cluster
+- :hammer_and_wrench: Cdk v2 Support
 
 ## :clapper: Quick Start
 
