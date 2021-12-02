@@ -39,7 +39,7 @@ describe('external-secrets', () => {
             {
               Ref: 'AWS::Region',
             },
-            '"},"serviceAccount":{"create":false,"name":"external-secrets"},"securityContext":{"runAsNonRoot":true,"fsGroup":65534}}',
+            '","ENFORCE_NAMESPACE_ANNOTATIONS":true},"serviceAccount":{"create":false,"name":"external-secrets"},"securityContext":{"runAsNonRoot":true,"fsGroup":65534}}',
           ],
         ],
       },
