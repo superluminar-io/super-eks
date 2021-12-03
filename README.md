@@ -20,7 +20,7 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 - :hammer_and_wrench: Backup solution for cluster recovery
 - :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
 - :hammer_and_wrench: Autoscaling for pods
-- :hammer_and_wrench: Autoscaling for cluster
+- :hammer_and_wrench: Autoscaling for cluster (#382)
 - :hammer_and_wrench: CDK v2 support
 
 ## :clapper: Quick Start
