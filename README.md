@@ -16,12 +16,12 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 
 ## :world_map: Roadmap
 
-- :hammer_and_wrench: Monitoring with Prometheus and CloudWatch (#21)
-- :hammer_and_wrench: Backup solution for cluster recovery (#386)
-- :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito (#383)
-- :hammer_and_wrench: Autoscaling for pods (#385)
-- :hammer_and_wrench: Autoscaling for cluster (#382)
-- :hammer_and_wrench: CDK v2 support (#387)
+- :hammer_and_wrench: Monitoring with Prometheus and CloudWatch [#21](/../../issues/21)
+- :hammer_and_wrench: Backup solution for cluster recovery [#386](/../../issues/386)
+- :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito [#383](/../../issues/383)
+- :hammer_and_wrench: Autoscaling for pods [#385](/../../issues/385)
+- :hammer_and_wrench: Autoscaling for cluster [#382](/../../issues/385)
+- :hammer_and_wrench: CDK v2 support [#387](/../../issues/387)
 
 ## :clapper: Quick Start
 
