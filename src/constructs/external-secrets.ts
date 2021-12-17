@@ -36,6 +36,7 @@ export class ExternalSecrets extends cdk.Construct {
       values: {
         env: {
           AWS_REGION: cdk.Stack.of(this).region,
+          ENFORCE_NAMESPACE_ANNOTATIONS: true,
         },
         serviceAccount: {
           create: false,
