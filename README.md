@@ -161,7 +161,7 @@ aws secretsmanager create-secret --name hello-service/password --secret-string "
 ```
 
 The service account that will be used by external secrets uses a condition in the IAM policy so that access will be automatically granted.
-To keep the setup secure and sound **have to set namespace annotations** for secrets as described in the
+To keep the setup secure and sound **you have to set namespace annotations** for secrets as described in the
 [original documentation](https://github.com/external-secrets/kubernetes-external-secrets#using-namespace-annotation).
 
 ## :open_book: API documentation
