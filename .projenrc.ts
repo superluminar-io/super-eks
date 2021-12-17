@@ -4,7 +4,7 @@ import { ReleaseTrigger } from 'projen/lib/release';
 const project = new AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.134.0',
+  cdkVersion: '1.136.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
@@ -22,6 +22,8 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-route53',
     '@aws-cdk/aws-secretsmanager',
     '@aws-cdk/custom-resources',
+    '@aws-cdk/aws-lambda-go',
+    '@aws-cdk/aws-lambda',
   ],
   cdkDependenciesAsDeps: false,
   // cdkVersionPinning: false,                                                 /* Use pinned version instead of caret version for CDK. */
