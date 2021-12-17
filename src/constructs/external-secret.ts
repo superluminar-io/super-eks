@@ -1,5 +1,4 @@
 import * as eks from '@aws-cdk/aws-eks';
-import { GoFunction } from '@aws-cdk/aws-lambda-go';
 import { ISecret } from '@aws-cdk/aws-secretsmanager';
 import * as cdk from '@aws-cdk/core';
 
@@ -61,9 +60,6 @@ export class ExternalSecret extends cdk.Construct {
           ],
         },
       }],
-    });
-    new GoFunction(this, 'adm', {
-      entry: '../lambdas/external-secrets-admission-controller/',
     });
   }
 

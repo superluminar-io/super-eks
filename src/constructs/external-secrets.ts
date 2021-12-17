@@ -1,5 +1,7 @@
+import * as path from 'path';
 import * as eks from '@aws-cdk/aws-eks';
 import * as iam from '@aws-cdk/aws-iam';
+import { GoFunction } from '@aws-cdk/aws-lambda-go';
 import * as cdk from '@aws-cdk/core';
 
 
@@ -80,5 +82,8 @@ export class ExternalSecrets extends cdk.Construct {
     });
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
+    new GoFunction(this, 'adm', {
+      entry: path.join(__dirname, '..', 'lambdas', 'external-secrets-admission-controller'),
+    });
   }
 }
