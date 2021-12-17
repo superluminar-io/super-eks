@@ -16,11 +16,12 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 
 ## :world_map: Roadmap
 
-- :hammer_and_wrench: Monitoring with Prometheus and CloudWatch
-- :hammer_and_wrench: Backup solution for cluster recovery
-- :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito
-- :hammer_and_wrench: Standalone one click Cloudformation installer without CDK
-- :hammer_and_wrench: Autoscaling for pods and cluster
+- :hammer_and_wrench: Monitoring with Prometheus and CloudWatch [#21](/../../issues/21)
+- :hammer_and_wrench: Backup solution for cluster recovery [#386](/../../issues/386)
+- :hammer_and_wrench: Authentication/authorization for workloads with Amazon Cognito [#383](/../../issues/383)
+- :hammer_and_wrench: Autoscaling for pods [#385](/../../issues/385)
+- :hammer_and_wrench: Autoscaling for cluster [#382](/../../issues/385)
+- :hammer_and_wrench: CDK v2 support [#387](/../../issues/387)
 
 ## :clapper: Quick Start
 
@@ -188,14 +189,16 @@ It means, that __super-eks__ ships with all necessary parts. You don't need addi
 We try to include components, that are seen as community standards. On the other hand we choose components,
 that work best in combination with AWS.
 
-### Where are the advanced settings? I want to do things differently
+### Where are the advanced settings? I want to do things differently!
 
 __super-eks__ makes some decisions for you. If you want an expert setup maybe __super-eks__ isn't for you.
 If you believe core functionality is missing please open a GitHub issue.
 
+Our approach is to offer opinionated solutions, but we aim to offer the possibility to opt out, as well.
+
 ### I don't want to use CDK? Do you offer alternatives?
 
-We are planning to release a standalone one click Cloudformation installer in the future.
+No, not for now.
 
 ## :balance_scale: License
 
