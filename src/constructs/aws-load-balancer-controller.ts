@@ -50,7 +50,7 @@ export class AwsLoadBalancerController extends cdk.Construct {
         repository: 'https://aws.github.io/eks-charts',
         chart: 'aws-load-balancer-controller',
         release: 'aws-load-balancer-controller',
-        version: '1.0.8',
+        version: '1.3.3',
         values: {
           clusterName: props.cluster.clusterName,
           region: props.region,
