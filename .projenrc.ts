@@ -132,8 +132,12 @@ const project = new AwsCdkConstructLibrary({
   staleOptions: {
     issues: {
       daysBeforeStale: 14,
-      daysBeforeClose: 2,
+      daysBeforeClose: -1,
     },
+    pullRequest: {
+      daysBeforeStale: 14,
+      daysBeforeClose: -1,
+    }
   },
   tsconfig: {
     compilerOptions: {
