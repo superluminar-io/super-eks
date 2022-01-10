@@ -1032,10 +1032,18 @@
     chalk "^4.1.2"
     semver "^7.3.5"
 
-"@jsii/spec@^1.34.0", "@jsii/spec@^1.37.0":
-  version "1.37.0"
-  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.37.0.tgz#397ea1e87d771c05be239febb420d1647a3cb48a"
-  integrity sha512-KppLbmeBSQOkFLvd1Rnv4+P1u+jax8wODp5QzvvNu0GaPXn976stXPw+AFzXxT3XMSrFdbGaRXyaSaKPai8n2g==
+"@jsii/check-node@1.52.1":
+  version "1.52.1"
+  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.52.1.tgz#e14101294593ec41b76812acf5ba9c06e0cbfef2"
+  integrity sha512-B+vpPwXrKTWA1dBHuStp0sg+YpFZ9APjS6qeDiknMHPMatlT7VA0RVk/LmCLaPZhsfNzByJ+zhRFs0R83zTr1Q==
+  dependencies:
+    chalk "^4.1.2"
+    semver "^7.3.5"
+
+"@jsii/spec@^1.34.0", "@jsii/spec@^1.37.0", "@jsii/spec@^1.52.1":
+  version "1.52.1"
+  resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.52.1.tgz#2e44a019e3b5722a96883c42d726b748956c223e"
+  integrity sha512-Mt5yzqR/DYZhxjOBTuQsstYh0gdlwSWvjTAfUGf5Rp76j8gddkADlrMRFeVrXBy/Y+ccJLUYWMSsEf1Ti6ERcQ==
   dependencies:
     jsonschema "^1.4.0"
 
@@ -2029,7 +2037,7 @@ colors@1.0.3:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
   integrity sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
 
-colors@^1.4.0:
+colors@1.4.0, colors@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
   integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
@@ -4476,14 +4484,14 @@ jsii-rosetta@^1.34.0, jsii-rosetta@^1.37.0:
     yargs "^16.2.0"
 
 jsii@^1.25.0:
-  version "1.37.0"
-  resolved "https://registry.yarnpkg.com/jsii/-/jsii-1.37.0.tgz#96f7045df058725a872110c52d6252b5e44ee038"
-  integrity sha512-M+opnlcNb1Ne5igms/OJn/e2ZyQgcCwmqqljuOsHXBMFm7vMOVLSjEUcBYcW7ifJeM1+XYg8+wfuAoZhqY1zCg==
+  version "1.52.1"
+  resolved "https://registry.yarnpkg.com/jsii/-/jsii-1.52.1.tgz#cfee7359ce9a6d877eadd2b5a0dff14f618f7a55"
+  integrity sha512-kILHStPX3xeADtB/2Wda56Mzz/6KUw8xNr/k+dp84qn9YlZA81cW85tKK5biYCy/XAh5IPsWIZVFRqR8CSPMMw==
   dependencies:
-    "@jsii/check-node" "1.37.0"
-    "@jsii/spec" "^1.37.0"
+    "@jsii/check-node" "1.52.1"
+    "@jsii/spec" "^1.52.1"
     case "^1.6.3"
-    colors "^1.4.0"
+    colors "1.4.0"
     deep-equal "^2.0.5"
     fs-extra "^9.1.0"
     log4js "^6.3.0"
