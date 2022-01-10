@@ -206,7 +206,7 @@ func (r *Request) UnmarshalNamespace() (*corev1.Namespace, error) {
 // CalculateAnnotations checks the annotations of the namespace
 func CalculateAnnotations(ns *corev1.Namespace) ([]byte, error) {
 	annotation := fmt.Sprintf(
-		"(/super-eks/%s/\\.*|super-eks/global/\\.*)",
+		"(/super-eks/%s/\\.*|/super-eks/global/\\.*)",
 		ns.Name,
 	)
 	for k, v := range ns.Annotations {
@@ -218,7 +218,7 @@ func CalculateAnnotations(ns *corev1.Namespace) ([]byte, error) {
 				[]map[string]string{
 					{
 						"op":    "replace",
-						"path":  fmt.Sprintf("/annotations/externalsecrets.kubernetes-client.io/permitted-key-name"),
+						"path":  "/annotations/externalsecrets.kubernetes-client.io/permitted-key-name",
 						"value": annotation,
 					},
 				},
