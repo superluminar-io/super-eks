@@ -75,14 +75,14 @@ export const defaultSuperEksProps = {
  * SuperEks wraps eks.Cluster to include batteries
  */
 export class SuperEks extends cdk.Construct {
-  private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>
+  private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>;
 
   /**
    * The created cluster.
    *
    * @attribute
    */
-  readonly cluster: eks.Cluster
+  readonly cluster: eks.Cluster;
 
   /**
    * `eks.Nodegroup`s added to the cluster
@@ -90,7 +90,7 @@ export class SuperEks extends cdk.Construct {
    *
    * @default An internal `eks.Nodegroup` will be created for super-eks related workloads
    */
-  readonly additionalNodegroups: eks.Nodegroup[] = []
+  readonly additionalNodegroups: eks.Nodegroup[] = [];
 
   constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
     super(scope, id);
