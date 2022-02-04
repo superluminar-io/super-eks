@@ -2,6 +2,7 @@
 !/.gitattributes
 !/.projen/tasks.json
 !/.projen/deps.json
+!/.projen/files.json
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/stale.yml
 !/package.json
@@ -39,6 +40,7 @@ junit.xml
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
+!/.github/workflows/release.yml
 !/.mergify.yml
 !/.github/dependabot.yml
 !/.github/pull_request_template.md
@@ -51,4 +53,3 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
-!/.github/workflows/release.yml
