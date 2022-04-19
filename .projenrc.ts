@@ -14,14 +14,14 @@ const cdkDependencies = [
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.143.0',
+  cdkVersion: '1.152.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
   description:
     'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.52.15',
+  projenVersion: '^0.54.32',
 
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
