@@ -125,7 +125,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   workflowNodeVersion:
     '16.10.0' /* The node version to use in GitHub workflows. */,
 
-  typescriptVersion: '^4.4.3',
+  typescriptVersion: '^4.6.3',
   /* ProjectOptions */
   // clobber: true,                                                            /* Add a `clobber` task which resets the repo to origin. */
   // devContainer: false,                                                      /* Add a VSCode development environment (used for GitHub Codespaces). */
