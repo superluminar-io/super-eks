@@ -86,17 +86,16 @@
       "type": "build"
     },
     {
+      "name": "jsii-pacmak",
+      "type": "build"
+    },
+    {
       "name": "json-schema",
       "type": "build"
     },
     {
-      "name": "npm-check-updates",
-      "version": "^12",
-      "type": "build"
-    },
-    {
       "name": "projen",
-      "version": "^0.52.15",
+      "version": "^0.54.32",
       "type": "build"
     },
     {
@@ -119,42 +118,42 @@
     },
     {
       "name": "typescript",
-      "version": "^4.4.3",
+      "version": "^4.6.3",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-ec2",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-eks",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-iam",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-route53",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/aws-secretsmanager",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/core",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/custom-resources",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "peer"
     },
     {
@@ -164,12 +163,12 @@
     },
     {
       "name": "@aws-cdk/assert",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "test"
     },
     {
       "name": "@aws-cdk/assertions",
-      "version": "^1.143.0",
+      "version": "^1.152.0",
       "type": "test"
     }
   ],
