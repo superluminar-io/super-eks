@@ -82,5 +82,15 @@ export class ExternalSecrets extends Construct {
     });
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
+
+    const fn = new GoFunction(this, 'adm', {
+      entry: path.join(__dirname, '..', 'lambdas', 'external-secrets-admission-controller', 'cmd'),
+    });
+
+    const api = new HttpApi(this, 'AdmissionWebhookApi', {});
+    api.addRoutes({
+      path: '/',
+      integration: new HttpLambdaIntegration('AdmissionWebhookIntegration', fn, {}),
+    });
   }
 }
