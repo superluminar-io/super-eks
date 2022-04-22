@@ -1,21 +1,22 @@
-import '@aws-cdk/assert/jest';
-import * as eks from '@aws-cdk/aws-eks';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_eks as eks, assertions } from 'aws-cdk-lib';
 import { ExternalSecrets } from '../../src/constructs/external-secrets';
 
 describe('external-secrets', () => {
   test('namespace is "secrets"', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
-      version: eks.KubernetesVersion.V1_18,
+      version: eks.KubernetesVersion.V1_22,
     });
     new ExternalSecrets(stack, 'ALB', {
       cluster,
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+
+    const template = assertions.Template.fromStack(stack);
+
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Namespace: 'secrets',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
+    template.hasResourceProperties('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
         '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"secrets","labels":{"aws.cdk.eks/prune-c8666648720a6db5281710188904f5897ba739577b":""}}}]',
     });
@@ -24,13 +25,14 @@ describe('external-secrets', () => {
   test('Chart is configured correctly', () => {
     const stack = new Stack();
     const cluster = new eks.Cluster(stack, 'EKS', {
-      version: eks.KubernetesVersion.V1_18,
+      version: eks.KubernetesVersion.V1_22,
     });
     new ExternalSecrets(stack, 'ALB', {
       cluster,
     });
+    const template = assertions.Template.fromStack(stack);
 
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Values: {
         'Fn::Join': [
           '',
@@ -46,4 +48,3 @@ describe('external-secrets', () => {
     });
   });
 });
-

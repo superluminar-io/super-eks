@@ -1,6 +1,4 @@
-import '@aws-cdk/assert/jest';
-import * as eks from '@aws-cdk/aws-eks';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_eks as eks, assertions } from 'aws-cdk-lib';
 import { AwsLoadBalancerController } from '../../src/constructs/aws-load-balancer-controller';
 
 describe('aws-load-balancer-controller', () => {
@@ -14,10 +12,12 @@ describe('aws-load-balancer-controller', () => {
       region: 'eu-west-1',
       vpcId: 'vpc-21313',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    const template = assertions.Template.fromStack(stack);
+
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Namespace: 'ingress',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
+    template.hasResourceProperties('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
         '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"ingress","labels":{"aws.cdk.eks/prune-c8666648720a6db5281710188904f5897ba739577b":""}}}]',
     });
@@ -34,7 +34,8 @@ describe('aws-load-balancer-controller', () => {
       vpcId: 'vpc-21313',
     });
 
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    const template = assertions.Template.fromStack(stack);
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Values: {
         'Fn::Join': [
           '',
@@ -50,4 +51,3 @@ describe('aws-load-balancer-controller', () => {
     });
   });
 });
-
