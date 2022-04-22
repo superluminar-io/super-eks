@@ -1,5 +1,7 @@
 # :superhero_woman: super-eks
 
+> :warning: **This branch is using the old cdk v1** See the [main](https://github.com/superluminar-io/super-eks/tree/main) branch for cdk v2.
+
 __super-eks__ is a [CDK]((github.com/aws-cdk/cdk)) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
 Even when using best practices for your EKS cluster, picking the right setup can be overwhelming.
 __super-eks__ solves this problem by making a few choices for you as outlined below.
@@ -155,14 +157,16 @@ nginx          nginx-67cb444d48-lqzkg                          1/1     Running  
 Voila! :tada: You now have a super EKS cluster with batteries included!
 
 ## :lock_with_ink_pen: Configuring external secrets
+
 External secrets in EKS is automatically deployed and configured. We configure it in such a way that if you tag your secrets with `SuperEKS: secrets`, external secrets will have access. You can follow
 the [documentation](https://github.com/external-secrets/kubernetes-external-secrets) to setup secrets but need to tag your secrets in secrets manager, e.g., when creating:
+
 ```
 aws secretsmanager create-secret --name hello-service/password --secret-string "1234" --tags Key=SuperEKS,Value=secrets
 ```
 
 The service account that will be used by external secrets uses a condition in the IAM policy so that access will be automatically granted.
-To keep the setup secure and sound **you have to set namespace annotations** for secrets as described in the
+To keep the setup secure and sound __you have to set namespace annotations__ for secrets as described in the
 [original documentation](https://github.com/external-secrets/kubernetes-external-secrets#using-namespace-annotation).
 
 ## :open_book: API documentation
@@ -189,7 +193,7 @@ It means, that __super-eks__ ships with all necessary parts. You don't need addi
 We try to include components, that are seen as community standards. On the other hand we choose components,
 that work best in combination with AWS.
 
-### Where are the advanced settings? I want to do things differently!
+### Where are the advanced settings? I want to do things differently
 
 __super-eks__ makes some decisions for you. If you want an expert setup maybe __super-eks__ isn't for you.
 If you believe core functionality is missing please open a GitHub issue.
@@ -202,7 +206,6 @@ No, not for now.
 
 ## :balance_scale: License
 
-**super-eks** is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+__super-eks__ is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 See [LICENSE](./LICENSE) for more information.
-
