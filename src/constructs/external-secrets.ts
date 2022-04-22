@@ -1,4 +1,8 @@
-import { Stack, aws_eks as eks, aws_iam as iam } from 'aws-cdk-lib';
+import * as path from 'path';
+import { HttpApi } from '@aws-cdk/aws-apigatewayv2-alpha';
+import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import { GoFunction } from '@aws-cdk/aws-lambda-go-alpha';
+import { aws_eks as eks, aws_iam as iam, Stack } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 export interface ExternalSecretsProps {

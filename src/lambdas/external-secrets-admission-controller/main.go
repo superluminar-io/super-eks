@@ -192,6 +192,7 @@ func (r *Request) UnmarshalNamespace() (*corev1.Namespace, error) {
 	}
 	if r.Admission.Kind.Kind != namespaceDefault.Kind {
 		// If the ValidatingWebhookConfiguration was given additional resource scopes.
+		log.Errorf("unknown admission kind: %v", r.Admission.Kind.Kind)
 		return nil, ErrUnexpectedResource
 	}
 

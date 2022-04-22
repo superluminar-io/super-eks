@@ -39,8 +39,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorUrl: 'https://superluminar.io' /* Author's URL / Website. */,
   // autoDetectBin: true,                                                      /* Automatically add all executables under the `bin` directory to your `package.json` file under the `bin` section. */
   // bin: undefined,                                                           /* Binary programs vended with your module. */
-  // bundledDeps: undefined,                                                   /* List of dependencies to bundle into this module. */
-  // deps: [],                                                                 /* Runtime dependencies of this module. */
+  // bundledDeps: undefined, /* List of dependencies to bundle into this module. */
+  deps: [
+    '@aws-cdk/aws-apigatewayv2-alpha',
+    '@aws-cdk/aws-apigatewayv2-integrations-alpha',
+    '@aws-cdk/aws-lambda-go-alpha',
+  ], /* Runtime dependencies of this module. */
   // description: undefined,                                                   /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [ ] /* Build dependencies for this module. */,
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
@@ -132,5 +136,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 });
+
+project.postCompileTask.exec('cp -r src/lambdas lib/');
 
 project.synth();

@@ -9,6 +9,21 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
+"@aws-cdk/aws-apigatewayv2-alpha@^2.20.0-alpha.0":
+  version "2.20.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-apigatewayv2-alpha/-/aws-apigatewayv2-alpha-2.20.0-alpha.0.tgz#417c586a8e06af2536945371ffbfb53fd3dff0f4"
+  integrity sha512-TPlYWaeT8MsPOM4mmc7ms/yO9pfsE8UTaxJ5Q7gJDPHWW7gxiye9OG3+vRfc9VSmK4OKQ+YrHp+ERNATGdZtdQ==
+
+"@aws-cdk/aws-apigatewayv2-integrations-alpha@^2.20.0-alpha.0":
+  version "2.20.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-apigatewayv2-integrations-alpha/-/aws-apigatewayv2-integrations-alpha-2.20.0-alpha.0.tgz#5c8d7c01cded308186d1f90a02c85c218567a0cd"
+  integrity sha512-GrB23ZUhyanLTSpeVWrId4OsCdPr55M3g5gdqkkLRvXi0hum75kMoLKGmnEaPj3urxb/MlfVJGzaan5F2t4wmg==
+
+"@aws-cdk/aws-lambda-go-alpha@^2.20.0-alpha.0":
+  version "2.20.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-lambda-go-alpha/-/aws-lambda-go-alpha-2.20.0-alpha.0.tgz#889c809909a2165245ec4f862c717aae837e9e58"
+  integrity sha512-MvXYL9SpxvQ3vD3TMDzUT5ov+K06p4gGGU5FVhUg3Doi3x7P+71nJ82ElkNo8T2jUBu0bPPuOQvTNJLTTskmDQ==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.7":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.16.7.tgz#44416b6bd7624b998f5b1af5d470856c40138789"
