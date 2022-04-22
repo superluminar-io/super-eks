@@ -1,5 +1,7 @@
 # :superhero_woman: super-eks
 
+> :warning: **This branch is using cdk v2**: If you are looking for the old cdk v1 version go [here](https://github.com/superluminar-io/super-eks/tree/cdk-v1)
+
 **super-eks** is a [CDK](<(github.com/aws-cdk/cdk)>) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
 Even when using best practices for your EKS cluster, picking the right setup can be overwhelming.
 **super-eks** solves this problem by making a few choices for you as outlined below.
