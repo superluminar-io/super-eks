@@ -1,20 +1,10 @@
 import { awscdk, javascript } from 'projen';
 import { ReleaseTrigger } from 'projen/lib/release';
 
-const cdkDependencies = [
-  '@aws-cdk/core',
-  '@aws-cdk/aws-ec2',
-  '@aws-cdk/aws-eks',
-  '@aws-cdk/aws-iam',
-  '@aws-cdk/aws-route53',
-  '@aws-cdk/aws-secretsmanager',
-  '@aws-cdk/custom-resources',
-];
-
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.152.0',
+  cdkVersion: '2.20.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
@@ -22,12 +12,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
   projenVersion: '^0.54.32',
-
-  /* AwsCdkConstructLibraryOptions */
-  // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
-  cdkDependencies,
-  cdkDependenciesAsDeps: false,
-  // cdkVersionPinning: false,                                                 /* Use pinned version instead of caret version for CDK. */
 
   /* ConstructLibraryOptions */
   // catalog: undefined,                                                       /* Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:. */
@@ -58,10 +42,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // bundledDeps: undefined,                                                   /* List of dependencies to bundle into this module. */
   // deps: [],                                                                 /* Runtime dependencies of this module. */
   // description: undefined,                                                   /* The description is just a string that helps people understand the purpose of the package. */
-  devDeps: [
-    'source-map-support',
-    ...cdkDependencies,
-  ] /* Build dependencies for this module. */,
+  // devDeps: [ ] /* Build dependencies for this module. */,
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
   // homepage: undefined,                                                      /* Package's Homepage / Website. */
   keywords: [
