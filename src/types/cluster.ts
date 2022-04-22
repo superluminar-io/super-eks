@@ -19,4 +19,3 @@ export interface NodeTaint {
   readonly value: string;
   readonly effect: TaintEffect;
 }
-

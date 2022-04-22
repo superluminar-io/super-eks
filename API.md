@@ -16,7 +16,7 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.scope">scope</a></code> | <code>@aws-cdk/core.Construct</code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.props">props</a></code> | <code><a href="#@superluminar-io/super-eks.SuperEksProps">SuperEksProps</a></code> | *No description.* |
 
@@ -24,7 +24,7 @@ new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 
 ##### `scope`<sup>Required</sup> <a name="scope" id="@superluminar-io/super-eks.SuperEks.Initializer.parameter.scope"></a>
 
-- *Type:* @aws-cdk/core.Construct
+- *Type:* constructs.Construct
 
 ---
 
@@ -77,11 +77,11 @@ the taint that should be applied to the Nodes.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@superluminar-io/super-eks.SuperEks.isConstruct">isConstruct</a></code> | Return whether the given object is a Construct. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 
 ---
 
-##### `isConstruct` <a name="isConstruct" id="@superluminar-io/super-eks.SuperEks.isConstruct"></a>
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@superluminar-io/super-eks.SuperEks.isConstruct"></a>
 
 ```typescript
 import { SuperEks } from '@superluminar-io/super-eks'
@@ -89,11 +89,13 @@ import { SuperEks } from '@superluminar-io/super-eks'
 SuperEks.isConstruct(x: any)
 ```
 
-Return whether the given object is a Construct.
+Checks if `x` is a construct.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@superluminar-io/super-eks.SuperEks.isConstruct.parameter.x"></a>
 
 - *Type:* any
+
+Any object.
 
 ---
 
@@ -101,21 +103,21 @@ Return whether the given object is a Construct.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@superluminar-io/super-eks.SuperEks.property.node">node</a></code> | <code>@aws-cdk/core.ConstructNode</code> | The construct tree node associated with this construct. |
-| <code><a href="#@superluminar-io/super-eks.SuperEks.property.additionalNodegroups">additionalNodegroups</a></code> | <code>@aws-cdk/aws-eks.Nodegroup[]</code> | `eks.Nodegroup`s added to the cluster. |
-| <code><a href="#@superluminar-io/super-eks.SuperEks.property.cluster">cluster</a></code> | <code>@aws-cdk/aws-eks.Cluster</code> | The created cluster. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.additionalNodegroups">additionalNodegroups</a></code> | <code>aws-cdk-lib.aws_eks.Nodegroup[]</code> | `eks.Nodegroup`s added to the cluster. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.cluster">cluster</a></code> | <code>aws-cdk-lib.aws_eks.Cluster</code> | The created cluster. |
 
 ---
 
 ##### `node`<sup>Required</sup> <a name="node" id="@superluminar-io/super-eks.SuperEks.property.node"></a>
 
 ```typescript
-public readonly node: ConstructNode;
+public readonly node: Node;
 ```
 
-- *Type:* @aws-cdk/core.ConstructNode
+- *Type:* constructs.Node
 
-The construct tree node associated with this construct.
+The tree node.
 
 ---
 
@@ -125,7 +127,7 @@ The construct tree node associated with this construct.
 public readonly additionalNodegroups: Nodegroup[];
 ```
 
-- *Type:* @aws-cdk/aws-eks.Nodegroup[]
+- *Type:* aws-cdk-lib.aws_eks.Nodegroup[]
 - *Default:* An internal `eks.Nodegroup` will be created for super-eks related workloads
 
 `eks.Nodegroup`s added to the cluster.
@@ -138,7 +140,7 @@ public readonly additionalNodegroups: Nodegroup[];
 public readonly cluster: Cluster;
 ```
 
-- *Type:* @aws-cdk/aws-eks.Cluster
+- *Type:* aws-cdk-lib.aws_eks.Cluster
 
 The created cluster.
 
@@ -249,11 +251,11 @@ const superEksProps: SuperEksProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.hostedZone">hostedZone</a></code> | <code>@aws-cdk/aws-route53.IHostedZone</code> | A hosted zone for DNS management. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | A hosted zone for DNS management. |
 | <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.addonProps">addonProps</a></code> | <code><a href="#@superluminar-io/super-eks.AddonProps">AddonProps</a></code> | Specific properties for EKS managed add-ons. |
-| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.adminRoles">adminRoles</a></code> | <code>@aws-cdk/aws-iam.IRole[]</code> | Additional Roles that should be granted cluster admin privileges. |
-| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.clusterProps">clusterProps</a></code> | <code>@aws-cdk/aws-eks.ClusterProps</code> | Wrapper for all cluster props>. |
-| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps">superEksNodegroupProps</a></code> | <code>@aws-cdk/aws-eks.NodegroupOptions</code> | Config for the Nodegroup created to host SuperEks specific workloads. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.adminRoles">adminRoles</a></code> | <code>aws-cdk-lib.aws_iam.IRole[]</code> | Additional Roles that should be granted cluster admin privileges. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.clusterProps">clusterProps</a></code> | <code>aws-cdk-lib.aws_eks.ClusterProps</code> | Wrapper for all cluster props>. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps">superEksNodegroupProps</a></code> | <code>aws-cdk-lib.aws_eks.NodegroupOptions</code> | Config for the Nodegroup created to host SuperEks specific workloads. |
 
 ---
 
@@ -263,7 +265,7 @@ const superEksProps: SuperEksProps = { ... }
 public readonly hostedZone: IHostedZone;
 ```
 
-- *Type:* @aws-cdk/aws-route53.IHostedZone
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 A hosted zone for DNS management.
 
@@ -289,7 +291,7 @@ Specific properties for EKS managed add-ons.
 public readonly adminRoles: IRole[];
 ```
 
-- *Type:* @aws-cdk/aws-iam.IRole[]
+- *Type:* aws-cdk-lib.aws_iam.IRole[]
 
 Additional Roles that should be granted cluster admin privileges.
 
@@ -303,7 +305,7 @@ Can also be added manually after cluster creation by using `cluster.awsAuth.addM
 public readonly clusterProps: ClusterProps;
 ```
 
-- *Type:* @aws-cdk/aws-eks.ClusterProps
+- *Type:* aws-cdk-lib.aws_eks.ClusterProps
 
 Wrapper for all cluster props>.
 
@@ -315,7 +317,7 @@ Wrapper for all cluster props>.
 public readonly superEksNodegroupProps: NodegroupOptions;
 ```
 
-- *Type:* @aws-cdk/aws-eks.NodegroupOptions
+- *Type:* aws-cdk-lib.aws_eks.NodegroupOptions
 
 Config for the Nodegroup created to host SuperEks specific workloads.
 

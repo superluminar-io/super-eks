@@ -1,6 +1,5 @@
-import * as eks from '@aws-cdk/aws-eks';
-import * as iam from '@aws-cdk/aws-iam';
-import * as cdk from '@aws-cdk/core';
+import { CfnJson, aws_eks as eks, aws_iam as iam } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface VpcCniAddonProps extends EksManagedAddonProps {
   readonly addonVersion?: VpcCniAddonVersion;
@@ -65,7 +64,7 @@ interface EksManagedAddonAbstractProps {
 }
 
 abstract class EksManagedAddonAbstract extends eks.CfnAddon {
-  protected constructor(scope: cdk.Construct, id: string, props: EksManagedAddonAbstractProps) {
+  protected constructor(scope: Construct, id: string, props: EksManagedAddonAbstractProps) {
     const cluster = props.cluster;
     const namespace = props.namespace || 'kube-system';
 
@@ -79,7 +78,7 @@ abstract class EksManagedAddonAbstract extends eks.CfnAddon {
     if (props.serviceAccountName) {
       const serviceAccountRole = new iam.Role(this, 'ServiceAccountRole', {
         assumedBy: new iam.OpenIdConnectPrincipal(cluster.openIdConnectProvider).withConditions({
-          StringEquals: new cdk.CfnJson(this, 'ServiceAccountRolePrincipalCondition', {
+          StringEquals: new CfnJson(this, 'ServiceAccountRolePrincipalCondition', {
             value: {
               [`${cluster.openIdConnectProvider.openIdConnectProviderIssuer}:aud`]: 'sts.amazonaws.com',
               [`${cluster.openIdConnectProvider.openIdConnectProviderIssuer}:sub`]: `system:serviceaccount:${namespace}:${props.serviceAccountName}`,
@@ -99,7 +98,7 @@ abstract class EksManagedAddonAbstract extends eks.CfnAddon {
 }
 
 export class VpcCniAddon extends EksManagedAddonAbstract {
-  constructor(scope: cdk.Construct, id: string, props: VpcCniAddonProps) {
+  constructor(scope: Construct, id: string, props: VpcCniAddonProps) {
     super(scope, id, {
       ...props,
       addonName: 'vpc-cni',
