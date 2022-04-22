@@ -92,5 +92,33 @@ export class ExternalSecrets extends Construct {
       path: '/',
       integration: new HttpLambdaIntegration('AdmissionWebhookIntegration', fn, {}),
     });
+    const admissionManifest = new eks.KubernetesManifest(this, 'AdmissionManifest', {
+      cluster: props.cluster,
+      manifest: [{
+        apiVersion: 'admissionregistration.k8s.io/v1beta1',
+        kind: 'MutatingWebhookConfiguration',
+        metadata: {
+          name: 'ExternalSecretsAdmissionWebhook',
+          namespace: 'secrets',
+        },
+        webhooks: [{
+          name: 'secret-admission.super-eks.com',
+          sideEffects: 'NoneOnDryRun',
+          admissionReviewVersions: ['v1beta1'],
+          clientConfig: {
+            url: api.url,
+          },
+          rules: [{
+            operations: ['CREATE', 'UPDATE'],
+            apiGroups: ['*'],
+            apiVersions: ['*'],
+            resources: ['namespaces'],
+            scope: '*',
+          }],
+        }],
+      }],
+    });
+    chart.node.addDependency(admissionManifest);
+    serviceAccount.node.addDependency(admissionManifest);
   }
 }
