@@ -8,11 +8,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
-  description:
-    'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
+  description: 'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
   projenVersion: '^0.54.32',
 
+  cdkVersionPinning: false /* Use pinned version instead of caret version for CDK. */,
   /* ConstructLibraryOptions */
   // catalog: undefined,                                                       /* Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:. */
 
@@ -45,17 +45,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // devDeps: [ ] /* Build dependencies for this module. */,
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
   // homepage: undefined,                                                      /* Package's Homepage / Website. */
-  keywords: [
-    'k8s',
-    'eks',
-    'kubernetes',
-    'aws',
-  ] /* Keywords to include in `package.json`. */,
+  keywords: ['k8s', 'eks', 'kubernetes', 'aws'] /* Keywords to include in `package.json`. */,
   license: 'Apache-2.0' /* License's SPDX identifier. */,
   licensed: true /* Indicates if a license should be added. */,
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion:
-    '14.0.0' /* Minimum Node.js version to require via package.json `engines` (inclusive). */,
+  minNodeVersion: '14.0.0' /* Minimum Node.js version to require via package.json `engines` (inclusive). */,
   npmAccess: javascript.NpmAccess.PUBLIC /* Access level of the npm package. */,
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
@@ -98,13 +92,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // rebuildBotCommand: 'rebuild',                                             /* The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch. */
   // releaseBranches: [], /* Branches which trigger a release. */
   releaseTrigger: ReleaseTrigger.continuous(),
-  releaseToNpm:
-    true /* Automatically release to npm when new versions are introduced. */,
+  releaseToNpm: true /* Automatically release to npm when new versions are introduced. */,
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
   // workflowBootstrapSteps: 'yarn install --frozen-lockfile && yarn projen',  /* Workflow steps to use in order to bootstrap this repo. */
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
-  workflowNodeVersion:
-    '16.10.0' /* The node version to use in GitHub workflows. */,
+  workflowNodeVersion: '16.10.0' /* The node version to use in GitHub workflows. */,
 
   typescriptVersion: '^4.6.3',
   /* ProjectOptions */
