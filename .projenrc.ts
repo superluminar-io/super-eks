@@ -1,33 +1,18 @@
-import { AwsCdkConstructLibrary, NpmAccess } from 'projen';
+import { awscdk, javascript } from 'projen';
 import { ReleaseTrigger } from 'projen/lib/release';
 
-const project = new AwsCdkConstructLibrary({
+const project = new awscdk.AwsCdkConstructLibrary({
   author: 'superluminar',
   authorAddress: 'https://superluminar.io',
-  cdkVersion: '1.136.0',
+  cdkVersion: '2.20.0',
   defaultReleaseBranch: 'main',
   projenrcTs: true,
   name: '@superluminar-io/super-eks',
   description: 'super-eks is a CDK construct that provides a preconfigured EKS installation with batteries included.',
   repositoryUrl: 'https://github.com/superluminar-io/super-eks.git',
-  projenVersion: '^0.34.8',
+  projenVersion: '^0.54.32',
 
-  /* AwsCdkConstructLibraryOptions */
-  // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
-  cdkDependencies: [
-    '@aws-cdk/core',
-    '@aws-cdk/aws-ec2',
-    '@aws-cdk/aws-eks',
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-route53',
-    '@aws-cdk/aws-secretsmanager',
-    '@aws-cdk/custom-resources',
-    '@aws-cdk/aws-lambda-go',
-    '@aws-cdk/aws-lambda',
-  ],
-  cdkDependenciesAsDeps: false,
-  // cdkVersionPinning: false,                                                 /* Use pinned version instead of caret version for CDK. */
-
+  cdkVersionPinning: false /* Use pinned version instead of caret version for CDK. */,
   /* ConstructLibraryOptions */
   // catalog: undefined,                                                       /* Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:. */
 
@@ -57,21 +42,15 @@ const project = new AwsCdkConstructLibrary({
   // bundledDeps: undefined,                                                   /* List of dependencies to bundle into this module. */
   // deps: [],                                                                 /* Runtime dependencies of this module. */
   // description: undefined,                                                   /* The description is just a string that helps people understand the purpose of the package. */
-  devDeps: ['source-map-support'] /* Build dependencies for this module. */,
+  // devDeps: [ ] /* Build dependencies for this module. */,
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
   // homepage: undefined,                                                      /* Package's Homepage / Website. */
-  keywords: [
-    'k8s',
-    'eks',
-    'kubernetes',
-    'aws',
-  ] /* Keywords to include in `package.json`. */,
+  keywords: ['k8s', 'eks', 'kubernetes', 'aws'] /* Keywords to include in `package.json`. */,
   license: 'Apache-2.0' /* License's SPDX identifier. */,
   licensed: true /* Indicates if a license should be added. */,
   // maxNodeVersion: undefined,                                                /* Minimum node.js version to require via `engines` (inclusive). */
-  minNodeVersion:
-    '16.0.0' /* Minimum Node.js version to require via package.json `engines` (inclusive). */,
-  npmAccess: NpmAccess.PUBLIC /* Access level of the npm package. */,
+  minNodeVersion: '14.0.0' /* Minimum Node.js version to require via package.json `engines` (inclusive). */,
+  npmAccess: javascript.NpmAccess.PUBLIC /* Access level of the npm package. */,
   // npmDistTag: 'latest',                                                     /* Tags can be used to provide an alias instead of version numbers. */
   // npmRegistryUrl: 'https://registry.npmjs.org',                             /* The base URL of the npm package registry. */
   // npmTaskExecution: NpmTaskExecution.PROJEN,                                /* Determines how tasks are executed when invoked as npm scripts (yarn/npm run xyz). */
@@ -113,15 +92,13 @@ const project = new AwsCdkConstructLibrary({
   // rebuildBotCommand: 'rebuild',                                             /* The pull request bot command to use in order to trigger a rebuild and commit of the contents of the branch. */
   // releaseBranches: [], /* Branches which trigger a release. */
   releaseTrigger: ReleaseTrigger.continuous(),
-  releaseToNpm:
-    true /* Automatically release to npm when new versions are introduced. */,
+  releaseToNpm: true /* Automatically release to npm when new versions are introduced. */,
   // releaseWorkflow: undefined,                                               /* Define a GitHub workflow for releasing from "main" when new versions are bumped. */
   // workflowBootstrapSteps: 'yarn install --frozen-lockfile && yarn projen',  /* Workflow steps to use in order to bootstrap this repo. */
   // workflowContainerImage: undefined,                                        /* Container image to use for GitHub workflows. */
-  workflowNodeVersion:
-    '16.10.0' /* The node version to use in GitHub workflows. */,
+  workflowNodeVersion: '16.10.0' /* The node version to use in GitHub workflows. */,
 
-  typescriptVersion: '^4.4.3',
+  typescriptVersion: '^4.6.3',
   /* ProjectOptions */
   // clobber: true,                                                            /* Add a `clobber` task which resets the repo to origin. */
   // devContainer: false,                                                      /* Add a VSCode development environment (used for GitHub Codespaces). */
@@ -134,7 +111,11 @@ const project = new AwsCdkConstructLibrary({
   staleOptions: {
     issues: {
       daysBeforeStale: 14,
-      daysBeforeClose: 2,
+      daysBeforeClose: -1,
+    },
+    pullRequest: {
+      daysBeforeStale: 14,
+      daysBeforeClose: -1,
     },
   },
   tsconfig: {
@@ -146,12 +127,7 @@ const project = new AwsCdkConstructLibrary({
   githubOptions: {
     pullRequestLintOptions: {
       semanticTitleOptions: {
-        types: [
-          'feat',
-          'fix',
-          'chore',
-          'docs',
-        ],
+        types: ['feat', 'fix', 'chore', 'docs'],
       },
     },
   },

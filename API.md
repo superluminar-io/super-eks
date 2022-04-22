@@ -1,12 +1,12 @@
-# API Reference <a name="API Reference"></a>
+# API Reference <a name="API Reference" id="api-reference"></a>
 
-## Constructs <a name="Constructs"></a>
+## Constructs <a name="Constructs" id="Constructs"></a>
 
-### SuperEks <a name="@superluminar-io/super-eks.SuperEks"></a>
+### SuperEks <a name="SuperEks" id="@superluminar-io/super-eks.SuperEks"></a>
 
 SuperEks wraps eks.Cluster to include batteries.
 
-#### Initializers <a name="@superluminar-io/super-eks.SuperEks.Initializer"></a>
+#### Initializers <a name="Initializers" id="@superluminar-io/super-eks.SuperEks.Initializer"></a>
 
 ```typescript
 import { SuperEks } from '@superluminar-io/super-eks'
@@ -14,76 +14,146 @@ import { SuperEks } from '@superluminar-io/super-eks'
 new SuperEks(scope: Construct, id: string, props: SuperEksProps)
 ```
 
-##### `scope`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.scope"></a>
-
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.id"></a>
-
-- *Type:* `string`
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.Initializer.parameter.props">props</a></code> | <code><a href="#@superluminar-io/super-eks.SuperEksProps">SuperEksProps</a></code> | *No description.* |
 
 ---
 
-##### `props`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.props"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="@superluminar-io/super-eks.SuperEks.Initializer.parameter.scope"></a>
 
-- *Type:* [`@superluminar-io/super-eks.SuperEksProps`](#@superluminar-io/super-eks.SuperEksProps)
+- *Type:* constructs.Construct
 
 ---
 
-#### Methods <a name="Methods"></a>
+##### `id`<sup>Required</sup> <a name="id" id="@superluminar-io/super-eks.SuperEks.Initializer.parameter.id"></a>
 
-##### `nodeTaintUserdata` <a name="@superluminar-io/super-eks.SuperEks.nodeTaintUserdata"></a>
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@superluminar-io/super-eks.SuperEks.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@superluminar-io/super-eks.SuperEksProps">SuperEksProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.nodeTaintUserdata">nodeTaintUserdata</a></code> | Generates `ec2.MultipartUserData` to attach to a `eks.Nodegroup` `ec2.LaunchTemplate` so that the Nodes are getting tainted with the given `NodeTaint`. |
+
+---
+
+##### `toString` <a name="toString" id="@superluminar-io/super-eks.SuperEks.toString"></a>
 
 ```typescript
-public nodeTaintUserdata(taint: NodeTaint)
+public toString(): string
 ```
 
-###### `taint`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.parameter.taint"></a>
+Returns a string representation of this construct.
 
-- *Type:* [`@superluminar-io/super-eks.NodeTaint`](#@superluminar-io/super-eks.NodeTaint)
+##### `nodeTaintUserdata` <a name="nodeTaintUserdata" id="@superluminar-io/super-eks.SuperEks.nodeTaintUserdata"></a>
+
+```typescript
+public nodeTaintUserdata(taint: NodeTaint): MultipartUserData
+```
+
+Generates `ec2.MultipartUserData` to attach to a `eks.Nodegroup` `ec2.LaunchTemplate` so that the Nodes are getting tainted with the given `NodeTaint`.
+
+###### `taint`<sup>Required</sup> <a name="taint" id="@superluminar-io/super-eks.SuperEks.nodeTaintUserdata.parameter.taint"></a>
+
+- *Type:* <a href="#@superluminar-io/super-eks.NodeTaint">NodeTaint</a>
 
 the taint that should be applied to the Nodes.
 
 ---
 
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
-#### Properties <a name="Properties"></a>
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 
-##### `additionalNodegroups`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.property.additionalNodegroups"></a>
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@superluminar-io/super-eks.SuperEks.isConstruct"></a>
+
+```typescript
+import { SuperEks } from '@superluminar-io/super-eks'
+
+SuperEks.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@superluminar-io/super-eks.SuperEks.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.additionalNodegroups">additionalNodegroups</a></code> | <code>aws-cdk-lib.aws_eks.Nodegroup[]</code> | `eks.Nodegroup`s added to the cluster. |
+| <code><a href="#@superluminar-io/super-eks.SuperEks.property.cluster">cluster</a></code> | <code>aws-cdk-lib.aws_eks.Cluster</code> | The created cluster. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@superluminar-io/super-eks.SuperEks.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `additionalNodegroups`<sup>Required</sup> <a name="additionalNodegroups" id="@superluminar-io/super-eks.SuperEks.property.additionalNodegroups"></a>
 
 ```typescript
 public readonly additionalNodegroups: Nodegroup[];
 ```
 
-- *Type:* [`@aws-cdk/aws-eks.Nodegroup`](#@aws-cdk/aws-eks.Nodegroup)[]
+- *Type:* aws-cdk-lib.aws_eks.Nodegroup[]
 - *Default:* An internal `eks.Nodegroup` will be created for super-eks related workloads
 
 `eks.Nodegroup`s added to the cluster.
 
 ---
 
-##### `cluster`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEks.property.cluster"></a>
+##### `cluster`<sup>Required</sup> <a name="cluster" id="@superluminar-io/super-eks.SuperEks.property.cluster"></a>
 
 ```typescript
 public readonly cluster: Cluster;
 ```
 
-- *Type:* [`@aws-cdk/aws-eks.Cluster`](#@aws-cdk/aws-eks.Cluster)
+- *Type:* aws-cdk-lib.aws_eks.Cluster
 
 The created cluster.
 
 ---
 
 
-## Structs <a name="Structs"></a>
+## Structs <a name="Structs" id="Structs"></a>
 
-### AddonProps <a name="@superluminar-io/super-eks.AddonProps"></a>
+### AddonProps <a name="AddonProps" id="@superluminar-io/super-eks.AddonProps"></a>
 
 Specific properties for EKS managed add-ons.
 
-#### Initializer <a name="[object Object].Initializer"></a>
+#### Initializer <a name="Initializer" id="@superluminar-io/super-eks.AddonProps.Initializer"></a>
 
 ```typescript
 import { AddonProps } from '@superluminar-io/super-eks'
@@ -91,23 +161,31 @@ import { AddonProps } from '@superluminar-io/super-eks'
 const addonProps: AddonProps = { ... }
 ```
 
-##### `vpcCniAddonVersion`<sup>Optional</sup> <a name="@superluminar-io/super-eks.AddonProps.property.vpcCniAddonVersion"></a>
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.AddonProps.property.vpcCniAddonVersion">vpcCniAddonVersion</a></code> | <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a></code> | *No description.* |
+
+---
+
+##### `vpcCniAddonVersion`<sup>Optional</sup> <a name="vpcCniAddonVersion" id="@superluminar-io/super-eks.AddonProps.property.vpcCniAddonVersion"></a>
 
 ```typescript
 public readonly vpcCniAddonVersion: VpcCniAddonVersion;
 ```
 
-- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+- *Type:* <a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a>
 
 ---
 
-### NodeTaint <a name="@superluminar-io/super-eks.NodeTaint"></a>
+### NodeTaint <a name="NodeTaint" id="@superluminar-io/super-eks.NodeTaint"></a>
 
 Represents a Kubernetes taint.
 
 See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
 
-#### Initializer <a name="[object Object].Initializer"></a>
+#### Initializer <a name="Initializer" id="@superluminar-io/super-eks.NodeTaint.Initializer"></a>
 
 ```typescript
 import { NodeTaint } from '@superluminar-io/super-eks'
@@ -115,43 +193,53 @@ import { NodeTaint } from '@superluminar-io/super-eks'
 const nodeTaint: NodeTaint = { ... }
 ```
 
-##### `effect`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.effect"></a>
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.NodeTaint.property.effect">effect</a></code> | <code><a href="#@superluminar-io/super-eks.TaintEffect">TaintEffect</a></code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.NodeTaint.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.NodeTaint.property.value">value</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `effect`<sup>Required</sup> <a name="effect" id="@superluminar-io/super-eks.NodeTaint.property.effect"></a>
 
 ```typescript
 public readonly effect: TaintEffect;
 ```
 
-- *Type:* [`@superluminar-io/super-eks.TaintEffect`](#@superluminar-io/super-eks.TaintEffect)
+- *Type:* <a href="#@superluminar-io/super-eks.TaintEffect">TaintEffect</a>
 
 ---
 
-##### `key`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.key"></a>
+##### `key`<sup>Required</sup> <a name="key" id="@superluminar-io/super-eks.NodeTaint.property.key"></a>
 
 ```typescript
 public readonly key: string;
 ```
 
-- *Type:* `string`
+- *Type:* string
 
 ---
 
-##### `value`<sup>Required</sup> <a name="@superluminar-io/super-eks.NodeTaint.property.value"></a>
+##### `value`<sup>Required</sup> <a name="value" id="@superluminar-io/super-eks.NodeTaint.property.value"></a>
 
 ```typescript
 public readonly value: string;
 ```
 
-- *Type:* `string`
+- *Type:* string
 
 ---
 
-### SuperEksProps <a name="@superluminar-io/super-eks.SuperEksProps"></a>
+### SuperEksProps <a name="SuperEksProps" id="@superluminar-io/super-eks.SuperEksProps"></a>
 
 Constructor properties for SuperEks.
 
 Get merged with `defaultSuperEksProps`.
 
-#### Initializer <a name="[object Object].Initializer"></a>
+#### Initializer <a name="Initializer" id="@superluminar-io/super-eks.SuperEksProps.Initializer"></a>
 
 ```typescript
 import { SuperEksProps } from '@superluminar-io/super-eks'
@@ -159,13 +247,25 @@ import { SuperEksProps } from '@superluminar-io/super-eks'
 const superEksProps: SuperEksProps = { ... }
 ```
 
-##### `hostedZone`<sup>Required</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.hostedZone"></a>
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | A hosted zone for DNS management. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.addonProps">addonProps</a></code> | <code><a href="#@superluminar-io/super-eks.AddonProps">AddonProps</a></code> | Specific properties for EKS managed add-ons. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.adminRoles">adminRoles</a></code> | <code>aws-cdk-lib.aws_iam.IRole[]</code> | Additional Roles that should be granted cluster admin privileges. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.clusterProps">clusterProps</a></code> | <code>aws-cdk-lib.aws_eks.ClusterProps</code> | Wrapper for all cluster props>. |
+| <code><a href="#@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps">superEksNodegroupProps</a></code> | <code>aws-cdk-lib.aws_eks.NodegroupOptions</code> | Config for the Nodegroup created to host SuperEks specific workloads. |
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="@superluminar-io/super-eks.SuperEksProps.property.hostedZone"></a>
 
 ```typescript
 public readonly hostedZone: IHostedZone;
 ```
 
-- *Type:* [`@aws-cdk/aws-route53.IHostedZone`](#@aws-cdk/aws-route53.IHostedZone)
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 A hosted zone for DNS management.
 
@@ -173,25 +273,25 @@ Records in this zone will be created for your workloads by 'external-dns'.
 
 ---
 
-##### `addonProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.addonProps"></a>
+##### `addonProps`<sup>Optional</sup> <a name="addonProps" id="@superluminar-io/super-eks.SuperEksProps.property.addonProps"></a>
 
 ```typescript
 public readonly addonProps: AddonProps;
 ```
 
-- *Type:* [`@superluminar-io/super-eks.AddonProps`](#@superluminar-io/super-eks.AddonProps)
+- *Type:* <a href="#@superluminar-io/super-eks.AddonProps">AddonProps</a>
 
 Specific properties for EKS managed add-ons.
 
 ---
 
-##### `adminRoles`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.adminRoles"></a>
+##### `adminRoles`<sup>Optional</sup> <a name="adminRoles" id="@superluminar-io/super-eks.SuperEksProps.property.adminRoles"></a>
 
 ```typescript
 public readonly adminRoles: IRole[];
 ```
 
-- *Type:* [`@aws-cdk/aws-iam.IRole`](#@aws-cdk/aws-iam.IRole)[]
+- *Type:* aws-cdk-lib.aws_iam.IRole[]
 
 Additional Roles that should be granted cluster admin privileges.
 
@@ -199,25 +299,25 @@ Can also be added manually after cluster creation by using `cluster.awsAuth.addM
 
 ---
 
-##### `clusterProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.clusterProps"></a>
+##### `clusterProps`<sup>Optional</sup> <a name="clusterProps" id="@superluminar-io/super-eks.SuperEksProps.property.clusterProps"></a>
 
 ```typescript
 public readonly clusterProps: ClusterProps;
 ```
 
-- *Type:* [`@aws-cdk/aws-eks.ClusterProps`](#@aws-cdk/aws-eks.ClusterProps)
+- *Type:* aws-cdk-lib.aws_eks.ClusterProps
 
 Wrapper for all cluster props>.
 
 ---
 
-##### `superEksNodegroupProps`<sup>Optional</sup> <a name="@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps"></a>
+##### `superEksNodegroupProps`<sup>Optional</sup> <a name="superEksNodegroupProps" id="@superluminar-io/super-eks.SuperEksProps.property.superEksNodegroupProps"></a>
 
 ```typescript
 public readonly superEksNodegroupProps: NodegroupOptions;
 ```
 
-- *Type:* [`@aws-cdk/aws-eks.NodegroupOptions`](#@aws-cdk/aws-eks.NodegroupOptions)
+- *Type:* aws-cdk-lib.aws_eks.NodegroupOptions
 
 Config for the Nodegroup created to host SuperEks specific workloads.
 
@@ -226,13 +326,13 @@ see `../config/cluster#nodeTaintUserdata`
 
 ---
 
-## Classes <a name="Classes"></a>
+## Classes <a name="Classes" id="Classes"></a>
 
-### VpcCniAddonVersion <a name="@superluminar-io/super-eks.VpcCniAddonVersion"></a>
+### VpcCniAddonVersion <a name="VpcCniAddonVersion" id="@superluminar-io/super-eks.VpcCniAddonVersion"></a>
 
 vpc-cni add-on versions.
 
-#### Initializers <a name="@superluminar-io/super-eks.VpcCniAddonVersion.Initializer"></a>
+#### Initializers <a name="Initializers" id="@superluminar-io/super-eks.VpcCniAddonVersion.Initializer"></a>
 
 ```typescript
 import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
@@ -240,18 +340,30 @@ import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
 new VpcCniAddonVersion(version: string)
 ```
 
-##### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.parameter.version"></a>
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.Initializer.parameter.version">version</a></code> | <code>string</code> | add-on version. |
 
-- *Type:* `string`
+---
+
+##### `version`<sup>Required</sup> <a name="version" id="@superluminar-io/super-eks.VpcCniAddonVersion.Initializer.parameter.version"></a>
+
+- *Type:* string
 
 add-on version.
 
 ---
 
 
-#### Static Functions <a name="Static Functions"></a>
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
-##### `of` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.of"></a>
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.of">of</a></code> | Custom add-on version. |
+
+---
+
+##### `of` <a name="of" id="@superluminar-io/super-eks.VpcCniAddonVersion.of"></a>
 
 ```typescript
 import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
@@ -259,82 +371,125 @@ import { VpcCniAddonVersion } from '@superluminar-io/super-eks'
 VpcCniAddonVersion.of(version: string)
 ```
 
-###### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.parameter.version"></a>
+Custom add-on version.
 
-- *Type:* `string`
+###### `version`<sup>Required</sup> <a name="version" id="@superluminar-io/super-eks.VpcCniAddonVersion.of.parameter.version"></a>
+
+- *Type:* string
 
 custom add-on version.
 
 ---
 
-#### Properties <a name="Properties"></a>
+#### Properties <a name="Properties" id="Properties"></a>
 
-##### `version`<sup>Required</sup> <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.version"></a>
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.property.version">version</a></code> | <code>string</code> | add-on version. |
+
+---
+
+##### `version`<sup>Required</sup> <a name="version" id="@superluminar-io/super-eks.VpcCniAddonVersion.property.version"></a>
 
 ```typescript
 public readonly version: string;
 ```
 
-- *Type:* `string`
+- *Type:* string
 
 add-on version.
 
 ---
 
-#### Constants <a name="Constants"></a>
+#### Constants <a name="Constants" id="Constants"></a>
 
-##### `V1_6_3` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_6_3"></a>
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_6_3">V1_6_3</a></code> | <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a></code> | vpc-cni version 1.6.3. |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_5">V1_7_5</a></code> | <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a></code> | vpc-cni version 1.7.5. |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_6">V1_7_6</a></code> | <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a></code> | vpc-cni version 1.7.6. |
+| <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_9">V1_7_9</a></code> | <code><a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a></code> | vpc-cni version 1.7.9. |
 
-- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+---
+
+##### `V1_6_3`<sup>Required</sup> <a name="V1_6_3" id="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_6_3"></a>
+
+```typescript
+public readonly V1_6_3: VpcCniAddonVersion;
+```
+
+- *Type:* <a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a>
 
 vpc-cni version 1.6.3.
 
 ---
 
-##### `V1_7_5` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_5"></a>
+##### `V1_7_5`<sup>Required</sup> <a name="V1_7_5" id="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_5"></a>
 
-- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+```typescript
+public readonly V1_7_5: VpcCniAddonVersion;
+```
+
+- *Type:* <a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a>
 
 vpc-cni version 1.7.5.
 
 ---
 
-##### `V1_7_6` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_6"></a>
+##### `V1_7_6`<sup>Required</sup> <a name="V1_7_6" id="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_6"></a>
 
-- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+```typescript
+public readonly V1_7_6: VpcCniAddonVersion;
+```
+
+- *Type:* <a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a>
 
 vpc-cni version 1.7.6.
 
 ---
 
-##### `V1_7_9` <a name="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_9"></a>
+##### `V1_7_9`<sup>Required</sup> <a name="V1_7_9" id="@superluminar-io/super-eks.VpcCniAddonVersion.property.V1_7_9"></a>
 
-- *Type:* [`@superluminar-io/super-eks.VpcCniAddonVersion`](#@superluminar-io/super-eks.VpcCniAddonVersion)
+```typescript
+public readonly V1_7_9: VpcCniAddonVersion;
+```
+
+- *Type:* <a href="#@superluminar-io/super-eks.VpcCniAddonVersion">VpcCniAddonVersion</a>
 
 vpc-cni version 1.7.9.
 
 ---
 
 
-## Enums <a name="Enums"></a>
+## Enums <a name="Enums" id="Enums"></a>
 
-### TaintEffect <a name="TaintEffect"></a>
+### TaintEffect <a name="TaintEffect" id="@superluminar-io/super-eks.TaintEffect"></a>
 
 Represents a Kubernetes taint effect.
 
 See <https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/>
 
-#### `NO_SCHEDULE` <a name="@superluminar-io/super-eks.TaintEffect.NO_SCHEDULE"></a>
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@superluminar-io/super-eks.TaintEffect.NO_SCHEDULE">NO_SCHEDULE</a></code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.TaintEffect.PREFER_NO_SCHEDULE">PREFER_NO_SCHEDULE</a></code> | *No description.* |
+| <code><a href="#@superluminar-io/super-eks.TaintEffect.NO_EXECUTE">NO_EXECUTE</a></code> | *No description.* |
+
+---
+
+##### `NO_SCHEDULE` <a name="NO_SCHEDULE" id="@superluminar-io/super-eks.TaintEffect.NO_SCHEDULE"></a>
 
 ---
 
 
-#### `PREFER_NO_SCHEDULE` <a name="@superluminar-io/super-eks.TaintEffect.PREFER_NO_SCHEDULE"></a>
+##### `PREFER_NO_SCHEDULE` <a name="PREFER_NO_SCHEDULE" id="@superluminar-io/super-eks.TaintEffect.PREFER_NO_SCHEDULE"></a>
 
 ---
 
 
-#### `NO_EXECUTE` <a name="@superluminar-io/super-eks.TaintEffect.NO_EXECUTE"></a>
+##### `NO_EXECUTE` <a name="NO_EXECUTE" id="@superluminar-io/super-eks.TaintEffect.NO_EXECUTE"></a>
 
 ---
 

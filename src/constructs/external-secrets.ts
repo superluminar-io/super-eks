@@ -1,9 +1,5 @@
-import * as path from 'path';
-import * as eks from '@aws-cdk/aws-eks';
-import * as iam from '@aws-cdk/aws-iam';
-import { GoFunction } from '@aws-cdk/aws-lambda-go';
-import * as cdk from '@aws-cdk/core';
-
+import { Stack, aws_eks as eks, aws_iam as iam } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface ExternalSecretsProps {
 
@@ -13,8 +9,8 @@ export interface ExternalSecretsProps {
   readonly cluster: eks.ICluster;
 }
 
-export class ExternalSecrets extends cdk.Construct {
-  constructor(scope: cdk.Construct, id: string, props: ExternalSecretsProps) {
+export class ExternalSecrets extends Construct {
+  constructor(scope: Construct, id: string, props: ExternalSecretsProps) {
     super(scope, id);
 
     // Define the namespace we want to install to
@@ -37,7 +33,7 @@ export class ExternalSecrets extends cdk.Construct {
       version: '8.4.0',
       values: {
         env: {
-          AWS_REGION: cdk.Stack.of(this).region,
+          AWS_REGION: Stack.of(this).region,
           ENFORCE_NAMESPACE_ANNOTATIONS: true,
         },
         serviceAccount: {
@@ -82,8 +78,5 @@ export class ExternalSecrets extends cdk.Construct {
     });
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);
-    new GoFunction(this, 'adm', {
-      entry: path.join(__dirname, '..', 'lambdas', 'external-secrets-admission-controller'),
-    });
   }
 }

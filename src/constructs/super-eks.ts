@@ -1,8 +1,5 @@
-import * as ec2 from '@aws-cdk/aws-ec2';
-import * as eks from '@aws-cdk/aws-eks';
-import * as iam from '@aws-cdk/aws-iam';
-import { IHostedZone } from '@aws-cdk/aws-route53';
-import * as cdk from '@aws-cdk/core';
+import { Stack, aws_ec2 as ec2, aws_eks as eks, aws_iam as iam, aws_route53 as r53 } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { InternalNodegroup } from '../config/cluster';
 import { NodeTaint } from '../types/cluster';
@@ -33,7 +30,7 @@ export interface SuperEksProps {
   /**
    * A hosted zone for DNS management. Records in this zone will be created for your workloads by 'external-dns'.
    */
-  readonly hostedZone: IHostedZone;
+  readonly hostedZone: r53.IHostedZone;
 
   /**
    * Config for the Nodegroup created to host SuperEks specific workloads.
@@ -65,24 +62,22 @@ export const defaultSuperEksProps = {
   superEksNodegroupProps: {
     nodegroupName: 'super-eks',
     labels: InternalNodegroup.labels,
-    instanceTypes: [
-      ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE),
-    ],
+    instanceTypes: [ec2.InstanceType.of(ec2.InstanceClass.M5, ec2.InstanceSize.LARGE)],
   },
 };
 
 /**
  * SuperEks wraps eks.Cluster to include batteries
  */
-export class SuperEks extends cdk.Construct {
-  private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>
+export class SuperEks extends Construct {
+  private props: SuperEksProps & Required<Pick<SuperEksProps, 'clusterProps'>>;
 
   /**
    * The created cluster.
    *
    * @attribute
    */
-  readonly cluster: eks.Cluster
+  readonly cluster: eks.Cluster;
 
   /**
    * `eks.Nodegroup`s added to the cluster
@@ -90,9 +85,9 @@ export class SuperEks extends cdk.Construct {
    *
    * @default An internal `eks.Nodegroup` will be created for super-eks related workloads
    */
-  readonly additionalNodegroups: eks.Nodegroup[] = []
+  readonly additionalNodegroups: eks.Nodegroup[] = [];
 
-  constructor(scope: cdk.Construct, id: string, props: SuperEksProps) {
+  constructor(scope: Construct, id: string, props: SuperEksProps) {
     super(scope, id);
     this.props = {
       ...props,
@@ -125,7 +120,9 @@ export class SuperEks extends cdk.Construct {
    */
   nodeTaintUserdata(taint: NodeTaint): ec2.MultipartUserData {
     const userdata = ec2.UserData.forLinux();
-    userdata.addCommands(`sed -i '/^KUBELET_EXTRA_ARGS=/a KUBELET_EXTRA_ARGS+=" --register-with-taints=${taint.key}=${taint.value}:${taint.effect}"' /etc/eks/bootstrap.sh`);
+    userdata.addCommands(
+      `sed -i '/^KUBELET_EXTRA_ARGS=/a KUBELET_EXTRA_ARGS+=" --register-with-taints=${taint.key}=${taint.value}:${taint.effect}"' /etc/eks/bootstrap.sh`,
+    );
 
     const multipart = new ec2.MultipartUserData();
     multipart.addPart(ec2.MultipartBody.fromUserData(userdata));
@@ -141,7 +138,7 @@ export class SuperEks extends cdk.Construct {
     return new eks.Cluster(this, 'Resource', this.props.clusterProps);
   }
 
-  private addSuperEksNodegroup() : eks.Nodegroup {
+  private addSuperEksNodegroup(): eks.Nodegroup {
     const lt = new ec2.LaunchTemplate(this, 'InternalNodegroupLaunchTemplate', {
       userData: this.nodeTaintUserdata(InternalNodegroup.taint),
     });
@@ -153,9 +150,9 @@ export class SuperEks extends cdk.Construct {
   }
 
   private addManagedVpcCniAddon() {
-    const addonVersion = (
-      this.props.addonProps?.vpcCniAddonVersion ? { addonVersion: this.props.addonProps.vpcCniAddonVersion } : {}
-    );
+    const addonVersion = this.props.addonProps?.vpcCniAddonVersion
+      ? { addonVersion: this.props.addonProps.vpcCniAddonVersion }
+      : {};
     const vpcCniAddon = new ema.VpcCniAddon(this, 'VpcCniAddon', {
       cluster: this.cluster,
       ...addonVersion,
@@ -163,7 +160,9 @@ export class SuperEks extends cdk.Construct {
 
     // the add-on must only be destroyed after destruction of all eks worker nodes
     this.cluster.defaultNodegroup?.node.addDependency(vpcCniAddon);
-    this.additionalNodegroups.forEach((nodegroup) => {nodegroup.node.addDependency(vpcCniAddon); });
+    this.additionalNodegroups.forEach((nodegroup) => {
+      nodegroup.node.addDependency(vpcCniAddon);
+    });
   }
 
   private hardenNodes() {
@@ -207,7 +206,7 @@ export class SuperEks extends cdk.Construct {
   private configureAwsLoadBalancerController(): void {
     new AwsLoadBalancerController(this, 'AWSLoadBalancerController', {
       cluster: this.cluster,
-      region: cdk.Stack.of(this).region,
+      region: Stack.of(this).region,
       vpcId: this.cluster.vpc.vpcId,
     });
   }
@@ -215,7 +214,7 @@ export class SuperEks extends cdk.Construct {
   private configureFluentBit(): void {
     new FluentBit(this, 'FluentBit', {
       cluster: this.cluster,
-      region: cdk.Stack.of(this).region,
+      region: Stack.of(this).region,
     });
   }
 

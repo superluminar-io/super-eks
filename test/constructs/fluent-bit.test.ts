@@ -1,6 +1,4 @@
-import '@aws-cdk/assert/jest';
-import * as eks from '@aws-cdk/aws-eks';
-import { Stack } from '@aws-cdk/core';
+import { Stack, aws_eks as eks, assertions } from 'aws-cdk-lib';
 import { FluentBit } from '../../src/constructs/fluent-bit';
 
 describe('fluent-bit', () => {
@@ -13,10 +11,12 @@ describe('fluent-bit', () => {
       cluster,
       region: 'eu-west-1',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    const template = assertions.Template.fromStack(stack);
+
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Namespace: 'logging',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-KubernetesResource', {
+    template.hasResourceProperties('Custom::AWSCDK-EKS-KubernetesResource', {
       Manifest:
         '[{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"logging","labels":{"aws.cdk.eks/prune-c8811d5d76d88f79ef9dda4ff4dada6049ce4c17a5":""}}}]',
     });
@@ -31,7 +31,9 @@ describe('fluent-bit', () => {
       cluster,
       region: 'eu-west-1',
     });
-    expect(stack).toHaveResource('Custom::AWSCDK-EKS-HelmChart', {
+    const template = assertions.Template.fromStack(stack);
+
+    template.hasResourceProperties('Custom::AWSCDK-EKS-HelmChart', {
       Values:
         '{"serviceAccount":{"create":false,"name":"fluent-bit"},"tolerations":[{"key":"workload","value":"super-eks","effect":"NoSchedule"}],"nodeSelector":{"workload":"super-eks"},"firehose":{"enabled":false},"kinesis":{"enabled":false},"elasticsearch":{"enabled":false},"cloudWatch":{"region":"eu-west-1"}}',
     });

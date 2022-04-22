@@ -1,6 +1,5 @@
-import * as eks from '@aws-cdk/aws-eks';
-import * as iam from '@aws-cdk/aws-iam';
-import * as cdk from '@aws-cdk/core';
+import { aws_eks as eks, aws_iam as iam } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { InternalNodegroup } from '../config/cluster';
 
@@ -15,8 +14,8 @@ export interface ExternalDNSProps {
   readonly hostedZoneIds: string[];
 }
 
-export class ExternalDNS extends cdk.Construct {
-  constructor(scope: cdk.Construct, id: string, props: ExternalDNSProps) {
+export class ExternalDNS extends Construct {
+  constructor(scope: Construct, id: string, props: ExternalDNSProps) {
     super(scope, id);
 
     // Define the namespace we want to install to
@@ -33,10 +32,7 @@ export class ExternalDNS extends cdk.Construct {
     props.hostedZoneIds.forEach((hostedZoneId) =>
       serviceAccount.addToPrincipalPolicy(
         new iam.PolicyStatement({
-          actions: [
-            'route53:ChangeResourceRecordSets',
-            'route53:ListResourceRecordSets',
-          ],
+          actions: ['route53:ChangeResourceRecordSets', 'route53:ListResourceRecordSets'],
           resources: [`arn:aws:route53:::hostedzone/${hostedZoneId}`],
         }),
       ),
@@ -70,13 +66,15 @@ export class ExternalDNS extends cdk.Construct {
     // Create the namespace
     const namespaceManifest = new eks.KubernetesManifest(this, 'Namespace', {
       cluster: props.cluster,
-      manifest: [{
-        apiVersion: 'v1',
-        kind: 'Namespace',
-        metadata: {
-          name: namespace,
+      manifest: [
+        {
+          apiVersion: 'v1',
+          kind: 'Namespace',
+          metadata: {
+            name: namespace,
+          },
         },
-      }],
+      ],
     });
     chart.node.addDependency(namespaceManifest);
     serviceAccount.node.addDependency(namespaceManifest);

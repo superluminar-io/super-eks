@@ -1,8 +1,10 @@
 # :superhero_woman: super-eks
 
-__super-eks__ is a [CDK]((github.com/aws-cdk/cdk)) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
+> :warning: **This branch is using cdk v2**: If you are looking for the old cdk v1 version go [here](https://github.com/superluminar-io/super-eks/tree/cdk-v1)
+
+**super-eks** is a [CDK](<(github.com/aws-cdk/cdk)>) construct that provides a preconfigured [EKS](https://aws.amazon.com/eks/) installation with batteries included.
 Even when using best practices for your EKS cluster, picking the right setup can be overwhelming.
-__super-eks__ solves this problem by making a few choices for you as outlined below.
+**super-eks** solves this problem by making a few choices for you as outlined below.
 
 ## :sparkles: Features
 
@@ -25,9 +27,9 @@ __super-eks__ solves this problem by making a few choices for you as outlined be
 
 ## :clapper: Quick Start
 
-The quick start shows you how to setup a __super-eks__ cluster.
+The quick start shows you how to setup a **super-eks** cluster.
 
-*Prerequisites*
+### Prerequisites
 
 - A working [`aws`](https://aws.amazon.com/cli/) CLI installation with access to an account and administrator privileges
 - You'll need a recent [NodeJS](https://nodejs.org) installation
@@ -39,83 +41,83 @@ To get going you'll need a CDK project. For details please refer to the [detaile
 
 Create an empty directory on your system.
 
-```
-mkdir super-eks-setup && cd super-eks-setup 
+```bash
+mkdir super-eks-setup && cd super-eks-setup
 ```
 
 Bootstrap your CDK project, we will use TypeScript, but you can switch to any other supported language.
 
-```
+```bash
 npx cdk init sample-app --language typescript
 npx cdk bootstrap # Has to be done once for your AWS account
 ```
 
-Now install the __super-eks__ library.
+Now install the **super-eks** library.
 
-```
+```bash
 npm i @superluminar-io/super-eks
 ```
 
-You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and __super-eks__ will take care of the rest.
+You need to provide a Route53 [Hosted zone](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-route53.HostedZone.html) and **super-eks** will take care of the rest.
 
-```
+```bash
 npm i @aws-cdk/aws-route53
 ```
 
 Paste the snippet into `lib/super-eks-setup-stack.ts`.
 
 ```typescript
-import * as cdk from '@aws-cdk/core';
-import {HostedZone} from '@aws-cdk/aws-route53'
-import {SuperEks} from '@superluminar-io/super-eks'
+import * as cdk from "@aws-cdk/core";
+import { HostedZone } from "@aws-cdk/aws-route53";
+import { SuperEks } from "@superluminar-io/super-eks";
 
 export class SuperEksSetupStack extends cdk.Stack {
-    constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
-        // Assumes you already have a Route53 zone in your account
-        const hostedZone = HostedZone.fromLookup(this, 'MyZone', {
-            domainName: 'example.com' // Your domain goes here
-        });
+    // Assumes you already have a Route53 zone in your account
+    const hostedZone = HostedZone.fromLookup(this, "MyZone", {
+      domainName: "example.com", // Your domain goes here
+    });
 
-        // Setup super-eks
-        const superEks = new SuperEks(this, 'hello-eks', {
-            hostedZone: hostedZone,
-        });
+    // Setup super-eks
+    const superEks = new SuperEks(this, "hello-eks", {
+      hostedZone: hostedZone,
+    });
 
-        // Add nginx installation for testing
-        superEks.cluster.addHelmChart("nginx", {
-            createNamespace: true,
-            namespace: "nginx",
-            repository: "https://charts.bitnami.com/bitnami",
-            chart: "nginx",
-            release: "nginx",
-            version: "8.5.2",
-            values: {
-                ingress: {
-                    enabled: true,
-                    hostname: `nginx.${hostedZone.zoneName}`,
-                    annotations: {
-                        "kubernetes.io/ingress.class": "alb",
-                        "alb.ingress.kubernetes.io/scheme": "internet-facing",
-                        "alb.ingress.kubernetes.io/target-type": "ip",
-                    },
-                },
-            },
-        })
-    }
+    // Add nginx installation for testing
+    superEks.cluster.addHelmChart("nginx", {
+      createNamespace: true,
+      namespace: "nginx",
+      repository: "https://charts.bitnami.com/bitnami",
+      chart: "nginx",
+      release: "nginx",
+      version: "8.5.2",
+      values: {
+        ingress: {
+          enabled: true,
+          hostname: `nginx.${hostedZone.zoneName}`,
+          annotations: {
+            "kubernetes.io/ingress.class": "alb",
+            "alb.ingress.kubernetes.io/scheme": "internet-facing",
+            "alb.ingress.kubernetes.io/target-type": "ip",
+          },
+        },
+      },
+    });
+  }
 }
 ```
 
 Now deploy the stack.
 
-```
+```bash
 npx cdk deploy
 ```
 
 If everything works, you should see some output.
 
-```
+```bash
  ✅  IntegrationTestsStack
 
 Outputs:
@@ -130,14 +132,14 @@ arn:aws:cloudformation:eu-central-1:123456789012:stack/IntegrationTestsStack/062
 
 Paste the `aws eks update-kubeconfig` command into your shell. This will update your `kubeconfig`.
 
-```
+```bash
 aws eks update-kubeconfig --name EksCluster3394B24C-86f946f02a67416c80413e123d58b628 --region eu-central-1 --role-arn arn:aws:iam::123456789012:role/IntegrationTestsStack-EksClusterMastersRoleA746276-GNW143CGOXG7
 Added new context arn:aws:eks:eu-central-1:123456789012:cluster/EksCluster3394B24C-86f946f02a67416c80413e123d58b628 to /home/super-eks/.kube/config
 ```
 
 Now let's see if it works.
 
-```
+```bash
 NAMESPACE      NAME                                            READY   STATUS    RESTARTS   AGE
 dns            external-dns-7d4d69545d-r5w68                   1/1     Running   0          14m
 logging        aws-for-fluent-bit-qwhwb                        1/1     Running   0          14m
@@ -155,9 +157,11 @@ nginx          nginx-67cb444d48-lqzkg                          1/1     Running  
 Voila! :tada: You now have a super EKS cluster with batteries included!
 
 ## :lock_with_ink_pen: Configuring external secrets
+
 External secrets in EKS is automatically deployed and configured. We configure it in such a way that if you tag your secrets with `SuperEKS: secrets`, external secrets will have access. You can follow
 the [documentation](https://github.com/external-secrets/kubernetes-external-secrets) to setup secrets but need to tag your secrets in secrets manager, e.g., when creating:
-```
+
+```bash
 aws secretsmanager create-secret --name hello-service/password --secret-string "1234" --tags Key=SuperEKS,Value=secrets
 ```
 
@@ -182,16 +186,16 @@ Frequently asked questions are answered here.
 ### What do you mean by "batteries included"?
 
 [Batteries included](https://www.python.org/dev/peps/pep-0206/#batteries-included-philosophy) is a term that comes from the philosophy behind the Python programming language.
-It means, that __super-eks__ ships with all necessary parts. You don't need additional things, like in this case Helm charts, manifests etc. apart from the workload you want to run on Kubernetes.
+It means, that **super-eks** ships with all necessary parts. You don't need additional things, like in this case Helm charts, manifests etc. apart from the workload you want to run on Kubernetes.
 
 ### Why did you choose to include component X?
 
 We try to include components, that are seen as community standards. On the other hand we choose components,
 that work best in combination with AWS.
 
-### Where are the advanced settings? I want to do things differently!
+### Where are the advanced settings? I want to do things differently
 
-__super-eks__ makes some decisions for you. If you want an expert setup maybe __super-eks__ isn't for you.
+**super-eks** makes some decisions for you. If you want an expert setup maybe **super-eks** isn't for you.
 If you believe core functionality is missing please open a GitHub issue.
 
 Our approach is to offer opinionated solutions, but we aim to offer the possibility to opt out, as well.
@@ -205,4 +209,3 @@ No, not for now.
 **super-eks** is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 See [LICENSE](./LICENSE) for more information.
-
