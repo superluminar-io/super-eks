@@ -1,4 +1,8 @@
-# :superhero_woman: super-eks
+# :no_entry_sign: This project is now archived and exists only for reference :no_entry_sign:
+
+Try https://github.com/aws-quickstart/cdk-eks-blueprints instead!
+
+## :superhero_woman: super-eks
 
 > :warning: **This branch is using cdk v2**: If you are looking for the old cdk v1 version go [here](https://github.com/superluminar-io/super-eks/tree/cdk-v1)
 
